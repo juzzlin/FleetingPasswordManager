@@ -23,6 +23,8 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle("Fleeting Password Manager")
+        self.company = "FleetingPM"
+        self.software = "FleetingPM"
         self._defaultDelay = 5
         self._defaultLength = 8
         self.delay = self._defaultDelay
@@ -30,6 +32,7 @@ class MainWindow(QtGui.QMainWindow):
         self.createWidgets()
         self.createMenu()
         self.engine = Engine()
+        self.loadSettings()
 
     def createWidgets(self):
         self.layout = QtGui.QGridLayout()
@@ -56,6 +59,7 @@ class MainWindow(QtGui.QMainWindow):
         self.layout.addWidget(QtGui.QLabel("Password:"), 4, 0)
 
         self.genButton = QtGui.QPushButton("&Generate")
+        self.genButton.setEnabled(False)
         self.layout.addWidget(self.genButton, 5, 1)
         
         self.quitButton = QtGui.QPushButton("&Quit")
@@ -70,6 +74,9 @@ class MainWindow(QtGui.QMainWindow):
         self.baseEdit.textChanged.connect(self.invalidate)
         self.urlEdit.textChanged.connect(self.invalidate)
         self.userEdit.textChanged.connect(self.invalidate)
+        self.baseEdit.textChanged.connect(self.enableGenButton)
+        self.urlEdit.textChanged.connect(self.enableGenButton)
+        self.userEdit.textChanged.connect(self.enableGenButton)
 
         self.timer = QtCore.QTimeLine()
         self.timer.setDuration(self.delay * 1000)
@@ -102,16 +109,26 @@ class MainWindow(QtGui.QMainWindow):
         helpMenu.addAction(aboutAct)
 
     def showSettings(self):
-        s = QtCore.QSettings("FleetingPM", "FleetingPM")
         d = self.settingsDlg
-        d.lengthSpinBox.setValue(s.value("length", self._defaultLength))
-        d.delaySpinBox.setValue(s.value("delay", self._defaultDelay))
         d.exec_()
-        s.setValue("length", d.lengthSpinBox.value())
-        s.setValue("delay", d.delaySpinBox.value())
         self.length = d.lengthSpinBox.value()
         self.delay = d.delaySpinBox.value()
         self.timer.setDuration(self.delay * 1000)
+        self.saveSettings()
+
+    def loadSettings(self):
+        s = QtCore.QSettings(self.company, self.software)
+        d = self.settingsDlg
+        d.lengthSpinBox.setValue(int(s.value("length", self._defaultLength)))
+        d.delaySpinBox.setValue(int(s.value("delay", self._defaultDelay)))
+        self.length = d.lengthSpinBox.value()
+        self.delay = d.delaySpinBox.value()
+        self.timer.setDuration(self.delay * 1000)
+
+    def saveSettings(self):
+        s = QtCore.QSettings(self.company, self.software)
+        s.setValue("length", self.length)
+        s.setValue("delay", self.delay)
 
     def showAbout(self):
         aboutDlg = AboutDlg(self)
@@ -149,5 +166,13 @@ class MainWindow(QtGui.QMainWindow):
         # Clear the text and disable the text field
         self.passwdEdit.setText("")
         self.passwdEdit.setEnabled(False)
+
+    @Slot()
+    def enableGenButton(self):
+        self.genButton.setEnabled(len(self.baseEdit.text()) > 0 and
+                                  len(self.urlEdit.text()) > 0 and
+                                  len(self.userEdit.text()) > 0)
+            
+            
 
 

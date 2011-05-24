@@ -103,10 +103,15 @@ class MainWindow(QtGui.QMainWindow):
         # Add help menu
         helpMenu = self.menuBar().addMenu("&Help")
         
-        # Add action for help
-        aboutAct = QtGui.QAction("&About", helpMenu)
+        # Add action for about
+        aboutAct = QtGui.QAction("&About " + self.windowTitle() + "..", helpMenu)
         aboutAct.triggered.connect(self.showAbout)
         helpMenu.addAction(aboutAct)
+
+        # Add action for about Qt
+        aboutQtAct = QtGui.QAction("About &Qt..", helpMenu)
+        aboutQtAct.triggered.connect(self.showAboutQt)
+        helpMenu.addAction(aboutQtAct)
 
     def showSettings(self):
         d = self.settingsDlg
@@ -133,6 +138,9 @@ class MainWindow(QtGui.QMainWindow):
     def showAbout(self):
         aboutDlg = AboutDlg(self)
         aboutDlg.exec_()
+
+    def showAboutQt(self):
+        QtGui.QMessageBox.aboutQt(self, 'Qt Application Example')
 
     @Slot()
     def doGenerate(self):

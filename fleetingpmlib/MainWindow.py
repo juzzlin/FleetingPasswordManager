@@ -37,7 +37,8 @@ class MainWindow(QtGui.QMainWindow):
     def createWidgets(self):
         self.layout = QtGui.QGridLayout()
         self.baseEdit = QtGui.QLineEdit()
-        self.urlEdit = QtGui.QLineEdit()
+        self.urlEdit = QtGui.QComboBox()
+        self.urlEdit.setEditable(True)
         self.userEdit = QtGui.QLineEdit()
         self.passwdEdit = QtGui.QLineEdit()
 
@@ -45,26 +46,31 @@ class MainWindow(QtGui.QMainWindow):
         self.passwdEdit.setReadOnly(True)
         self.passwdEdit.setEnabled(False)
 
-        self.layout.addWidget(self.baseEdit, 0, 1, 1, 2)
-        self.layout.addWidget(self.urlEdit, 1, 1, 1, 2)
-        self.layout.addWidget(self.userEdit, 2, 1, 1, 2)
-        self.layout.addWidget(self.passwdEdit, 4, 1, 1, 2)
+        self.layout.addWidget(self.baseEdit, 0, 1, 1, 3)
+        self.layout.addWidget(self.urlEdit, 1, 1, 1, 3)
+        self.layout.addWidget(self.userEdit, 2, 1, 1, 3)
+        self.layout.addWidget(self.passwdEdit, 4, 1, 1, 3)
 
         frame = QtGui.QFrame()
         frame.setFrameShape(QtGui.QFrame.HLine)
-        self.layout.addWidget(QtGui.QLabel("Base password:"), 0, 0)
-        self.layout.addWidget(QtGui.QLabel("URL:"), 1, 0)
-        self.layout.addWidget(QtGui.QLabel("User:"), 2, 0)
-        self.layout.addWidget(frame, 3, 1, 1, 2)
-        self.layout.addWidget(QtGui.QLabel("Password:"), 4, 0)
+        tr = self.tr
+        self.layout.addWidget(QtGui.QLabel(tr("Base password:")), 0, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("URL/ID:")), 1, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("User name:")), 2, 0)
+        self.layout.addWidget(frame, 3, 1, 1, 3)
+        self.layout.addWidget(QtGui.QLabel(tr("Password:")), 4, 0)
 
-        self.genButton = QtGui.QPushButton("&Generate")
+        self.genButton = QtGui.QPushButton(tr("&Generate"))
         self.genButton.setEnabled(False)
         self.layout.addWidget(self.genButton, 5, 1)
-        
-        self.quitButton = QtGui.QPushButton("&Quit")
+
+        self.rmbButton = QtGui.QPushButton(tr("&Remember URL && User"))
+        self.rmbButton.setEnabled(False)
+        self.layout.addWidget(self.rmbButton, 5, 2)
+
+        self.quitButton = QtGui.QPushButton(tr("&Quit"))
         self.quitButton.clicked.connect(self.close)
-        self.layout.addWidget(self.quitButton, 5, 2)
+        self.layout.addWidget(self.quitButton, 5, 3)
 
         dummy = QtGui.QWidget()
         dummy.setLayout(self.layout)
@@ -77,6 +83,9 @@ class MainWindow(QtGui.QMainWindow):
         self.baseEdit.textChanged.connect(self.enableGenButton)
         self.urlEdit.textChanged.connect(self.enableGenButton)
         self.userEdit.textChanged.connect(self.enableGenButton)
+        self.baseEdit.textChanged.connect(self.enableRmbButton)
+        self.urlEdit.textChanged.connect(self.enableRmbButton)
+        self.userEdit.textChanged.connect(self.enableRmbButton)
 
         self.timer = QtCore.QTimeLine()
         self.timer.setDuration(self.delay * 1000)
@@ -88,28 +97,29 @@ class MainWindow(QtGui.QMainWindow):
     def createMenu(self):
 
         # Add file menu
-        fileMenu = self.menuBar().addMenu("&File")
+        tr = self.tr
+        fileMenu = self.menuBar().addMenu(tr("&File"))
 
         # Add action for settings
-        setAct = QtGui.QAction("&Settings..", fileMenu)
+        setAct = QtGui.QAction(tr("&Settings.."), fileMenu)
         setAct.triggered.connect(self.showSettings)
         fileMenu.addAction(setAct)
         
         # Add action for quit
-        quitAct = QtGui.QAction("&Quit", fileMenu)
+        quitAct = QtGui.QAction(tr("&Quit"), fileMenu)
         quitAct.triggered.connect(self.close)
         fileMenu.addAction(quitAct)
         
         # Add help menu
-        helpMenu = self.menuBar().addMenu("&Help")
+        helpMenu = self.menuBar().addMenu(tr("&Help"))
         
         # Add action for about
-        aboutAct = QtGui.QAction("&About " + self.windowTitle() + "..", helpMenu)
+        aboutAct = QtGui.QAction(tr("&About ") + self.windowTitle() + "..", helpMenu)
         aboutAct.triggered.connect(self.showAbout)
         helpMenu.addAction(aboutAct)
 
         # Add action for about Qt
-        aboutQtAct = QtGui.QAction("About &Qt..", helpMenu)
+        aboutQtAct = QtGui.QAction(tr("About &Qt.."), helpMenu)
         aboutQtAct.triggered.connect(self.showAboutQt)
         helpMenu.addAction(aboutQtAct)
 
@@ -140,14 +150,14 @@ class MainWindow(QtGui.QMainWindow):
         aboutDlg.exec_()
 
     def showAboutQt(self):
-        QtGui.QMessageBox.aboutQt(self, 'Qt Application Example')
+        QtGui.QMessageBox.aboutQt(self, self.tr("About Qt"))
 
     @Slot()
     def doGenerate(self):
 
         # Generate the passwd
         passwd = self.engine.generate(self.baseEdit.text(),
-                                      self.urlEdit.text(),
+                                      self.urlEdit.currentText(),
                                       self.userEdit.text(),
                                       self.length)
         
@@ -178,9 +188,10 @@ class MainWindow(QtGui.QMainWindow):
     @Slot()
     def enableGenButton(self):
         self.genButton.setEnabled(len(self.baseEdit.text()) > 0 and
-                                  len(self.urlEdit.text()) > 0 and
+                                  len(self.urlEdit.currentText()) > 0 and
                                   len(self.userEdit.text()) > 0)
-            
-            
 
-
+    @Slot()
+    def enableRmbButton(self):
+        self.rmbButton.setEnabled(len(self.urlEdit.currentText()) > 0 and
+                                  len(self.userEdit.text()) > 0)

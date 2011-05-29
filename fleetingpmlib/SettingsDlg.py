@@ -18,16 +18,17 @@ from PySide import QtCore, QtGui
 class SettingsDlg(QtGui.QDialog):
     def __init__(self, parent):
         QtGui.QDialog.__init__(self, parent)
+        tr = self.tr
         layout = QtGui.QGridLayout()
-        label1 = QtGui.QLabel("Show password for this many secs:")
-        label2 = QtGui.QLabel("Password length:")
+        label1 = QtGui.QLabel(tr("Show password for this many secs:"))
+        label2 = QtGui.QLabel(tr("Password length:"))
 
         self.delaySpinBox = QtGui.QSpinBox()
         self.delaySpinBox.setRange(1, 60)
         self.lengthSpinBox = QtGui.QSpinBox()
         self.lengthSpinBox.setRange(8, 32)
 
-        okButton = QtGui.QPushButton("Ok")
+        okButton = QtGui.QPushButton(tr("Ok"))
         okButton.clicked.connect(self.accept)
 
         layout.addWidget(label1, 0, 0)

@@ -33,12 +33,15 @@ class MainWindow(QtGui.QMainWindow):
         self.createMenu()
         self.engine = Engine()
         self.loadSettings()
-
+                
     def createWidgets(self):
         self.layout = QtGui.QGridLayout()
         self.baseEdit = QtGui.QLineEdit()
+        
         self.urlEdit = QtGui.QComboBox()
         self.urlEdit.setEditable(True)
+        self.urlEdit.activated.connect(self.updateUser)
+        
         self.userEdit = QtGui.QLineEdit()
         self.passwdEdit = QtGui.QLineEdit()
 
@@ -66,6 +69,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.rmbButton = QtGui.QPushButton(tr("&Remember URL && User"))
         self.rmbButton.setEnabled(False)
+        self.rmbButton.clicked.connect(self.remember)
         self.layout.addWidget(self.rmbButton, 5, 2)
 
         self.quitButton = QtGui.QPushButton(tr("&Quit"))
@@ -140,10 +144,30 @@ class MainWindow(QtGui.QMainWindow):
         self.delay = d.delaySpinBox.value()
         self.timer.setDuration(self.delay * 1000)
 
+        self.urlEdit.clear()
+        size = s.beginReadArray("logins")
+        for i in xrange(size):
+            s.setArrayIndex(i)
+            url = s.value("url")
+            user = s.value("user")
+            self.urlEdit.addItem(url, user)
+        s.endArray()
+
+        self.updateUser(self.urlEdit.currentText())
+
     def saveSettings(self):
         s = QtCore.QSettings(self.company, self.software)
         s.setValue("length", self.length)
         s.setValue("delay", self.delay)
+        
+        s.beginWriteArray("logins")
+        for i in xrange(self.urlEdit.count()):
+            url  = self.urlEdit.itemText(i)
+            user = self.urlEdit.itemData(i)
+            s.setArrayIndex(i)
+            s.setValue("url", url)
+            s.setValue("user", user)
+        s.endArray()
 
     def showAbout(self):
         aboutDlg = AboutDlg(self)
@@ -180,7 +204,6 @@ class MainWindow(QtGui.QMainWindow):
 
     @Slot()
     def invalidate(self):
-
         # Clear the text and disable the text field
         self.passwdEdit.setText("")
         self.passwdEdit.setEnabled(False)
@@ -195,3 +218,25 @@ class MainWindow(QtGui.QMainWindow):
     def enableRmbButton(self):
         self.rmbButton.setEnabled(len(self.urlEdit.currentText()) > 0 and
                                   len(self.userEdit.text()) > 0)
+
+    @Slot()
+    def remember(self):
+        user = self.userEdit.text()
+        url  = self.urlEdit.currentText()
+            
+        alreadyAdded = False
+        index = self.urlEdit.findText(url)
+        if index != -1:
+            alreadyAdded = True
+            self.urlEdit.setItemData(index, user)
+        
+        if not alreadyAdded:
+            self.urlEdit.addItem(url, user)
+
+        self.saveSettings()
+
+    @Slot()
+    def updateUser(self, url):
+        index = self.urlEdit.findText(url)
+        if index != -1:
+            self.userEdit.setText(self.urlEdit.itemData(index))

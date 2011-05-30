@@ -49,9 +49,9 @@ class MainWindow(QtGui.QMainWindow):
         self.passwdEdit.setReadOnly(True)
         self.passwdEdit.setEnabled(False)
 
-        self.layout.addWidget(self.baseEdit, 0, 1, 1, 3)
-        self.layout.addWidget(self.urlEdit, 1, 1, 1, 3)
-        self.layout.addWidget(self.userEdit, 2, 1, 1, 3)
+        self.layout.addWidget(self.baseEdit,   0, 1, 1, 3)
+        self.layout.addWidget(self.urlEdit,    1, 1, 1, 3)
+        self.layout.addWidget(self.userEdit,   2, 1, 1, 3)
         self.layout.addWidget(self.passwdEdit, 4, 1, 1, 3)
 
         frame = QtGui.QFrame()

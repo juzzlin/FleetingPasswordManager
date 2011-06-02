@@ -94,6 +94,7 @@ class MainWindow(QtGui.QMainWindow):
         self.timer = QtCore.QTimeLine()
         self.timer.setDuration(self.delay * 1000)
         self.timer.frameChanged.connect(self.updateFrame)
+        self.timer.finished.connect(self.invalidate)
         self.timer.setFrameRange(0, 255)
 
         self.settingsDlg = SettingsDlg(self)

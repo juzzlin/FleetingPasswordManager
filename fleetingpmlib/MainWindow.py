@@ -38,9 +38,9 @@ class MainWindow(QtGui.QMainWindow):
         self.layout = QtGui.QGridLayout()
         self.baseEdit = QtGui.QLineEdit()
         
-        self.urlEdit = QtGui.QComboBox()
-        self.urlEdit.setEditable(True)
-        self.urlEdit.activated.connect(self.updateUser)
+        self.urlCombo = QtGui.QComboBox()
+        self.urlCombo.setEditable(True)
+        self.urlCombo.activated.connect(self.updateUser)
         
         self.userEdit = QtGui.QLineEdit()
         self.passwdEdit = QtGui.QLineEdit()
@@ -50,7 +50,7 @@ class MainWindow(QtGui.QMainWindow):
         self.passwdEdit.setEnabled(False)
 
         self.layout.addWidget(self.baseEdit,   0, 1, 1, 3)
-        self.layout.addWidget(self.urlEdit,    1, 1, 1, 3)
+        self.layout.addWidget(self.urlCombo,    1, 1, 1, 3)
         self.layout.addWidget(self.userEdit,   2, 1, 1, 3)
         self.layout.addWidget(self.passwdEdit, 4, 1, 1, 3)
 
@@ -82,20 +82,20 @@ class MainWindow(QtGui.QMainWindow):
         
         self.genButton.clicked.connect(self.doGenerate)
         self.baseEdit.textChanged.connect(self.invalidate)
-        self.urlEdit.textChanged.connect(self.invalidate)
+        self.urlCombo.textChanged.connect(self.invalidate)
         self.userEdit.textChanged.connect(self.invalidate)
         self.baseEdit.textChanged.connect(self.enableGenButton)
-        self.urlEdit.textChanged.connect(self.enableGenButton)
+        self.urlCombo.textChanged.connect(self.enableGenButton)
         self.userEdit.textChanged.connect(self.enableGenButton)
         self.baseEdit.textChanged.connect(self.enableRmbButton)
-        self.urlEdit.textChanged.connect(self.enableRmbButton)
+        self.urlCombo.textChanged.connect(self.enableRmbButton)
         self.userEdit.textChanged.connect(self.enableRmbButton)
 
-        self.timer = QtCore.QTimeLine()
-        self.timer.setDuration(self.delay * 1000)
-        self.timer.frameChanged.connect(self.updateFrame)
-        self.timer.finished.connect(self.invalidate)
-        self.timer.setFrameRange(0, 255)
+        self.timeLine = QtCore.QTimeLine()
+        self.timeLine.setDuration(self.delay * 1000)
+        self.timeLine.frameChanged.connect(self.updateFrame)
+        self.timeLine.finished.connect(self.invalidate)
+        self.timeLine.setFrameRange(0, 255)
 
         self.settingsDlg = SettingsDlg(self)
 
@@ -133,7 +133,7 @@ class MainWindow(QtGui.QMainWindow):
         d.exec_()
         self.length = d.lengthSpinBox.value()
         self.delay = d.delaySpinBox.value()
-        self.timer.setDuration(self.delay * 1000)
+        self.timeLine.setDuration(self.delay * 1000)
         self.saveSettings()
 
     def loadSettings(self):
@@ -143,18 +143,18 @@ class MainWindow(QtGui.QMainWindow):
         d.delaySpinBox.setValue(int(s.value("delay", self._defaultDelay)))
         self.length = d.lengthSpinBox.value()
         self.delay = d.delaySpinBox.value()
-        self.timer.setDuration(self.delay * 1000)
+        self.timeLine.setDuration(self.delay * 1000)
 
-        self.urlEdit.clear()
+        self.urlCombo.clear()
         size = s.beginReadArray("logins")
         for i in xrange(size):
             s.setArrayIndex(i)
             url = s.value("url")
             user = s.value("user")
-            self.urlEdit.addItem(url, user)
+            self.urlCombo.addItem(url, user)
         s.endArray()
 
-        self.updateUser(self.urlEdit.currentText())
+        self.updateUser(self.urlCombo.currentText())
 
     def saveSettings(self):
         s = QtCore.QSettings(self.company, self.software)
@@ -162,9 +162,9 @@ class MainWindow(QtGui.QMainWindow):
         s.setValue("delay", self.delay)
         
         s.beginWriteArray("logins")
-        for i in xrange(self.urlEdit.count()):
-            url  = self.urlEdit.itemText(i)
-            user = self.urlEdit.itemData(i)
+        for i in xrange(self.urlCombo.count()):
+            url  = self.urlCombo.itemText(i)
+            user = self.urlCombo.itemData(i)
             s.setArrayIndex(i)
             s.setValue("url", url)
             s.setValue("user", user)
@@ -182,7 +182,7 @@ class MainWindow(QtGui.QMainWindow):
 
         # Generate the passwd
         passwd = self.engine.generate(self.baseEdit.text(),
-                                      self.urlEdit.currentText(),
+                                      self.urlCombo.currentText(),
                                       self.userEdit.text(),
                                       self.length)
         
@@ -190,8 +190,8 @@ class MainWindow(QtGui.QMainWindow):
         # and start timer to slowly fade out the text
         self.passwdEdit.setEnabled(True)
         self.passwdEdit.setText(passwd)
-        self.timer.stop()
-        self.timer.start()
+        self.timeLine.stop()
+        self.timeLine.start()
 
     @Slot(int)
     def updateFrame(self, frame):
@@ -212,32 +212,32 @@ class MainWindow(QtGui.QMainWindow):
     @Slot()
     def enableGenButton(self):
         self.genButton.setEnabled(len(self.baseEdit.text()) > 0 and
-                                  len(self.urlEdit.currentText()) > 0 and
+                                  len(self.urlCombo.currentText()) > 0 and
                                   len(self.userEdit.text()) > 0)
 
     @Slot()
     def enableRmbButton(self):
-        self.rmbButton.setEnabled(len(self.urlEdit.currentText()) > 0 and
+        self.rmbButton.setEnabled(len(self.urlCombo.currentText()) > 0 and
                                   len(self.userEdit.text()) > 0)
 
     @Slot()
     def remember(self):
         user = self.userEdit.text()
-        url  = self.urlEdit.currentText()
+        url  = self.urlCombo.currentText()
             
         alreadyAdded = False
-        index = self.urlEdit.findText(url)
+        index = self.urlCombo.findText(url)
         if index != -1:
             alreadyAdded = True
-            self.urlEdit.setItemData(index, user)
+            self.urlCombo.setItemData(index, user)
         
         if not alreadyAdded:
-            self.urlEdit.addItem(url, user)
+            self.urlCombo.addItem(url, user)
 
         self.saveSettings()
 
     @Slot()
     def updateUser(self, url):
-        index = self.urlEdit.findText(url)
+        index = self.urlCombo.findText(url)
         if index != -1:
-            self.userEdit.setText(self.urlEdit.itemData(index))
+            self.userEdit.setText(self.urlCombo.itemData(index))

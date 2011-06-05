@@ -27,6 +27,9 @@ class MainWindow(QtGui.QMainWindow):
         self.software = "FleetingPM"
         self._defaultDelay = 5
         self._defaultLength = 8
+        self._removeText = self.tr("&Remove this URL && User")
+        self._rememberText = self.tr("&Remember this URL && User")
+
         self.delay = self._defaultDelay
         self.length = self._defaultLength
         self.createWidgets()
@@ -35,12 +38,14 @@ class MainWindow(QtGui.QMainWindow):
         self.loadSettings()
                 
     def createWidgets(self):
+        """ Create widgets for the main window. """
         self.layout = QtGui.QGridLayout()
         self.baseEdit = QtGui.QLineEdit()
         
         self.urlCombo = QtGui.QComboBox()
         self.urlCombo.setEditable(True)
         self.urlCombo.activated.connect(self.updateUser)
+        self.urlCombo.editTextChanged.connect(self.setRmbButtonText)
         
         self.userEdit = QtGui.QLineEdit()
         self.passwdEdit = QtGui.QLineEdit()
@@ -50,7 +55,7 @@ class MainWindow(QtGui.QMainWindow):
         self.passwdEdit.setEnabled(False)
 
         self.layout.addWidget(self.baseEdit,   0, 1, 1, 3)
-        self.layout.addWidget(self.urlCombo,    1, 1, 1, 3)
+        self.layout.addWidget(self.urlCombo,   1, 1, 1, 3)
         self.layout.addWidget(self.userEdit,   2, 1, 1, 3)
         self.layout.addWidget(self.passwdEdit, 4, 1, 1, 3)
 
@@ -67,9 +72,9 @@ class MainWindow(QtGui.QMainWindow):
         self.genButton.setEnabled(False)
         self.layout.addWidget(self.genButton, 5, 1)
 
-        self.rmbButton = QtGui.QPushButton(tr("&Remember URL && User"))
+        self.rmbButton = QtGui.QPushButton(self._rememberText)
         self.rmbButton.setEnabled(False)
-        self.rmbButton.clicked.connect(self.remember)
+        self.rmbButton.clicked.connect(self.rememberOrRemove)
         self.layout.addWidget(self.rmbButton, 5, 2)
 
         self.quitButton = QtGui.QPushButton(tr("&Quit"))
@@ -100,6 +105,7 @@ class MainWindow(QtGui.QMainWindow):
         self.settingsDlg = SettingsDlg(self)
 
     def createMenu(self):
+        """ Create menus and actions. """
 
         # Add file menu
         tr = self.tr
@@ -129,6 +135,7 @@ class MainWindow(QtGui.QMainWindow):
         helpMenu.addAction(aboutQtAct)
 
     def showSettings(self):
+        """ Show the settings dialog. """
         d = self.settingsDlg
         d.exec_()
         self.length = d.lengthSpinBox.value()
@@ -137,6 +144,7 @@ class MainWindow(QtGui.QMainWindow):
         self.saveSettings()
 
     def loadSettings(self):
+        """ Load settings by using QSettings """
         s = QtCore.QSettings(self.company, self.software)
         d = self.settingsDlg
         d.lengthSpinBox.setValue(int(s.value("length", self._defaultLength)))
@@ -157,6 +165,7 @@ class MainWindow(QtGui.QMainWindow):
         self.updateUser(self.urlCombo.currentText())
 
     def saveSettings(self):
+        """ Save settings by using QSettings """
         s = QtCore.QSettings(self.company, self.software)
         s.setValue("length", self.length)
         s.setValue("delay", self.delay)
@@ -171,15 +180,17 @@ class MainWindow(QtGui.QMainWindow):
         s.endArray()
 
     def showAbout(self):
+        """ Show the about dialog. """
         aboutDlg = AboutDlg(self)
         aboutDlg.exec_()
 
     def showAboutQt(self):
+        """ Show the about Qt dialog. """
         QtGui.QMessageBox.aboutQt(self, self.tr("About Qt"))
 
     @Slot()
     def doGenerate(self):
-
+        """ Generate the password. """
         # Generate the passwd
         passwd = self.engine.generate(self.baseEdit.text(),
                                       self.urlCombo.currentText(),
@@ -195,8 +206,8 @@ class MainWindow(QtGui.QMainWindow):
 
     @Slot(int)
     def updateFrame(self, frame):
-
-        # Update aplha of the text color
+        """ Decrease the alpha of the color of the password by one. """
+        # Update alpha of the text color
         color = QtGui.QColor()
         color.setAlpha(255 - frame)
         palette = QtGui.QPalette(self.passwdEdit.palette())
@@ -205,39 +216,63 @@ class MainWindow(QtGui.QMainWindow):
 
     @Slot()
     def invalidate(self):
+        """ Clear the generated password and disable the text field. """
         # Clear the text and disable the text field
         self.passwdEdit.setText("")
         self.passwdEdit.setEnabled(False)
 
     @Slot()
     def enableGenButton(self):
+        """ Enable the generate-button. """
         self.genButton.setEnabled(len(self.baseEdit.text()) > 0 and
                                   len(self.urlCombo.currentText()) > 0 and
                                   len(self.userEdit.text()) > 0)
 
     @Slot()
     def enableRmbButton(self):
+        """ Enable the remember-button. """
         self.rmbButton.setEnabled(len(self.urlCombo.currentText()) > 0 and
                                   len(self.userEdit.text()) > 0)
 
     @Slot()
-    def remember(self):
+    def rememberOrRemove(self):
+        """ Remember or remove the active url/user-pair. """
         user = self.userEdit.text()
         url  = self.urlCombo.currentText()
-            
-        alreadyAdded = False
-        index = self.urlCombo.findText(url)
-        if index != -1:
-            alreadyAdded = True
-            self.urlCombo.setItemData(index, user)
         
-        if not alreadyAdded:
-            self.urlCombo.addItem(url, user)
-
-        self.saveSettings()
+        if self.rmbButton.text() == self._rememberText:
+            # Remember url and user
+            alreadyAdded = False
+            index = self.urlCombo.findText(url)
+            if index != -1:
+                alreadyAdded = True
+                self.urlCombo.setItemData(index, user)
+            if not alreadyAdded:
+                self.urlCombo.addItem(url, user)
+            self.saveSettings()
+            self.rmbButton.setText(self._removeText)
+        else:
+            # Remove url and user
+            index = self.urlCombo.findText(url)
+            if index != -1:
+                self.urlCombo.removeItem(index)
 
     @Slot()
     def updateUser(self, url):
+        """ Update the user field if the url/user-pair is known. """
         index = self.urlCombo.findText(url)
         if index != -1:
             self.userEdit.setText(self.urlCombo.itemData(index))
+            self.rmbButton.setText(self._removeText)
+
+    @Slot()
+    def setRmbButtonText(self, url):
+        """ Set the text for remember-button. """
+        index = self.urlCombo.findText(url)
+        if index != -1:
+            self.userEdit.setText(self.urlCombo.itemData(index))
+            self.rmbButton.setText(self._removeText)
+        else:
+            self.userEdit.setText("")
+            self.rmbButton.setText(self._rememberText)
+        

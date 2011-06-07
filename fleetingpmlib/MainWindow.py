@@ -27,9 +27,10 @@ class MainWindow(QtGui.QMainWindow):
         self.software = "FleetingPM"
         self._defaultDelay = 5
         self._defaultLength = 8
-        self._removeText = self.tr("&Remove this URL && User")
-        self._rememberText = self.tr("&Remember this URL && User")
-
+        self._removeText = self.tr("&Remove current URL && User")
+        self._rememberText = self.tr("&Remember current URL && User")
+        self._rememberToolTip = self.tr("Remember current URL & User. Passwords are not saved.")
+        self._removeToolTip = self.tr("Remove current URL & User")
         self.delay = self._defaultDelay
         self.length = self._defaultLength
         self.createWidgets()
@@ -66,15 +67,16 @@ class MainWindow(QtGui.QMainWindow):
         self.layout.addWidget(QtGui.QLabel(tr("URL/ID:")), 1, 0)
         self.layout.addWidget(QtGui.QLabel(tr("User name:")), 2, 0)
         self.layout.addWidget(frame, 3, 1, 1, 3)
-        self.layout.addWidget(QtGui.QLabel(tr("Password:")), 4, 0)
 
-        self.genButton = QtGui.QPushButton(tr("&Generate"))
+        self.genButton = QtGui.QPushButton(tr("&Password:"))
         self.genButton.setEnabled(False)
-        self.layout.addWidget(self.genButton, 5, 1)
+        self.genButton.setToolTip(tr("Generate and show the password"))
+        self.layout.addWidget(self.genButton, 4, 0)
 
         self.rmbButton = QtGui.QPushButton(self._rememberText)
         self.rmbButton.setEnabled(False)
         self.rmbButton.clicked.connect(self.rememberOrRemove)
+        self.rmbButton.setToolTip(self._rememberToolTip)
         self.layout.addWidget(self.rmbButton, 5, 2)
 
         self.quitButton = QtGui.QPushButton(tr("&Quit"))
@@ -272,7 +274,8 @@ class MainWindow(QtGui.QMainWindow):
         if index != -1:
             self.userEdit.setText(self.urlCombo.itemData(index))
             self.rmbButton.setText(self._removeText)
+            self.rmbButton.setToolTip(self._removeToolTip)
         else:
             self.userEdit.setText("")
             self.rmbButton.setText(self._rememberText)
-        
+            self.rmbButton.setToolTip(self._rememberToolTip)

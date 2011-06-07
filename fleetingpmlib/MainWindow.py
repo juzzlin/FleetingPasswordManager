@@ -258,6 +258,7 @@ class MainWindow(QtGui.QMainWindow):
             index = self.urlCombo.findText(url)
             if index != -1:
                 self.urlCombo.removeItem(index)
+            self.saveSettings()
 
     @Slot()
     def updateUser(self, url):

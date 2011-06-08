@@ -1,0 +1,33 @@
+Install instructions for Fleeting Password Manager
+==================================================
+
+It's strongly recommended to install FPM using your OS's package
+system rather than using setup.py yourself.
+
+If you don't have this option, please make sure you satisfy FPM's
+dependencies yourself:
+
+ * Python 2.4+, 2.7 recommended:
+     Debian/Ubuntu: python
+
+ * Python Qt bindings:
+     Debian/Ubuntu: python-pyside
+
+If you don't care about native language support or icons, FPM
+should run just fine directly from this directory, just:
+
+    ./fleetingpm
+
+To install properly, run:
+
+    ./setup.py install --record=install-files.txt
+
+See --help for an overview of the available options; e.g. --prefix to
+install to a custom base directory, and --without-gettext to avoid
+installing natural language support files.
+
+setup.py supports basic uninstallation provided --record was used for
+installation as above:
+
+    ./setup.py uninstall --manifest=install-files.txt
+

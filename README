@@ -2,14 +2,17 @@ README for Fleeting Password Manager
 ====================================
 
 With Fleeting Password Manager one can create passwords for 
-different web services. The idea is that the user gives a base password, 
-URL and user name and FPM then generates the corresponding password. 
+different (web) services. The idea is that the user gives a base password, 
+URL and user name, and FPM then generates the corresponding password
+out of the given input data. 
+
 The generated password is always the same with the same input and is 
-not stored to anywhere. The user has to remember only his base password
-(that can be same for all services), user name and the URL.
+not stored to anywhere, which is the whole idea here. The user needs to
+remember only his base password and all the other passwords can be then 
+generated when needed. 
 
 The length of the generated password is configurable between 8 and 32 
-characters.
+characters and FPM can remember wanted URL/User-pairs.
 
 Example
 =======
@@ -31,8 +34,7 @@ Base password: Qwerty123
 URL: google
 User: johndoe
 
-The generated 8-char password is always: NTA3NzMy
+The generated 8-char password is now always: NTA3NzMy
 
 
 -- Jussi Lind <jussi.lind@iki.fi>
-

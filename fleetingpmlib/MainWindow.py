@@ -63,12 +63,12 @@ class MainWindow(QtGui.QMainWindow):
         frame = QtGui.QFrame()
         frame.setFrameShape(QtGui.QFrame.HLine)
         tr = self.tr
-        self.layout.addWidget(QtGui.QLabel(tr("Base password:")), 0, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("Master password:")), 0, 0)
         self.layout.addWidget(QtGui.QLabel(tr("URL/ID:")), 1, 0)
         self.layout.addWidget(QtGui.QLabel(tr("User name:")), 2, 0)
         self.layout.addWidget(frame, 3, 1, 1, 3)
 
-        self.genButton = QtGui.QPushButton(tr("&Password:"))
+        self.genButton = QtGui.QPushButton(tr("&Show password:"))
         self.genButton.setEnabled(False)
         self.genButton.setToolTip(tr("Generate and show the password"))
         self.layout.addWidget(self.genButton, 4, 0)

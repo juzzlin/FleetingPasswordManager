@@ -86,6 +86,7 @@ setup(name='Fleeting Password Manager',
       scripts=['fleetingpm'],
       data_files=[
                   ('share/applications', ['data/fleetingpm.desktop']),
+                  ('share/pixmaps',      ['data/icons/fleetingpm.png'])
                  ],
       packages=['fleetingpmlib'],
       cmdclass={'build': BuildData, 'install_data': InstallData, 'uninstall': Uninstall}

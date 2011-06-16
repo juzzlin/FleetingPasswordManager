@@ -22,19 +22,23 @@ class SettingsDlg(QtGui.QDialog):
         layout = QtGui.QGridLayout()
         label1 = QtGui.QLabel(tr("Show password for this many secs:"))
         label2 = QtGui.QLabel(tr("Password length:"))
+        label3 = QtGui.QLabel(tr("Automatically copy password to the clipboard:"))
 
         self.delaySpinBox = QtGui.QSpinBox()
         self.delaySpinBox.setRange(1, 60)
         self.lengthSpinBox = QtGui.QSpinBox()
         self.lengthSpinBox.setRange(8, 32)
+        self.autoCopyCheck = QtGui.QCheckBox()
 
         okButton = QtGui.QPushButton(tr("Ok"))
         okButton.clicked.connect(self.accept)
 
         layout.addWidget(label1, 0, 0)
         layout.addWidget(label2, 1, 0)
+        layout.addWidget(label3, 2, 0)
         layout.addWidget(self.delaySpinBox, 0, 1)
         layout.addWidget(self.lengthSpinBox, 1, 1)
-        layout.addWidget(okButton, 2, 1)
+        layout.addWidget(self.autoCopyCheck, 2, 1)
+        layout.addWidget(okButton, 3, 1)
 
         self.setLayout(layout)

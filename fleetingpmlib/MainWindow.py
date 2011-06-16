@@ -23,16 +23,17 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle("Fleeting Password Manager")
-        self.company = "FleetingPM"
-        self.software = "FleetingPM"
-        self._defaultDelay = 5
-        self._defaultLength = 8
-        self._removeText = self.tr("&Remove current URL && User")
-        self._rememberText = self.tr("&Remember current URL && User")
-        self._rememberToolTip = self.tr("Remember current URL & User. Passwords are not saved.")
-        self._removeToolTip = self.tr("Remove current URL & User")
-        self.delay = self._defaultDelay
-        self.length = self._defaultLength
+        self.company = "fleetingpm"
+        self.software = "fleetingpm"
+        self.defaultDelay = 5
+        self.defaultLength = 8
+        self.removeText = self.tr("&Remove current URL && User")
+        self.rememberText = self.tr("&Remember current URL && User")
+        self.rememberToolTip = self.tr("Remember current URL & User. Passwords are not saved.")
+        self.removeToolTip = self.tr("Remove current URL & User")
+        self.delay = self.defaultDelay
+        self.length = self.defaultLength
+        self.autoCopy = False
         self.createWidgets()
         self.createMenu()
         self.engine = Engine()
@@ -73,10 +74,10 @@ class MainWindow(QtGui.QMainWindow):
         self.genButton.setToolTip(tr("Generate and show the password"))
         self.layout.addWidget(self.genButton, 4, 0)
 
-        self.rmbButton = QtGui.QPushButton(self._rememberText)
+        self.rmbButton = QtGui.QPushButton(self.rememberText)
         self.rmbButton.setEnabled(False)
         self.rmbButton.clicked.connect(self.rememberOrRemove)
-        self.rmbButton.setToolTip(self._rememberToolTip)
+        self.rmbButton.setToolTip(self.rememberToolTip)
         self.layout.addWidget(self.rmbButton, 5, 2)
 
         self.quitButton = QtGui.QPushButton(tr("&Quit"))
@@ -142,6 +143,7 @@ class MainWindow(QtGui.QMainWindow):
         d.exec_()
         self.length = d.lengthSpinBox.value()
         self.delay = d.delaySpinBox.value()
+        self.autoCopy = d.autoCopyCheck.isChecked()
         self.timeLine.setDuration(self.delay * 1000)
         self.saveSettings()
 
@@ -149,12 +151,15 @@ class MainWindow(QtGui.QMainWindow):
         """ Load settings by using QSettings """
         s = QtCore.QSettings(self.company, self.software)
         d = self.settingsDlg
-        d.lengthSpinBox.setValue(int(s.value("length", self._defaultLength)))
-        d.delaySpinBox.setValue(int(s.value("delay", self._defaultDelay)))
+        d.lengthSpinBox.setValue(int(s.value("length", self.defaultLength)))
+        d.delaySpinBox.setValue(int(s.value("delay", self.defaultDelay)))
+        d.autoCopyCheck.setChecked(s.value("autoCopy") == "true")
         self.length = d.lengthSpinBox.value()
         self.delay = d.delaySpinBox.value()
+        self.autoCopy = d.autoCopyCheck.isChecked()
         self.timeLine.setDuration(self.delay * 1000)
 
+        # Read login data
         self.urlCombo.clear()
         size = s.beginReadArray("logins")
         for i in xrange(size):
@@ -171,7 +176,9 @@ class MainWindow(QtGui.QMainWindow):
         s = QtCore.QSettings(self.company, self.software)
         s.setValue("length", self.length)
         s.setValue("delay", self.delay)
+        s.setValue("autoCopy", self.autoCopy)
         
+        # Write login data that user wants to be saved
         s.beginWriteArray("logins")
         for i in xrange(self.urlCombo.count()):
             url  = self.urlCombo.itemText(i)
@@ -203,6 +210,9 @@ class MainWindow(QtGui.QMainWindow):
         # and start timer to slowly fade out the text
         self.passwdEdit.setEnabled(True)
         self.passwdEdit.setText(passwd)
+        if self.autoCopy:
+            self.passwdEdit.selectAll()
+            self.passwdEdit.copy()
         self.timeLine.stop()
         self.timeLine.start()
 
@@ -242,7 +252,7 @@ class MainWindow(QtGui.QMainWindow):
         user = self.userEdit.text()
         url  = self.urlCombo.currentText()
         
-        if self.rmbButton.text() == self._rememberText:
+        if self.rmbButton.text() == self.rememberText:
             # Remember url and user
             alreadyAdded = False
             index = self.urlCombo.findText(url)
@@ -252,7 +262,7 @@ class MainWindow(QtGui.QMainWindow):
             if not alreadyAdded:
                 self.urlCombo.addItem(url, user)
             self.saveSettings()
-            self.rmbButton.setText(self._removeText)
+            self.rmbButton.setText(self.removeText)
         else:
             # Remove url and user
             index = self.urlCombo.findText(url)
@@ -266,7 +276,7 @@ class MainWindow(QtGui.QMainWindow):
         index = self.urlCombo.findText(url)
         if index != -1:
             self.userEdit.setText(self.urlCombo.itemData(index))
-            self.rmbButton.setText(self._removeText)
+            self.rmbButton.setText(self.removeText)
 
     @Slot()
     def setRmbButtonText(self, url):
@@ -274,9 +284,9 @@ class MainWindow(QtGui.QMainWindow):
         index = self.urlCombo.findText(url)
         if index != -1:
             self.userEdit.setText(self.urlCombo.itemData(index))
-            self.rmbButton.setText(self._removeText)
-            self.rmbButton.setToolTip(self._removeToolTip)
+            self.rmbButton.setText(self.removeText)
+            self.rmbButton.setToolTip(self.removeToolTip)
         else:
             self.userEdit.setText("")
-            self.rmbButton.setText(self._rememberText)
-            self.rmbButton.setToolTip(self._rememberToolTip)
+            self.rmbButton.setText(self.rememberText)
+            self.rmbButton.setToolTip(self.rememberToolTip)

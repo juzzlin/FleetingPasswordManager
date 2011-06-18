@@ -16,7 +16,32 @@
    inkscape:version="0.48.1 r9760"
    sodipodi:docname="fleetingpm.svg">
   <defs
-     id="defs4" />
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter4033"
+       x="-0.17265643"
+       width="1.3453129"
+       y="-0.39347086"
+       height="1.7869417">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="25.645868"
+         id="feGaussianBlur4035" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter4045"
+       x="-0.57498727"
+       width="2.1499745"
+       y="-0.15164924"
+       height="1.3032985">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="10.061708"
+         id="feGaussianBlur4047" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,15 +50,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="275.8339"
-     inkscape:cy="760.18066"
+     inkscape:cx="363.71839"
+     inkscape:cy="680.1798"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1260"
      inkscape:window-height="773"
-     inkscape:window-x="150"
-     inkscape:window-y="144"
+     inkscape:window-x="298"
+     inkscape:window-y="146"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -94,7 +119,7 @@
          y="316.78494">****</tspan></text>
     <path
        sodipodi:type="star"
-       style="opacity:0.90625000000000000;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;"
+       style="opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path2995"
        sodipodi:sides="5"
        sodipodi:cx="260"
@@ -115,7 +140,7 @@
        inkscape:export-ydpi="29.879999" />
     <path
        sodipodi:type="star"
-       style="opacity:0.90625000000000000;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;"
+       style="opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path3767"
        sodipodi:sides="5"
        sodipodi:cx="30"
@@ -202,6 +227,31 @@
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 380,152.36218 0,10 10,0 0,-10 z"
        id="path3947"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
+       inkscape:export-xdpi="29.879999"
+       inkscape:export-ydpi="29.879999" />
+    <path
+       style="fill:none;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 436.44954,194.52732 460,172.36218 l 0,280 -450,0 0,-70 280,-50 45.25164,-42.58978"
+       id="path4001"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
+       inkscape:export-xdpi="29.879999"
+       inkscape:export-ydpi="29.879999" />
+    <path
+       style="opacity:0.90625000000000000;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.71428572999999995;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4033)"
+       d="m 10.451059,440.31411 0,-11.00388 11.174577,-6.13898 c 6.146017,-3.37644 11.418963,-6.13898 11.717658,-6.13898 0.298696,0 8.778103,3.55702 18.843126,7.9045 10.065024,4.34747 19.015292,7.80283 19.889484,7.67857 1.111718,-0.15802 1.654958,-0.7913 1.807424,-2.10697 0.119891,-1.03457 -1.416586,-10.59166 -3.414393,-21.23799 l -3.632376,-19.35695 8.670238,-9.83344 c 4.768631,-5.40839 9.037248,-9.97112 9.48582,-10.1394 0.448571,-0.16829 46.827153,-8.52543 103.063503,-18.57143 l 102.24793,-18.26547 20.25207,-19.08073 20.25208,-19.08074 18.06582,-0.0264 18.06583,-0.0264 -1.72678,3.03571 c -0.94973,1.66965 -5.15782,9.52262 -9.35132,17.45105 -6.6055,12.48868 -7.88233,14.46732 -9.55333,14.80437 -1.06083,0.21398 -20.25022,3.61498 -42.64307,7.55779 -22.39286,3.94281 -41.4375,7.4793 -42.32143,7.85888 -0.88843,0.38151 -1.60715,1.31876 -1.60715,2.09581 0,0.85267 4.97386,6.549 12.64313,14.4796 6.95373,7.19066 20.80211,21.49802 30.7742,31.79413 l 18.13105,18.7202 -2.68127,19.31552 -2.68126,19.31551 -152.73578,0 -152.735781,0 0,-11.00387 z"
+       id="path4003"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
+       inkscape:export-xdpi="29.879999"
+       inkscape:export-ydpi="29.879999" />
+    <path
+       style="opacity:0.90625000000000000;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.71428572999999995;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4045)"
+       d="m 447.28976,331.90913 c -6.25658,-1.09186 -11.62028,-2.23403 -11.91935,-2.53817 -0.29906,-0.30414 -4.57085,-8.10655 -9.49286,-17.33869 l -8.94912,-16.78572 12.26569,-0.19607 c 8.71356,-0.13929 12.42896,-0.44957 12.82948,-1.07143 0.31008,-0.48144 0.55297,-24.09663 0.53975,-52.4782 l -0.024,-51.60285 8.06302,-7.62012 8.06302,-7.62011 0.18454,40.17075 c 0.1015,22.09392 0.1015,57.92215 0,79.61827 l -0.18454,39.44752 -11.37559,-1.98518 z"
+       id="path4005"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
        inkscape:export-xdpi="29.879999"

@@ -73,7 +73,7 @@ class MainWindow(QtGui.QMainWindow):
         frame = QtGui.QFrame()
         frame.setFrameShape(QtGui.QFrame.HLine)
         tr = self.tr
-        self.layout.addWidget(QtGui.QLabel(tr("<b>Master password:</b>")), 0, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("<b><font color=#aa0000>Master password:</font></b>")), 0, 0)
         self.layout.addWidget(QtGui.QLabel(tr("<b>URL/ID:</b>")), 1, 0)
         self.layout.addWidget(QtGui.QLabel(tr("<b>User name:</b>")), 2, 0)
         self.layout.addWidget(frame, 3, 1, 1, 3)

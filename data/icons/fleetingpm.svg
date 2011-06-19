@@ -50,15 +50,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="363.71839"
-     inkscape:cy="680.1798"
+     inkscape:cx="159.07598"
+     inkscape:cy="733.94705"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1260"
      inkscape:window-height="773"
-     inkscape:window-x="298"
-     inkscape:window-y="146"
+     inkscape:window-x="158"
+     inkscape:window-y="134"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -72,7 +72,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -169,68 +169,6 @@
        inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
        inkscape:export-xdpi="29.879999"
        inkscape:export-ydpi="29.879999" />
-    <rect
-       style="opacity:0.90625;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect3901"
-       width="20"
-       height="20"
-       x="435"
-       y="147.36218"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
-    <rect
-       style="opacity:0.90625;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect3901-2"
-       width="20"
-       height="20"
-       x="405"
-       y="147.36218"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
-    <rect
-       style="opacity:0.90625;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect3901-2-6"
-       width="20"
-       height="20"
-       x="375"
-       y="147.36218"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 435,147.36218 20,20"
-       id="path3941"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 455,147.36218 -20,20"
-       id="path3943"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.70710677px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 410,157.36218 10,0"
-       id="path3945"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 380,152.36218 0,10 10,0 0,-10 z"
-       id="path3947"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
     <path
        style="fill:none;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 436.44954,194.52732 460,172.36218 l 0,280 -450,0 0,-70 280,-50 45.25164,-42.58978"
@@ -256,5 +194,44 @@
        inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
        inkscape:export-xdpi="29.879999"
        inkscape:export-ydpi="29.879999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3004"
+       sodipodi:cx="22.5"
+       sodipodi:cy="64.862183"
+       sodipodi:rx="12.5"
+       sodipodi:ry="12.5"
+       d="m 32.107886,72.85834 a 12.5,12.5 0 1 1 0.45236,-0.577165"
+       sodipodi:start="0.69409821"
+       sodipodi:end="6.91861"
+       sodipodi:open="true"
+       transform="translate(10.5,93)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3004-8"
+       sodipodi:cx="22.5"
+       sodipodi:cy="64.862183"
+       sodipodi:rx="12.5"
+       sodipodi:ry="12.5"
+       d="m 32.107886,72.85834 a 12.5,12.5 0 1 1 0.45236,-0.577165"
+       sodipodi:start="0.69409821"
+       sodipodi:end="6.91861"
+       sodipodi:open="true"
+       transform="translate(41.5,91.999998)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3004-8-1"
+       sodipodi:cx="22.5"
+       sodipodi:cy="64.862183"
+       sodipodi:rx="12.5"
+       sodipodi:ry="12.5"
+       d="m 32.107886,72.85834 a 12.5,12.5 0 1 1 0.45236,-0.577165"
+       sodipodi:start="0.69409821"
+       sodipodi:end="6.91861"
+       sodipodi:open="true"
+       transform="translate(72.5,91.999998)" />
   </g>
 </svg>

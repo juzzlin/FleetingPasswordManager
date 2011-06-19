@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>fleetingpm.png</file>
         <file>fleetingpm-about.png</file>
+        <file>fleetingpm-back.png</file>
     </qresource>
 </RCC>

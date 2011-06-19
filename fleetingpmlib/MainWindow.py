@@ -36,12 +36,19 @@ class MainWindow(QtGui.QMainWindow):
         self.delay = self.defaultDelay
         self.length = self.defaultLength
         self.autoCopy = False
-        self.createWidgets()
-        self.createMenu()
+        self.initWidgets()
+        self.initMenu()
+        self.initBackground()
         self.engine = Engine()
         self.loadSettings()
+
+    def initBackground(self):
+        self.palette = QtGui.QPalette()
+        self.palette.setBrush(QtGui.QPalette.Window, QtGui.QPixmap(":/fleetingpm-back.png"))
+        self.setPalette(self.palette)
+        self.setAutoFillBackground(True)
                 
-    def createWidgets(self):
+    def initWidgets(self):
         """ Create widgets for the main window. """
         self.layout = QtGui.QGridLayout()
         self.baseEdit = QtGui.QLineEdit()
@@ -66,9 +73,9 @@ class MainWindow(QtGui.QMainWindow):
         frame = QtGui.QFrame()
         frame.setFrameShape(QtGui.QFrame.HLine)
         tr = self.tr
-        self.layout.addWidget(QtGui.QLabel(tr("Master password:")), 0, 0)
-        self.layout.addWidget(QtGui.QLabel(tr("URL/ID:")), 1, 0)
-        self.layout.addWidget(QtGui.QLabel(tr("User name:")), 2, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("<b>Master password:</b>")), 0, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("<b>URL/ID:</b>")), 1, 0)
+        self.layout.addWidget(QtGui.QLabel(tr("<b>User name:</b>")), 2, 0)
         self.layout.addWidget(frame, 3, 1, 1, 3)
 
         self.genButton = QtGui.QPushButton(tr("&Show password:"))
@@ -109,7 +116,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.settingsDlg = SettingsDlg(self)
 
-    def createMenu(self):
+    def initMenu(self):
         """ Create menus and actions. """
 
         # Add file menu

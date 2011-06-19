@@ -72,7 +72,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,45 +81,45 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:0.90625000000000000;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;"
+       style="opacity:0.90625;fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2987"
        width="450"
        height="280"
-       x="10"
-       y="172.36218"
+       x="61.943878"
+       y="47.355206"
        ry="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <rect
-       style="opacity:0.90625000000000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="opacity:0.90625;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2989"
        width="410"
        height="100"
-       x="30"
-       y="192.36218"
+       x="81.943878"
+       y="67.355202"
        ry="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <text
        xml:space="preserve"
-       style="font-size:169.22637939000000529px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;stroke-width:5.00000011;stroke-miterlimit:4;stroke-dasharray:none"
-       x="38.625946"
-       y="316.78494"
+       style="font-size:169.22637939px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="93.690857"
+       y="198.86325"
        id="text2991"
        sodipodi:linespacing="125%"
-       transform="scale(0.94332081,1.0600847)"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999"><tspan
+       transform="scale(0.94332084,1.0600847)"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028"><tspan
          sodipodi:role="line"
          id="tspan2993"
-         x="38.625946"
-         y="316.78494">****</tspan></text>
+         x="93.690857"
+         y="198.86325">****</tspan></text>
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path2995"
        sodipodi:sides="5"
        sodipodi:cx="260"
@@ -134,13 +134,13 @@
        d="m 340,422.36219 -79.96604,-38.93666 -79.92882,39.01305 12.32009,-88.08432 -61.80297,-63.96113 87.58028,-15.50244 41.73248,-78.5432 41.8075,78.50328 87.59506,15.41876 -61.74183,64.02014 z"
        inkscape:transform-center-x="2.5200805"
        inkscape:transform-center-y="-11.152793"
-       transform="translate(131.79746,77.471496)"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       transform="translate(183.74134,-47.535481)"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffff00;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path3767"
        sodipodi:sides="5"
        sodipodi:cx="30"
@@ -155,45 +155,45 @@
        d="m 70,402.36218 -38.447529,-16.58175 -36.7446168,20.07486 3.8892476,-41.68981 -30.4470438,-28.74274 40.8512156,-9.18396 17.9273094,-37.83886 21.358192,36.01382 41.52673,5.35703 -27.651127,31.44173 z"
        inkscape:transform-center-x="0.9182184"
        inkscape:transform-center-y="-5.2345747"
-       transform="translate(1.613225,27.948447)"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       transform="translate(53.557105,-97.05853)"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <rect
-       style="opacity:0.90625000000000000;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;"
+       style="opacity:0.90625;fill:#333333;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3856"
        width="450"
        height="30"
-       x="10"
-       y="142.36218"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       x="61.943878"
+       y="17.355206"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
-       style="fill:none;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 436.44954,194.52732 460,172.36218 l 0,280 -450,0 0,-70 280,-50 45.25164,-42.58978"
+       style="fill:none;stroke:none"
+       d="m 488.39342,69.520343 23.55046,-22.16514 0,279.999997 -450,0 0,-70 280,-50 45.25164,-42.58978"
        id="path4001"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccccc"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
-       style="opacity:0.90625000000000000;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.71428572999999995;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4033)"
-       d="m 10.451059,440.31411 0,-11.00388 11.174577,-6.13898 c 6.146017,-3.37644 11.418963,-6.13898 11.717658,-6.13898 0.298696,0 8.778103,3.55702 18.843126,7.9045 10.065024,4.34747 19.015292,7.80283 19.889484,7.67857 1.111718,-0.15802 1.654958,-0.7913 1.807424,-2.10697 0.119891,-1.03457 -1.416586,-10.59166 -3.414393,-21.23799 l -3.632376,-19.35695 8.670238,-9.83344 c 4.768631,-5.40839 9.037248,-9.97112 9.48582,-10.1394 0.448571,-0.16829 46.827153,-8.52543 103.063503,-18.57143 l 102.24793,-18.26547 20.25207,-19.08073 20.25208,-19.08074 18.06582,-0.0264 18.06583,-0.0264 -1.72678,3.03571 c -0.94973,1.66965 -5.15782,9.52262 -9.35132,17.45105 -6.6055,12.48868 -7.88233,14.46732 -9.55333,14.80437 -1.06083,0.21398 -20.25022,3.61498 -42.64307,7.55779 -22.39286,3.94281 -41.4375,7.4793 -42.32143,7.85888 -0.88843,0.38151 -1.60715,1.31876 -1.60715,2.09581 0,0.85267 4.97386,6.549 12.64313,14.4796 6.95373,7.19066 20.80211,21.49802 30.7742,31.79413 l 18.13105,18.7202 -2.68127,19.31552 -2.68126,19.31551 -152.73578,0 -152.735781,0 0,-11.00387 z"
+       style="opacity:0.90625;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4033)"
+       d="m 62.394939,315.30713 0,-11.00388 11.174577,-6.13898 c 6.146017,-3.37644 11.418964,-6.13898 11.717654,-6.13898 0.2987,0 8.77811,3.55702 18.84313,7.9045 10.06502,4.34747 19.01529,7.80283 19.88948,7.67857 1.11172,-0.15802 1.65496,-0.7913 1.80743,-2.10697 0.11989,-1.03457 -1.41659,-10.59166 -3.4144,-21.23799 l -3.63237,-19.35695 8.67024,-9.83344 c 4.76863,-5.40839 9.03725,-9.97112 9.48582,-10.1394 0.44857,-0.16829 46.82715,-8.52543 103.0635,-18.57143 L 342.24793,208.09671 362.5,189.01598 l 20.25208,-19.08074 18.06582,-0.0264 18.06583,-0.0264 -1.72678,3.03571 c -0.94973,1.66965 -5.15782,9.52262 -9.35132,17.45105 -6.6055,12.48868 -7.88233,14.46732 -9.55333,14.80437 -1.06083,0.21398 -20.25022,3.61498 -42.64307,7.55779 -22.39286,3.94281 -41.4375,7.4793 -42.32143,7.85888 -0.88843,0.38151 -1.60715,1.31876 -1.60715,2.09581 0,0.85267 4.97386,6.549 12.64313,14.4796 6.95373,7.19066 20.80211,21.49802 30.7742,31.79413 l 18.13105,18.7202 -2.68127,19.31552 -2.68126,19.31551 -152.73578,0 -152.735781,0 0,-11.00387 z"
        id="path4003"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
-       style="opacity:0.90625000000000000;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.71428572999999995;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter4045)"
-       d="m 447.28976,331.90913 c -6.25658,-1.09186 -11.62028,-2.23403 -11.91935,-2.53817 -0.29906,-0.30414 -4.57085,-8.10655 -9.49286,-17.33869 l -8.94912,-16.78572 12.26569,-0.19607 c 8.71356,-0.13929 12.42896,-0.44957 12.82948,-1.07143 0.31008,-0.48144 0.55297,-24.09663 0.53975,-52.4782 l -0.024,-51.60285 8.06302,-7.62012 8.06302,-7.62011 0.18454,40.17075 c 0.1015,22.09392 0.1015,57.92215 0,79.61827 l -0.18454,39.44752 -11.37559,-1.98518 z"
+       style="opacity:0.90625;fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4045)"
+       d="m 499.23364,206.90215 c -6.25658,-1.09186 -11.62028,-2.23403 -11.91935,-2.53817 -0.29906,-0.30414 -4.57085,-8.10655 -9.49286,-17.33869 l -8.94912,-16.78572 12.26569,-0.19607 c 8.71356,-0.13929 12.42896,-0.44957 12.82948,-1.07143 0.31008,-0.48144 0.55297,-24.09663 0.53975,-52.4782 l -0.024,-51.602847 8.06302,-7.62012 8.06302,-7.62011 0.18454,40.170747 c 0.1015,22.09392 0.1015,57.92215 0,79.61827 l -0.18454,39.44752 -11.37559,-1.98518 z"
        id="path4005"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm.png"
-       inkscape:export-xdpi="29.879999"
-       inkscape:export-ydpi="29.879999" />
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
        sodipodi:type="arc"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -206,7 +206,10 @@
        sodipodi:start="0.69409821"
        sodipodi:end="6.91861"
        sodipodi:open="true"
-       transform="translate(10.5,93)" />
+       transform="translate(62.44388,-32.006977)"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
        sodipodi:type="arc"
        style="fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -219,7 +222,10 @@
        sodipodi:start="0.69409821"
        sodipodi:end="6.91861"
        sodipodi:open="true"
-       transform="translate(41.5,91.999998)" />
+       transform="translate(93.44388,-33.006979)"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
     <path
        sodipodi:type="arc"
        style="fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
@@ -232,6 +238,9 @@
        sodipodi:start="0.69409821"
        sodipodi:end="6.91861"
        sodipodi:open="true"
-       transform="translate(72.5,91.999998)" />
+       transform="translate(124.44388,-33.006979)"
+       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-256.png"
+       inkscape:export-xdpi="40.054028"
+       inkscape:export-ydpi="40.054028" />
   </g>
 </svg>

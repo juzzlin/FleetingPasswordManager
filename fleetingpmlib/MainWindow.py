@@ -18,11 +18,13 @@ from PySide.QtCore import Slot
 from Engine import Engine
 from AboutDlg import AboutDlg
 from SettingsDlg import SettingsDlg
+import Icons
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent):
         QtGui.QMainWindow.__init__(self, parent)
         self.setWindowTitle("Fleeting Password Manager")
+        self.setWindowIcon(QtGui.QIcon(":/fleetingpm.png"))
         self.company = "fleetingpm"
         self.software = "fleetingpm"
         self.defaultDelay = 5

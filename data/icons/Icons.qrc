@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fleetingpm.png</file>
+        <file>fleetingpm-about.png</file>
+    </qresource>
+</RCC>

@@ -30,7 +30,7 @@ class MainWindow(QtGui.QMainWindow):
         self.defaultDelay = 5
         self.defaultLength = 8
         self.removeText = self.tr("&Remove current URL && User")
-        self.rememberText = self.tr("&Remember current URL && User")
+        self.rememberText = self.tr("&Save current URL && User")
         self.rememberToolTip = self.tr("Remember current URL & User. Passwords are not saved.")
         self.removeToolTip = self.tr("Remove current URL & User")
         self.delay = self.defaultDelay
@@ -90,6 +90,7 @@ class MainWindow(QtGui.QMainWindow):
         self.rmbButton.setEnabled(False)
         self.rmbButton.clicked.connect(self.rememberOrRemove)
         self.rmbButton.setToolTip(self.rememberToolTip)
+        self.rmbButton.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
         self.layout.addWidget(self.rmbButton, 5, 2)
 
         self.quitButton = QtGui.QPushButton(tr("&Quit"))

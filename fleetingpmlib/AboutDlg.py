@@ -14,6 +14,7 @@
 # along with FleetingPM. If not, see <http://www.gnu.org/licenses/>.
 
 from PySide import QtCore, QtGui
+from Version import Version
 import Icons
 
 class AboutDlg(QtGui.QDialog):
@@ -31,7 +32,7 @@ class AboutDlg(QtGui.QDialog):
         label.setPixmap(pixmap)
         layout2.addWidget(label)
         label2 = QtGui.QLabel()
-        label2.setText("<h2>Fleeting Password Manager</h2>"
+        label2.setText("<h2>Fleeting Password Manager v" + Version.verString + "</h2>"
                        "<p>FPM is licenced under GNU General Public \
 License v3.</p>"
                        "<p>Copyright (c) Jussi Lind 2011.</p>"

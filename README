@@ -1,15 +1,13 @@
 README for Fleeting Password Manager
 ====================================
 
-With Fleeting Password Manager one can create passwords for 
-different (web) services. The idea is that the user gives a master password, 
-URL and user name, and FPM then generates the corresponding password
-out of the given input data. 
+Fleeting Password Manager is a program that generates passwords 
+from given master password, URL and user name. 
+The idea is that the user needs to remember only her master password. 
+Other passwords are generated from the input data when needed.
 
 The generated password is always the same with the same input and is 
-not stored to anywhere, which is the whole idea here. The user needs to
-remember only her master password and all the other passwords can be then 
-generated when needed. 
+not stored to anywhere.
 
 The length of the generated password is configurable between 8 and 32 
 characters and FPM can remember wanted URL/User-pairs.

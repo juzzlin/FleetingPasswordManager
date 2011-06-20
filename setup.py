@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# TODO: Clean up this file. Most of the stuff is not used.
 from distutils.core import setup
 from distutils.dist import Distribution
 from distutils.cmd import Command
@@ -7,11 +8,8 @@ from distutils.command.install_data import install_data
 from distutils.command.build import build
 from distutils.dep_util import newer
 from distutils.log import warn, info, error, fatal
-import glob
-import os
-import sys
-import subprocess
-import platform
+import glob, os, sys, subprocess, platform
+from fleetingpmlib.Version import Version
 
 class BuildData(build):
   def run(self):
@@ -77,7 +75,7 @@ class InstallData(install_data):
     install_data.run(self)
 
 setup(name='Fleeting Password Manager',
-      version='0.1',
+      version=Version.verString,
       description='Fleeting Password Manager',
       author='Jussi Lind',
       author_email='jussi.lind@iki.fi',

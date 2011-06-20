@@ -14,15 +14,17 @@
 # along with FleetingPM. If not, see <http://www.gnu.org/licenses/>.
 
 from PySide import QtCore, QtGui
+import Icons
 
 class SettingsDlg(QtGui.QDialog):
     def __init__(self, parent):
         QtGui.QDialog.__init__(self, parent)
         tr = self.tr
+        self.setWindowTitle(tr("Settings"))
         layout = QtGui.QGridLayout()
-        label1 = QtGui.QLabel(tr("Show password for this many secs:"))
-        label2 = QtGui.QLabel(tr("Password length:"))
-        label3 = QtGui.QLabel(tr("Automatically copy password to the clipboard:"))
+        label1 = QtGui.QLabel(tr("<b>Show password for this many secs:</b>"))
+        label2 = QtGui.QLabel(tr("<b>Password length:</b>"))
+        label3 = QtGui.QLabel(tr("<b>Automatically copy password to the clipboard:</b>"))
 
         self.delaySpinBox = QtGui.QSpinBox()
         self.delaySpinBox.setRange(1, 60)
@@ -42,3 +44,13 @@ class SettingsDlg(QtGui.QDialog):
         layout.addWidget(okButton, 3, 1)
 
         self.setLayout(layout)
+        self.initBackground()
+        self.resize(QtCore.QSize(450, 142))
+        self.setMaximumSize(self.size())
+        self.setMinimumSize(self.size())
+
+    def initBackground(self):
+        self.palette = QtGui.QPalette()
+        self.palette.setBrush(QtGui.QPalette.Window, QtGui.QPixmap(":/fleetingpm-back.png"))
+        self.setPalette(self.palette)
+        self.setAutoFillBackground(True)

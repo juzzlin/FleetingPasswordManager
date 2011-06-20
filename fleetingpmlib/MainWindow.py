@@ -39,6 +39,9 @@ class MainWindow(QtGui.QMainWindow):
         self.initWidgets()
         self.initMenu()
         self.initBackground()
+        self.resize(QtCore.QSize(450, 186))
+        self.setMaximumSize(self.size())
+        self.setMinimumSize(self.size())
         self.engine = Engine()
         self.loadSettings()
 

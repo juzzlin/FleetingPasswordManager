@@ -25,26 +25,24 @@ class AboutDlg(QtGui.QDialog):
 
     def initWidgets(self):
         frame = QtGui.QFrame(self)
-        layout  = QtGui.QVBoxLayout()
-        layout2 = QtGui.QHBoxLayout()
-        label   = QtGui.QLabel()
-        pixmap  = QtGui.QPixmap(":/fleetingpm-about.png").scaledToWidth(256)
-        label.setPixmap(pixmap)
-        layout2.addWidget(label)
-        label2 = QtGui.QLabel()
-        label2.setText("<h2>Fleeting Password Manager v" + Version.verString + "</h2>"
+        vLayout = QtGui.QVBoxLayout()
+        hLayout = QtGui.QHBoxLayout()
+        pixmapLabel = QtGui.QLabel()
+        pixmapLabel.setPixmap(QtGui.QPixmap(":/fleetingpm-about.png").scaledToWidth(256))
+        hLayout.addWidget(pixmapLabel)
+        infoLabel = QtGui.QLabel()
+        infoLabel.setText("<h2>Fleeting Password Manager v" + Version.verString + "</h2>"
                        "<p>FPM is licenced under GNU General Public \
 License v3.</p>"
                        "<p>Copyright (c) Jussi Lind 2011.</p>"
                        "<a href='http://fleetingpm.sourceforge.net'>\
 http://fleetingpm.sourceforge.net</a>")
-        layout2.addWidget(label2)
-        layout.addLayout(layout2)
-        layout3 = QtGui.QHBoxLayout()
+        hLayout.addWidget(infoLabel)
+        vLayout.addLayout(hLayout)
+        buttonLayout = QtGui.QHBoxLayout()
         button = QtGui.QPushButton("&Ok")
         button.clicked.connect(self.accept)
-        layout3.addWidget(button)
-        layout3.insertStretch(0)
-        layout.addLayout(layout3)
-        self.setLayout(layout)
-        
+        buttonLayout.addWidget(button)
+        buttonLayout.insertStretch(0)
+        vLayout.addLayout(buttonLayout)
+        self.setLayout(vLayout)

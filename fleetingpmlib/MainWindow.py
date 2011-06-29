@@ -29,17 +29,17 @@ class MainWindow(QtGui.QMainWindow):
         self.software = "fleetingpm"
         self.defaultDelay = 5
         self.defaultLength = 8
-        self.removeText = self.tr("&Remove current URL && User")
-        self.rememberText = self.tr("&Save current URL && User")
+        self.removeText = self.tr("&Remove URL && User")
+        self.rememberText = self.tr("&Remember URL && User")
         self.rememberToolTip = self.tr("Remember current URL & User. Passwords are not saved.")
-        self.removeToolTip = self.tr("Remove current URL & User")
+        self.removeToolTip = self.tr("Don't remember current URL & User anymore.")
         self.delay = self.defaultDelay
         self.length = self.defaultLength
         self.autoCopy = False
         self.initWidgets()
         self.initMenu()
         self.initBackground()
-        self.resize(QtCore.QSize(450, 186))
+        self.resize(QtCore.QSize(452, 208))
         self.setMaximumSize(self.size())
         self.setMinimumSize(self.size())
         self.engine = Engine()
@@ -53,18 +53,22 @@ class MainWindow(QtGui.QMainWindow):
                 
     def initWidgets(self):
         """ Create widgets for the main window. """
+        tr = self.tr
         self.layout = QtGui.QGridLayout()
         self.baseEdit = QtGui.QLineEdit()
+        self.baseEdit.setToolTip(tr("Enter the master password common to all of your logins."))
+        self.baseEdit.setEchoMode(QtGui.QLineEdit.Password)
         
         self.urlCombo = QtGui.QComboBox()
         self.urlCombo.setEditable(True)
         self.urlCombo.activated.connect(self.updateUser)
         self.urlCombo.editTextChanged.connect(self.setRmbButtonText)
+        self.urlCombo.setToolTip(tr("Enter or select a saved URL/ID. For example facebook, google, gmail.com, myserver.."))
         
         self.userEdit = QtGui.QLineEdit()
+        self.userEdit.setToolTip(tr("Enter your user name corresponding to the selected URL/ID."))
         self.passwdEdit = QtGui.QLineEdit()
-
-        self.baseEdit.setEchoMode(QtGui.QLineEdit.Password)
+        self.passwdEdit.setToolTip(tr("This is the generated password, which is always the same with the same master password, URL/ID and user name."))
         self.passwdEdit.setReadOnly(True)
         self.passwdEdit.setEnabled(False)
 
@@ -75,7 +79,6 @@ class MainWindow(QtGui.QMainWindow):
 
         frame = QtGui.QFrame()
         frame.setFrameShape(QtGui.QFrame.HLine)
-        tr = self.tr
         self.layout.addWidget(QtGui.QLabel(tr("<b><font color=#aa0000>Master password:</font></b>")), 0, 0)
         self.layout.addWidget(QtGui.QLabel(tr("<b>URL/ID:</b>")), 1, 0)
         self.layout.addWidget(QtGui.QLabel(tr("<b>User name:</b>")), 2, 0)
@@ -86,12 +89,15 @@ class MainWindow(QtGui.QMainWindow):
         self.genButton.setToolTip(tr("Generate and show the password"))
         self.layout.addWidget(self.genButton, 4, 0)
 
+        starsLabel = QtGui.QLabel()
+        starsLabel.setPixmap(QtGui.QPixmap(":/fleetingpm-stars.png"))
+        self.layout.addWidget(starsLabel, 5, 0)
+
         self.rmbButton = QtGui.QPushButton(self.rememberText)
         self.rmbButton.setEnabled(False)
         self.rmbButton.clicked.connect(self.rememberOrRemove)
         self.rmbButton.setToolTip(self.rememberToolTip)
-        self.rmbButton.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
-        self.layout.addWidget(self.rmbButton, 5, 2)
+        self.layout.addWidget(self.rmbButton, 5, 1, 1, 2)
 
         self.quitButton = QtGui.QPushButton(tr("&Quit"))
         self.quitButton.clicked.connect(self.close)

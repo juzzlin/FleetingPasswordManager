@@ -15,7 +15,7 @@
 
 from PySide import QtCore, QtGui
 from Version import Version
-import Icons
+import Images
 
 class AboutDlg(QtGui.QDialog):
     def __init__(self, parent):
@@ -28,7 +28,7 @@ class AboutDlg(QtGui.QDialog):
         vLayout = QtGui.QVBoxLayout()
         hLayout = QtGui.QHBoxLayout()
         pixmapLabel = QtGui.QLabel()
-        pixmapLabel.setPixmap(QtGui.QPixmap(":/fleetingpm-about.png").scaledToWidth(256))
+        pixmapLabel.setPixmap(QtGui.QPixmap(":/about.png").scaledToWidth(256))
         hLayout.addWidget(pixmapLabel)
         infoLabel = QtGui.QLabel()
         infoLabel.setText("<h2>Fleeting Password Manager v" + Version.verString + "</h2>"

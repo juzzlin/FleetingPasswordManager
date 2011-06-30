@@ -18,7 +18,7 @@ from PySide.QtCore import Slot
 from Engine import Engine
 from AboutDlg import AboutDlg
 from SettingsDlg import SettingsDlg
-import Icons
+import Icons, Images
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent):
@@ -47,7 +47,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def initBackground(self):
         self.palette = QtGui.QPalette()
-        self.palette.setBrush(QtGui.QPalette.Window, QtGui.QPixmap(":/fleetingpm-back.png"))
+        self.palette.setBrush(QtGui.QPalette.Window, QtGui.QPixmap(":back.png"))
         self.setPalette(self.palette)
         self.setAutoFillBackground(True)
                 
@@ -90,7 +90,7 @@ class MainWindow(QtGui.QMainWindow):
         self.layout.addWidget(self.genButton, 4, 0)
 
         starsLabel = QtGui.QLabel()
-        starsLabel.setPixmap(QtGui.QPixmap(":/fleetingpm-stars.png"))
+        starsLabel.setPixmap(QtGui.QPixmap(":/stars.png"))
         self.layout.addWidget(starsLabel, 5, 0)
 
         self.rmbButton = QtGui.QPushButton(self.rememberText)

@@ -220,14 +220,67 @@ void MainWindow::enableRmbButton()
 
 void MainWindow::rememberOrRemoveLogin()
 {
+    QString user = m_userEdit->text();
+    QString url  = m_urlCombo->currentText();
+
+    if (m_rmbButton->text() == m_rememberText)
+    {
+        // Remember url and user
+        bool alreadyAdded = false;
+        int index = m_urlCombo->findText(url);
+        if (index != -1)
+        {
+            alreadyAdded = true;
+            m_urlCombo->setItemData(index, user);
+        }
+
+        if (!alreadyAdded)
+        {
+            m_urlCombo->addItem(url, user);
+        }
+
+        saveSettings();
+        m_rmbButton->setText(m_removeText);
+    }
+    else
+    {
+        // Remove url and user
+        int index = m_urlCombo->findText(url);
+        if (index != -1)
+        {
+            m_urlCombo->removeItem(index);
+        }
+
+        saveSettings();
+        m_rmbButton->setText(m_rememberText);
+    }
 }
 
 void MainWindow::updateUser(const QString & url)
 {
+    int index = m_urlCombo->findText(url);
+    if (index != -1)
+    {
+        m_userEdit->setText(m_urlCombo->itemData(index).toString());
+        m_rmbButton->setText(m_removeText);
+    }
 }
 
 void MainWindow::setRmbButtonText(const QString & url)
 {
+    int index = m_urlCombo->findText(url);
+    if (index != -1)
+    {
+        m_userEdit->setText(m_urlCombo->itemData(index).toString());
+        m_rmbButton->setText(m_removeText);
+        m_rmbButton->setToolTip(m_removeToolTip);
+    }
+    else
+    {
+        m_userEdit->setText("");
+        m_rmbButton->setText(m_rememberText);
+        m_rmbButton->setToolTip(m_rememberToolTip);
+    }
 }
 
 MainWindow::~MainWindow()

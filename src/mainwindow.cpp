@@ -15,10 +15,36 @@
 //
 
 #include "mainwindow.h"
+#include "settingsdlg.h"
+#include "engine.h"
+#include <QComboBox>
+#include <QFrame>
+#include <QGridLayout>
 #include <QIcon>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QTimeLine>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+QMainWindow(parent)
+, m_defaultDelay(5)
+, m_defaultLength(8)
+, m_removeText(tr("&Remove URL && User"))
+, m_rememberText(tr("&Remember URL && User"))
+, m_rememberToolTip(tr("Remember current URL & User. Passwords are not saved."))
+, m_removeToolTip(tr("Don't remember current URL & User anymore."))
+, m_delay(m_defaultDelay)
+, m_length(m_defaultLength)
+, m_autoCopy(false)
+, m_masterEdit(new QLineEdit(this))
+, m_userEdit(new QLineEdit(this))
+, m_passwdEdit(new QLineEdit(this))
+, m_urlCombo(new QComboBox(this))
+, m_genButton(new QPushButton(tr("&Show password:"), this))
+, m_rmbButton(new QPushButton(m_rememberText, this))
+, m_engine(new Engine())
+, m_timeLine(new QTimeLine())
 {
     setWindowTitle("Fleeting Password Manager");
     setWindowIcon(QIcon(":/fleetingpm.png"));
@@ -26,7 +52,15 @@ MainWindow::MainWindow(QWidget *parent) :
     setMaximumSize(size());
     setMinimumSize(size());
 
+    initWidgets();
+    initMenu();
     initBackground();
+    loadSettings();
+
+    m_timeLine->setDuration(m_delay * 1000);
+    connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreasePasswordAlpha(int)));
+    connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidate()));
+    m_timeLine->setFrameRange(0, 255);
 }
 
 void MainWindow::initBackground()
@@ -39,21 +73,82 @@ void MainWindow::initBackground()
 
 void MainWindow::initWidgets()
 {
+    QGridLayout * layout = new QGridLayout();
+    m_masterEdit->setToolTip(tr("Enter the master password common to all of your logins."));
+    m_masterEdit->setEchoMode(QLineEdit::Password);
+
+    m_urlCombo->setEditable(true);
+    m_urlCombo->setToolTip(tr("Enter or select a saved URL/ID. For example facebook, google, gmail.com, myserver.."));
+    connect(m_urlCombo, SIGNAL(activated(const QString &)), this, SLOT(updateUser(const QString &)));
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setRmbButtonText(const QString &)));
+
+    m_userEdit->setToolTip(tr("Enter your user name corresponding to the selected URL/ID."));
+
+    m_passwdEdit->setToolTip(tr("This is the generated password, which is always the same with the same master password, URL/ID and user name."));
+    m_passwdEdit->setReadOnly(true);
+    m_passwdEdit->setEnabled(false);
+
+    layout->addWidget(m_masterEdit, 0, 1, 1, 3);
+    layout->addWidget(m_urlCombo,   1, 1, 1, 3);
+    layout->addWidget(m_userEdit,   2, 1, 1, 3);
+    layout->addWidget(m_passwdEdit, 4, 1, 1, 3);
+
+    QFrame * frame = new QFrame(this);
+    frame->setFrameShape(QFrame::HLine);
+    layout->addWidget(new QLabel(tr("<b><font color=#aa0000>Master password:</font></b>")), 0, 0);
+    layout->addWidget(new QLabel(tr("<b>URL/ID:</b>")), 1, 0);
+    layout->addWidget(new QLabel(tr("<b>User name:</b>")), 2, 0);
+    layout->addWidget(frame, 3, 1, 1, 3);
+
+    m_genButton->setEnabled(false);
+    m_genButton->setToolTip(tr("Generate and show the password"));
+    layout->addWidget(m_genButton, 4, 0);
+
+    QLabel * starsLabel = new QLabel();
+    starsLabel->setPixmap(QPixmap(":/stars.png"));
+    layout->addWidget(starsLabel, 5, 0);
+
+    m_rmbButton->setEnabled(false);
+    connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
+    m_rmbButton->setToolTip(m_rememberToolTip);
+    layout->addWidget(m_rmbButton, 5, 1, 1, 2);
+
+    QPushButton * quitButton = new QPushButton(tr("&Quit"));
+    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+    layout->addWidget(quitButton, 5, 3);
+
+    QWidget * dummy = new QWidget();
+    dummy->setLayout(layout);
+    setCentralWidget(dummy);
+
+    connect(m_genButton, SIGNAL(clicked()), this, SLOT(doGenerate()));
+
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
+    connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
+
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
+    connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
+
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
+    connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
 }
 
 void MainWindow::initMenu()
 {
 }
 
-void MainWindow::showSettings()
+void MainWindow::showSettingsDlg()
 {
 }
 
-void MainWindow::showAbout()
+void MainWindow::showAboutDlg()
 {
 }
 
-void MainWindow::showAboutQt()
+void MainWindow::showAboutQtDlg()
 {
 }
 
@@ -75,14 +170,21 @@ void MainWindow::decreasePasswordAlpha(int frame)
 
 void MainWindow::invalidate()
 {
+    m_passwdEdit->setText("");
+    m_passwdEdit->setEnabled(false);
 }
 
 void MainWindow::enableGenButton()
 {
+    m_genButton->setEnabled(m_masterEdit->text().length()      > 0 &&
+                            m_urlCombo->currentText().length() > 0 &&
+                            m_userEdit->text().length()        > 0);
 }
 
 void MainWindow::enableRmbButton()
 {
+    m_rmbButton->setEnabled(m_urlCombo->currentText().length() > 0 &&
+                            m_userEdit->text().length()        > 0);
 }
 
 void MainWindow::rememberOrRemoveLogin()
@@ -95,4 +197,10 @@ void MainWindow::updateUser(const QString & url)
 
 void MainWindow::setRmbButtonText(const QString & url)
 {
+}
+
+MainWindow::~MainWindow()
+{
+    delete m_timeLine;
+    delete m_engine;
 }

@@ -19,6 +19,12 @@
 
 #include <QMainWindow>
 
+class Engine;
+class QPushButton;
+class QComboBox;
+class QLineEdit;
+class QTimeLine;
+
 //! The main window.
 class MainWindow : public QMainWindow
 {
@@ -28,6 +34,9 @@ public:
 
     //! Constructor
     explicit MainWindow(QWidget * parent = 0);
+
+    //! Destructor
+    ~MainWindow();
 
 private:
 
@@ -41,19 +50,70 @@ private:
     void initMenu();
 
     //! Show the settings dialog.
-    void showSettings();
+    void showSettingsDlg();
 
     //! Show the about dialog.
-    void showAbout();
+    void showAboutDlg();
 
     //! Show the about Qt dialog.
-    void showAboutQt();
+    void showAboutQtDlg();
 
     //! Load settings by using QSettings.
     void loadSettings();
 
     //! Save settings by using QSettings.
     void saveSettings();
+
+    //! Show the password for this long.
+    int m_defaultDelay;
+
+    //! Default lenght of the password.
+    int m_defaultLength;
+
+    //! "Remove.." text of the remove/remember button.
+    QString m_removeText;
+
+    //! "Remember.." text of the remove/remember button.
+    QString m_rememberText;
+
+    //! "Remember.."-tooltip of the remove/remember button.
+    QString m_rememberToolTip;
+
+    //! "Remove.."-tooltip of the remove/remember button.
+    QString m_removeToolTip;
+
+    //! Current delay.
+    int m_delay;
+
+    //! Current password length.
+    int m_length;
+
+    //! Copy generated password to the clip-board if true.
+    bool m_autoCopy;
+
+    //! Master password edit field
+    QLineEdit * m_masterEdit;
+
+    //! User name edit field
+    QLineEdit * m_userEdit;
+
+    //! Password edit field
+    QLineEdit * m_passwdEdit;
+
+    //! Url combo box
+    QComboBox * m_urlCombo;
+
+    //! Generate button
+    QPushButton * m_genButton;
+
+    //! Remember/remove button
+    QPushButton * m_rmbButton;
+
+    //! The password engine.
+    Engine * m_engine;
+
+    //! Time line used when showing the password.
+    QTimeLine * m_timeLine;
 
 private slots:
 

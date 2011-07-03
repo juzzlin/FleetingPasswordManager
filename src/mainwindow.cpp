@@ -197,6 +197,11 @@ void MainWindow::doGenerate()
 
 void MainWindow::decreasePasswordAlpha(int frame)
 {
+    QColor color = QColor();
+    color.setAlpha(255 - frame);
+    QPalette palette = QPalette(m_passwdEdit->palette());
+    palette.setColor(QPalette::Text, color);
+    m_passwdEdit->setPalette(palette);
 }
 
 void MainWindow::invalidate()

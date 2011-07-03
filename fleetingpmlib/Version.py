@@ -14,7 +14,7 @@
 # along with FleetingPM. If not, see <http://www.gnu.org/licenses/>.
 
 class Version(object):
-    verString = "1.1"
+    verString = "1.2"
     def __init__(self):
         pass
 

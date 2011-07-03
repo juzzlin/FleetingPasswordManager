@@ -51,6 +51,6 @@ class SettingsDlg(QtGui.QDialog):
 
     def initBackground(self):
         self.palette = QtGui.QPalette()
-        self.palette.setBrush(QtGui.QPalette.Window, QtGui.QPixmap(":/fleetingpm.png"))
+        self.palette.setBrush(QtGui.QPalette.Window, QtGui.QPixmap(":/back.png"))
         self.setPalette(self.palette)
         self.setAutoFillBackground(True)

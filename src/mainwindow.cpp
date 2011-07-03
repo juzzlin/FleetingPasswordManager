@@ -20,3 +20,63 @@ void MainWindow::initBackground()
      setPalette(palette);
      setAutoFillBackground(true);
 }
+
+void MainWindow::initWidgets()
+{
+}
+
+void MainWindow::initMenu()
+{
+}
+
+void MainWindow::showSettings()
+{
+}
+
+void MainWindow::showAbout()
+{
+}
+
+void MainWindow::showAboutQt()
+{
+}
+
+void MainWindow::loadSettings()
+{
+}
+
+void MainWindow::saveSettings()
+{
+}
+
+void MainWindow::doGenerate()
+{
+}
+
+void MainWindow::decreasePasswordAlpha(int frame)
+{
+}
+
+void MainWindow::invalidate()
+{
+}
+
+void MainWindow::enableGenButton()
+{
+}
+
+void MainWindow::enableRmbButton()
+{
+}
+
+void MainWindow::rememberOrRemoveLogin()
+{
+}
+
+void MainWindow::updateUser(const QString & url)
+{
+}
+
+void MainWindow::setRmbButtonText(const QString & url)
+{
+}

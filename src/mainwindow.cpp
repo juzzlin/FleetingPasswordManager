@@ -17,12 +17,17 @@
 #include "mainwindow.h"
 #include "settingsdlg.h"
 #include "engine.h"
+
+#include <QAction>
 #include <QComboBox>
 #include <QFrame>
 #include <QGridLayout>
 #include <QIcon>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QTimeLine>
 
@@ -138,6 +143,31 @@ void MainWindow::initWidgets()
 
 void MainWindow::initMenu()
 {
+    // Add file menu
+    QMenu * fileMenu = menuBar()->addMenu(tr("&File"));
+
+    // Add action for settings
+    QAction * setAct = new QAction(tr("&Settings.."), fileMenu);
+    connect(setAct, SIGNAL(triggered()), this, SLOT(showSettingsDlg()));
+    fileMenu->addAction(setAct);
+
+    // Add action for quit
+    QAction * quitAct = new QAction(tr("&Quit"), fileMenu);
+    connect(quitAct, SIGNAL(triggered()), this, SLOT(close()));
+    fileMenu->addAction(quitAct);
+
+    // Add help menu
+    QMenu * helpMenu = menuBar()->addMenu(tr("&Help"));
+
+    // Add action for about
+    QAction * aboutAct = new QAction(tr("&About ") + windowTitle() + "..", helpMenu);
+    connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDlg()));
+    helpMenu->addAction(aboutAct);
+
+    // Add action for about Qt
+    QAction * aboutQtAct = new QAction(tr("About &Qt.."), helpMenu);
+    connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(showAboutQtDlg()));
+    helpMenu->addAction(aboutQtAct);
 }
 
 void MainWindow::showSettingsDlg()
@@ -150,6 +180,7 @@ void MainWindow::showAboutDlg()
 
 void MainWindow::showAboutQtDlg()
 {
+    QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
 void MainWindow::loadSettings()

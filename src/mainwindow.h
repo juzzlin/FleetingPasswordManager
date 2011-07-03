@@ -49,15 +49,6 @@ private:
     //! Create menus and actions.
     void initMenu();
 
-    //! Show the settings dialog.
-    void showSettingsDlg();
-
-    //! Show the about dialog.
-    void showAboutDlg();
-
-    //! Show the about Qt dialog.
-    void showAboutQtDlg();
-
     //! Load settings by using QSettings.
     void loadSettings();
 
@@ -141,6 +132,15 @@ private slots:
 
     //! Set the text for remember-button.
     void setRmbButtonText(const QString & url);
+
+    //! Show the settings dialog.
+    void showSettingsDlg();
+
+    //! Show the about dialog.
+    void showAboutDlg();
+
+    //! Show the about Qt dialog.
+    void showAboutQtDlg();
 };
 
 #endif // MAINWINDOW_H

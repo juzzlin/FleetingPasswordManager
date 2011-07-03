@@ -1,0 +1,21 @@
+CHANGELOG
+=========
+
+Version 1.2
+-----------
+
+- Fixed issue where "Remove URL and user"-button
+  didn't change to "Remember URL and user" after clicked.
+- Icons.py split into Images.py and Icons.py
+
+Version 1.1
+-----------
+
+- New graphics
+- Layout fixes
+
+Version 1.0
+-----------
+
+- First stable release
+

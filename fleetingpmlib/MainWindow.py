@@ -288,6 +288,7 @@ class MainWindow(QtGui.QMainWindow):
             if index != -1:
                 self.urlCombo.removeItem(index)
             self.saveSettings()
+            self.rmbButton.setText(self.rememberText)
 
     @Slot()
     def updateUser(self, url):

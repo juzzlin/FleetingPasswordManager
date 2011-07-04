@@ -15,6 +15,7 @@
 //
 
 #include "mainwindow.h"
+#include "aboutdlg.h"
 #include "settingsdlg.h"
 #include "engine.h"
 
@@ -181,7 +182,8 @@ void MainWindow::showSettingsDlg()
 
 void MainWindow::showAboutDlg()
 {
-    // TODO
+    AboutDlg aboutDlg(this);
+    aboutDlg.exec();
 }
 
 void MainWindow::showAboutQtDlg()

@@ -6,6 +6,7 @@ TEMPLATE     = app
 TARGET       = fleetingpm
 DEPENDPATH  += . data/icons data/images
 INCLUDEPATH += .
+DEFINES     += VERSION=\\\"2.0\\\"
 
 # Input
 RESOURCES += data/icons/Icons.qrc data/images/Images.qrc

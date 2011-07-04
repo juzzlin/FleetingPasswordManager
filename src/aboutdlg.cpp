@@ -16,7 +16,41 @@
 
 #include "aboutdlg.h"
 
-AboutDlg::AboutDlg(QWidget *parent) :
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
+
+AboutDlg::AboutDlg(QWidget * parent) :
     QDialog(parent)
 {
+    setWindowTitle(tr("About Fleeting Password Manager"));
+    initWidgets();
+}
+
+void AboutDlg::initWidgets()
+{
+    QVBoxLayout * vLayout     = new QVBoxLayout(this);
+    QHBoxLayout * hLayout     = new QHBoxLayout();
+    QLabel      * pixmapLabel = new QLabel(this);
+
+    pixmapLabel->setPixmap(QPixmap(":/about.png").scaledToWidth(256));
+    hLayout->addWidget(pixmapLabel);
+
+    QLabel * infoLabel = new QLabel(this);
+    infoLabel->setText(QString("<h2>Fleeting Password Manager v") + VERSION + "</h2>"
+                       + "<p>FPM is licenced under GNU GPLv3.</p>"
+                       + "<p>Copyright (c) Jussi Lind 2011.</p>"
+                       + "<a href='http://fleetingpm.sourceforge.net'>"
+                       + "http://fleetingpm.sourceforge.net</a>");
+
+    hLayout->addWidget(infoLabel);
+    vLayout->addLayout(hLayout);
+    QHBoxLayout * buttonLayout = new QHBoxLayout();
+    QPushButton * button = new QPushButton("&Ok", this);
+    connect(button, SIGNAL(clicked()), this, SLOT(accept()));
+    buttonLayout->addWidget(button);
+    buttonLayout->insertStretch(0);
+    vLayout->addLayout(buttonLayout);
 }

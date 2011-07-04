@@ -19,16 +19,19 @@
 
 #include <QDialog>
 
+//! The about dialog.
 class AboutDlg : public QDialog
 {
     Q_OBJECT
+
 public:
-    explicit AboutDlg(QWidget *parent = 0);
 
-signals:
+    //! Constructor.
+    explicit AboutDlg(QWidget * parent = 0);
 
-public slots:
+private:
 
+    void initWidgets();
 };
 
 #endif // ABOUTDLG_H

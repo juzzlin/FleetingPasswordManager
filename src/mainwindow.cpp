@@ -50,6 +50,7 @@ QMainWindow(parent)
 , m_rmbButton(new QPushButton(m_rememberText, this))
 , m_engine(new Engine())
 , m_timeLine(new QTimeLine())
+, m_settingsDlg(new SettingsDlg(this))
 {
     setWindowTitle("Fleeting Password Manager");
     setWindowIcon(QIcon(":/fleetingpm.png"));
@@ -172,10 +173,15 @@ void MainWindow::initMenu()
 
 void MainWindow::showSettingsDlg()
 {
+    m_settingsDlg->exec();
+    m_settingsDlg->getSettings(m_length, m_delay, m_autoCopy);
+    m_timeLine->setDuration(m_delay * 1000);
+    saveSettings();
 }
 
 void MainWindow::showAboutDlg()
 {
+    // TODO
 }
 
 void MainWindow::showAboutQtDlg()
@@ -185,14 +191,17 @@ void MainWindow::showAboutQtDlg()
 
 void MainWindow::loadSettings()
 {
+    // TODO
 }
 
 void MainWindow::saveSettings()
 {
+    // TODO
 }
 
 void MainWindow::doGenerate()
 {
+    // TODO
 }
 
 void MainWindow::decreasePasswordAlpha(int frame)

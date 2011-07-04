@@ -20,6 +20,7 @@
 #include <QMainWindow>
 
 class Engine;
+class SettingsDlg;
 class QPushButton;
 class QComboBox;
 class QLineEdit;
@@ -105,6 +106,9 @@ private:
 
     //! Time line used when showing the password.
     QTimeLine * m_timeLine;
+
+    //! Settings dialog
+    SettingsDlg * m_settingsDlg;
 
 private slots:
 

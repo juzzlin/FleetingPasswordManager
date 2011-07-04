@@ -19,16 +19,41 @@
 
 #include <QDialog>
 
+class QCheckBox;
+class QSpinBox;
+
+//! The settings dialog.
 class SettingsDlg : public QDialog
 {
     Q_OBJECT
+
 public:
-    explicit SettingsDlg(QWidget *parent = 0);
 
-signals:
+    //! Constructor.
+    explicit SettingsDlg(QWidget * parent = 0);
 
-public slots:
+    //! Store current settings to the given arguments.
+    void getSettings(int & rDelay, int & rLength, bool & rAutoCopy) const;
 
+    //! Take current settings from the given arguments.
+    void setSettings(int rDelay, int rLength, bool rAutoCopy);
+
+private:
+
+    //! Create and init the widgets.
+    void initWidgets();
+
+    //! Set the background image.
+    void initBackground();
+
+    //! Spin box for the length of the password.
+    QSpinBox  * m_lengthSpinBox;
+
+    //! Spin box for the password show delay.
+    QSpinBox  * m_delaySpinBox;
+
+    //! Check box for the clip-board auto copy.
+    QCheckBox * m_autoCopyCheck;
 };
 
 #endif // SETTINGSDLG_H

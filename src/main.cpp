@@ -13,8 +13,8 @@
 // You should have received a copy of the GNU General Public License
 // along with FleetingPM. If not, see <http://www.gnu.org/licenses/>.
 //
-
 #include <QApplication>
+
 #include "mainwindow.h"
 
 int main(int argc, char ** argv)

@@ -225,7 +225,20 @@ void MainWindow::loadSettings()
 
 void MainWindow::saveSettings()
 {
-    // TODO
+    QSettings s(COMPANY, SOFTWARE);
+    s.setValue("delay",    m_delay);
+    s.setValue("length",   m_length);
+    s.setValue("autoCopy", m_autoCopy);
+
+    // Write login data that user wants to be saved
+    s.beginWriteArray("logins");
+    for (int i = 0; i < m_urlCombo->count(); i++)
+    {
+        s.setArrayIndex(i);
+        s.setValue("url",  m_urlCombo->itemText(i));
+        s.setValue("user", m_urlCombo->itemData(i));
+    }
+    s.endArray();
 }
 
 void MainWindow::doGenerate()

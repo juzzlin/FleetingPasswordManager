@@ -1,20 +1,27 @@
 Install instructions for Fleeting Password Manager
 ==================================================
 
-Linux 
------
-
 It's strongly recommended to install fleetingpm using your OS's package
-system rather than using setup.py yourself.
+system rather than building yourself.
 
 If you don't have this option, please make sure you satisfy fleetingpm's
-dependencies yourself:
+build dependencies yourself. Fleetingpm is a pure Qt4 project, so you
+must have the Qt4 development files and environment installed.
 
- * Python 2.4+, 2.7 recommended:
-     Ubuntu package: python
+Ubuntu package: libqt4-dev
 
- * Python Qt bindings:
-     Ubuntu package: python-pyside
+Configure the project:
+
+    ./configure
+
+    Default install prefix is /usr/local, and it can be changed
+    to e.g. /usr like this:
+
+    PREFIX=/usr ./configure
+
+Build:
+
+    make
 
 If you don't care about native language support or icons, fleetingpm
 should run just fine directly from this directory, just:
@@ -23,24 +30,8 @@ should run just fine directly from this directory, just:
 
 To install properly, run (as root):
 
-    ./setup.py install --record=install-files.txt
+    make install
 
-See --help for an overview of the available options; e.g. --prefix to
-install to a custom base directory, and --without-gettext to avoid
-installing natural language support files.
+Now Fleeting Password Manager shoud appear in your applications 
+(Accessories in Gnome and Unity) menu.
 
-setup.py supports basic uninstallation provided --record was used for
-installation as above:
-
-    ./setup.py uninstall --manifest=install-files.txt
-
-Windows
--------
-
-Fleetingpm runs perfectly also on Windows, but currently there's
-no installation package for Windows available. 
-
-1) Install PySide and Python 2.7 for Windows
-2) Run fleetinpm from this directory through Python:
-
-    C:\[YourPythonInstallDir]\python27.exe fleetingpm

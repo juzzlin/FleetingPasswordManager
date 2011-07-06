@@ -3,6 +3,7 @@ README for Fleeting Password Manager
 
 Fleeting Password Manager is a program that generates passwords 
 from given master password, URL and user name. 
+
 The idea is that the user needs to remember only her master password. 
 Other passwords are generated from the input data when needed.
 
@@ -12,8 +13,17 @@ not stored to anywhere.
 The length of the generated password is configurable between 8 and 32 
 characters and FPM can remember wanted URL/User-pairs.
 
-Example
-=======
+Features
+--------
+
+* Simple user interface
+* Combined password generator and manager
+* On-the-fly password generation from the login data
+* Password length configurable from 8 to 32 characters
+* Portable Qt-based source code
+
+Examples
+--------
 
 For input information:
 
@@ -24,9 +34,9 @@ User: johndoe
 The generated 8-char password is always: OTFkOTBk
 
 Notice, that the URL doesn't have to be the *real* URL,
-but it has to be the same every time:
+it just has to be the same every time:
 
-For input information:
+For input data:
 
 Master password: Qwerty123
 URL: google

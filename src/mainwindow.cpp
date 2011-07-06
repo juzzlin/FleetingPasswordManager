@@ -57,7 +57,6 @@ QMainWindow(parent)
 , m_urlCombo(new QComboBox(this))
 , m_genButton(new QPushButton(tr("&Show password:"), this))
 , m_rmbButton(new QPushButton(m_rememberText, this))
-, m_engine(new Engine())
 , m_timeLine(new QTimeLine())
 , m_settingsDlg(new SettingsDlg(this))
 {
@@ -243,7 +242,25 @@ void MainWindow::saveSettings()
 
 void MainWindow::doGenerate()
 {
-    // TODO
+    QString passwd = Engine::generate(m_masterEdit->text(),
+                                      m_urlCombo->currentText(),
+                                      m_userEdit->text(),
+                                      m_length);
+
+    // Enable the text field and  show the generated passwd
+    m_passwdEdit->setEnabled(true);
+    m_passwdEdit->setText(passwd);
+
+    // Copy to clip-board if wanted
+    if (m_autoCopy)
+    {
+        m_passwdEdit->selectAll();
+        m_passwdEdit->copy();
+    }
+
+    // Start timer to slowly fade out the text
+    m_timeLine->stop();
+    m_timeLine->start();
 }
 
 void MainWindow::decreasePasswordAlpha(int frame)
@@ -342,5 +359,4 @@ void MainWindow::setRmbButtonText(const QString & url)
 MainWindow::~MainWindow()
 {
     delete m_timeLine;
-    delete m_engine;
 }

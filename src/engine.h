@@ -17,10 +17,16 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-class Engine
+#include <QString>
+
+//! The password generator.
+namespace Engine
 {
-public:
-    Engine();
-};
+    //! Generate and return password from the given data.
+    QString generate(const QString & master,
+                     const QString & url,
+                     const QString & user,
+                     unsigned int length = 8);
+}
 
 #endif // ENGINE_H

@@ -15,7 +15,22 @@
 //
 
 #include "engine.h"
+#include <QCryptographicHash>
 
-Engine::Engine()
+QString Engine::generate(const QString & master,
+                         const QString & url,
+                         const QString & user,
+                         unsigned int length)
 {
+    // Generate a base64 encoding of md5
+    QByteArray combined = (master + url + user).toLatin1();
+    QByteArray hashed = QCryptographicHash::hash(combined, QCryptographicHash::Md5);
+    hashed = hashed.toHex().toBase64();
+
+    // Replace possible +, / and = with A, B and C, respectively.
+    hashed = hashed.replace('+', 'A').replace('/', 'B').replace('=', 'C');
+
+    // Remove '\n' and return n first chars
+    return hashed.simplified().left(length);
 }
+

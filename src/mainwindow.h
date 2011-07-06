@@ -19,7 +19,6 @@
 
 #include <QMainWindow>
 
-class Engine;
 class SettingsDlg;
 class QPushButton;
 class QComboBox;
@@ -100,9 +99,6 @@ private:
 
     //! Remember/remove button
     QPushButton * m_rmbButton;
-
-    //! The password engine.
-    Engine * m_engine;
 
     //! Time line used when showing the password.
     QTimeLine * m_timeLine;

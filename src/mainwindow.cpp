@@ -350,7 +350,6 @@ void MainWindow::setRmbButtonText(const QString & url)
     }
     else
     {
-        m_userEdit->setText("");
         m_rmbButton->setText(m_rememberText);
         m_rmbButton->setToolTip(m_rememberToolTip);
     }

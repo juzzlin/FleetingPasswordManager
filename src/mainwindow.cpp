@@ -30,7 +30,15 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QSettings>
 #include <QTimeLine>
+
+namespace
+{
+    // Values used in QSettings
+    const char * COMPANY  = "fleetingpm";
+    const char * SOFTWARE = "fleetingpm";
+}
 
 MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent)
@@ -193,7 +201,26 @@ void MainWindow::showAboutQtDlg()
 
 void MainWindow::loadSettings()
 {
-    // TODO
+    QSettings s(COMPANY, SOFTWARE);
+    m_delay     = s.value("delay",  m_defaultDelay).toInt();
+    m_length    = s.value("length", m_defaultLength).toInt();
+    m_autoCopy  = s.value("autoCopy").toBool();
+
+    m_settingsDlg->setSettings(m_delay, m_length, m_autoCopy);
+    m_timeLine->setDuration(m_delay * 1000);
+
+    // Read login data
+    m_urlCombo->clear();
+    int size = s.beginReadArray("logins");
+    for (int i = 0; i < size; i++)
+    {
+        s.setArrayIndex(i);
+        m_urlCombo->addItem(s.value("url").toString(),
+                            s.value("user").toString());
+    }
+    s.endArray();
+
+    updateUser(m_urlCombo->currentText());
 }
 
 void MainWindow::saveSettings()

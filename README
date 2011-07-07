@@ -18,7 +18,8 @@ Features
 
 * Simple user interface
 * Combined password generator and manager
-* On-the-fly password generation from the login data
+* On-the-fly password generation corresponding to the login data
+  (Passwords are never saved in any form)
 * Password length configurable from 8 to 32 characters
 * Portable Qt-based source code
 
@@ -27,22 +28,40 @@ Examples
 
 For input information:
 
-Master password: Qwerty123
-URL: www.google.com
-User: johndoe
+Master password: qwerty123
+URL: www.facebook.com
+User: john.doe@example.com
 
-The generated 8-char password is always: OTFkOTBk
+The generated 8-char password is always: OGM2ZjVk
+This password can then be copy-pasted to the facebook
+login field.
 
 Notice, that the URL doesn't have to be the *real* URL,
-it just has to be the same every time:
+it just has to be *exactly* the same every time, something 
+that you remember.
+
+You can use "gmail" Gmail, "facebook" for www.facebook.com,
+"linkedin" for www.linkedin.com and so on. 
 
 For input data:
 
-Master password: Qwerty123
-URL: google
-User: johndoe
+Master password: qwerty123
+URL: facebook
+User: john.doe@example.com
 
-The generated 8-char password is now always: NTA3NzMy
+The generated 8-char password is now always: ZjQxOWM1.
+
+Exporting saved logins
+----------------------
+
+As mentioned before, Fleeting Password Manager never saves
+any passwords. However, user name and url-pairs can be saved.
+On Linux, this data is located as a simple text file at:
+
+    ~/.config/fleetingpm/fleetingpm.conf
+
+If you copy this file to the same location in some other
+Linux-based system, you'll get the same saved logins.
 
 
 -- Jussi Lind <jussi.lind@iki.fi>

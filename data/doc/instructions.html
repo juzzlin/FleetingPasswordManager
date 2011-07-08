@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Instructions for Fleeting Password Manager</title></head>
+<body>
+
+<h1><center><u>Instructions for Fleeting Password Manager</u></center></h1>
+
+<h2>General</h2>
+<p>
+<i>Fleeting Password Manager</i> is a program that generates pseudo-random passwords from given <b>master password</b>, <b>URL/ID</b> and <b>user name</b>. The master password should be common for all passwords and URL/ID should be the url of the service (e.g. www.facebook.com) or some part of it (e.g. facebook). Fleeting Password Manager then combines the master password, URL/ID and the given user name and generates the corresponding password. The user then changes her password to the one that Fleeting Password Manager generated. The user needs to remember only her master password. Other passwords are generated on-the-fly from the given login data when needed.
+</p>
+<p>
+The generated passwords are always the same with the same input and <b>are 
+not stored to anywhere</b>, which is actually the whole point of Fleeting Password Manager.
+</p>
+<p>
+The length of the generated password is configurable between 8 and 32 
+characters and Fleeting Password Manager can remember wanted URL/User-pairs.
+</p>
+
+<h2>Features</h2>
+<ul>
+<li> Simple user interface
+<li> Combined password generator and manager
+<li> On-the-fly password generation corresponding to the login data (Passwords are never saved in any form)
+<li> Password length configurable from 8 to 32 characters
+<li> The generated password is being shown for a configurable period of time
+<li> Portable Qt-based source code
+</ul>
+
+<h2>Examples</h2>
+<h3>Example 1</h3>
+<p>
+For login information:
+</p>
+<table border="1">
+<tr><td>Master password:</td><td>qwerty123</td></tr>
+<tr><td>URL/ID:</td><td>www.facebook.com</td></tr>
+<tr><td>User name:</td><td>john.doe@example.com</td></tr>
+</table>
+<p>
+The generated 8-char password is always: OGM2ZjVk.
+</p>
+<p>
+This password can then be copy-pasted to the facebook
+login field.
+</p>
+
+<h3>Example 2</h3>
+<p>
+Notice, that the URL doesn't have to be the <b>real</b> URL,
+it just has to be <b>exactly</b> the same every time, something 
+that you remember. You can use "gmail" for Gmail, "facebook" 
+for www.facebook.com, "linkedin" for www.linkedin.com and so on. 
+</p>
+<p>
+For login information:
+</p>
+<table border="1">
+<tr><td>Master password:</td><td>qwerty123</td></tr>
+<tr><td>URL:</td><td>facebook</td></tr>
+<tr><td>User:</td><td>john.doe@example.com</td></tr>
+</table>
+<p>
+The generated 8-char password is now always: ZjQxOWM1.
+</p>
+
+<h2>Exporting saved logins</h2>
+<p>
+As mentioned before, Fleeting Password Manager never saves
+any passwords. However, user name and url-pairs can be saved.
+On Linux, this data is located as a simple text file at:
+</p>
+<p>
+    ~/.config/fleetingpm/fleetingpm.conf
+</p>
+<p>
+If you copy this file to the same location in some other
+Linux-based system, you'll get the same saved logins.
+</p>
+<br>
+</body>
+</html>

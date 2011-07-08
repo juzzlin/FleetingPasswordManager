@@ -38,4 +38,5 @@ InstructionsDlg::InstructionsDlg(QWidget * pParent) :
     buttonLayout->insertStretch(0);
     layout->addLayout(buttonLayout);
     layout->setContentsMargins(5, 5, 5, 5);
+    resize(640, 400);
 }

@@ -136,6 +136,9 @@ private slots:
     //! Show the settings dialog.
     void showSettingsDlg();
 
+    //! Show the instructions dialog.
+    void showInstructionsDlg();
+
     //! Show the about dialog.
     void showAboutDlg();
 

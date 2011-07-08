@@ -5,21 +5,25 @@ INCLUDEPATH += .
 DEFINES     += VERSION=\\\"2.0\\\"
 
 # Input
-RESOURCES += data/icons/Icons.qrc data/images/Images.qrc
+RESOURCES += data/icons/Icons.qrc data/images/Images.qrc data/doc/Instructions.qrc
 
 HEADERS += \
     src/mainwindow.h \
     src/settingsdlg.h \
     src/engine.h \
-    src/aboutdlg.h
+    src/aboutdlg.h \
+    src/instructionsdlg.h
 
 SOURCES += \
     src/mainwindow.cpp \
     src/settingsdlg.cpp \
     src/engine.cpp \
     src/aboutdlg.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/instructionsdlg.cpp
 
+# Check if PREFIX environment variable is set.
+# If not, then assume /usr.
 _PREFIX = $$(PREFIX)
 isEmpty(_PREFIX) {
     _PREFIX = /usr

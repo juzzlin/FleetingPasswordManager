@@ -16,6 +16,7 @@
 
 #include "mainwindow.h"
 #include "aboutdlg.h"
+#include "instructionsdlg.h"
 #include "settingsdlg.h"
 #include "engine.h"
 
@@ -168,6 +169,11 @@ void MainWindow::initMenu()
     // Add help menu
     QMenu * helpMenu = menuBar()->addMenu(tr("&Help"));
 
+    // Add action for instructions
+    QAction * instructionsAct = new QAction(tr("&Instructions.."), helpMenu);
+    connect(instructionsAct, SIGNAL(triggered()), this, SLOT(showInstructionsDlg()));
+    helpMenu->addAction(instructionsAct);
+
     // Add action for about
     QAction * aboutAct = new QAction(tr("&About ") + windowTitle() + "..", helpMenu);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDlg()));
@@ -185,6 +191,12 @@ void MainWindow::showSettingsDlg()
     m_settingsDlg->getSettings(m_length, m_delay, m_autoCopy);
     m_timeLine->setDuration(m_delay * 1000);
     saveSettings();
+}
+
+void MainWindow::showInstructionsDlg()
+{
+    InstructionsDlg instructionsDlg(this);
+    instructionsDlg.exec();
 }
 
 void MainWindow::showAboutDlg()

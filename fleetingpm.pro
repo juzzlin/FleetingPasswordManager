@@ -22,7 +22,7 @@ SOURCES += \
 
 _PREFIX = $$(PREFIX)
 isEmpty(_PREFIX) {
-    _PREFIX = /usr/local
+    _PREFIX = /usr
 }
 
 message("The project will be installed to "$$_PREFIX)

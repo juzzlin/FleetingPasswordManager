@@ -14,10 +14,10 @@ Configure the project:
 
     ./configure
 
-    Default install prefix is /usr/local, and it can be changed
-    to e.g. /usr like this:
+    Default install prefix is /usr, and it can be changed
+    to e.g. /usr/local like this:
 
-    PREFIX=/usr ./configure
+    PREFIX=/usr/local ./configure
 
 Build:
 

@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Version 2.0
+-----------
+
+- Re-written in C++
+- Minor bug fixes
+
 Version 1.2
 -----------
 

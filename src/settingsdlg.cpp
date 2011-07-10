@@ -41,9 +41,9 @@ QDialog(parent)
 void SettingsDlg::initWidgets()
 {
     QGridLayout * layout = new QGridLayout(this);
-    QLabel * label1 = new QLabel(tr("<b>Show password for this many secs:</b>"));
-    QLabel * label2 = new QLabel(tr("<b>Password length:</b>"));
-    QLabel * label3 = new QLabel(tr("<b>Automatically copy password to the clipboard:</b>"));
+    QLabel      * label1 = new QLabel(tr("<b>Show password for this many secs:</b>"));
+    QLabel      * label2 = new QLabel(tr("<b>Password length:</b>"));
+    QLabel      * label3 = new QLabel(tr("<b>Automatically copy password to the clipboard:</b>"));
 
     m_delaySpinBox->setRange(1, 60);
     m_delaySpinBox->setValue(5);

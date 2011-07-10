@@ -188,7 +188,7 @@ void MainWindow::initMenu()
 void MainWindow::showSettingsDlg()
 {
     m_settingsDlg->exec();
-    m_settingsDlg->getSettings(m_length, m_delay, m_autoCopy);
+    m_settingsDlg->getSettings(m_delay, m_length, m_autoCopy);
     m_timeLine->setDuration(m_delay * 1000);
     saveSettings();
 }
@@ -213,9 +213,9 @@ void MainWindow::showAboutQtDlg()
 void MainWindow::loadSettings()
 {
     QSettings s(COMPANY, SOFTWARE);
-    m_delay     = s.value("delay",  m_defaultDelay).toInt();
-    m_length    = s.value("length", m_defaultLength).toInt();
-    m_autoCopy  = s.value("autoCopy").toBool();
+    m_delay    = s.value("delay", m_defaultDelay).toInt();
+    m_length   = s.value("length", m_defaultLength).toInt();
+    m_autoCopy = s.value("autoCopy").toBool();
 
     m_settingsDlg->setSettings(m_delay, m_length, m_autoCopy);
     m_timeLine->setDuration(m_delay * 1000);

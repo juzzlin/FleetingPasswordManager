@@ -2,7 +2,8 @@ TEMPLATE     = app
 TARGET       = fleetingpm
 DEPENDPATH  += . data/icons data/images
 INCLUDEPATH += .
-DEFINES     += VERSION=\\\"2.1\\\"
+DEFINES     += "NAME='\"Fleeting Password Manager\"'" "VERSION='\"2.2\"'"
+QT          += xml
 
 # Input
 RESOURCES += data/icons/Icons.qrc data/images/Images.qrc data/doc/Instructions.qrc
@@ -12,7 +13,8 @@ HEADERS += \
     src/settingsdlg.h \
     src/engine.h \
     src/aboutdlg.h \
-    src/instructionsdlg.h
+    src/instructionsdlg.h \
+    src/loginio.h
 
 SOURCES += \
     src/mainwindow.cpp \
@@ -20,7 +22,8 @@ SOURCES += \
     src/engine.cpp \
     src/aboutdlg.cpp \
     src/main.cpp \
-    src/instructionsdlg.cpp
+    src/instructionsdlg.cpp \
+    src/loginio.cpp
 
 # Check if PREFIX environment variable is set.
 # If not, then assume /usr.

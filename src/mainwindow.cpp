@@ -19,9 +19,11 @@
 #include "instructionsdlg.h"
 #include "settingsdlg.h"
 #include "engine.h"
+#include "loginio.h"
 
 #include <QAction>
 #include <QComboBox>
+#include <QFileDialog>
 #include <QFrame>
 #include <QGridLayout>
 #include <QIcon>
@@ -156,6 +158,16 @@ void MainWindow::initMenu()
     // Add file menu
     QMenu * fileMenu = menuBar()->addMenu(tr("&File"));
 
+    // Add action for importing logins
+    QAction * importAct = new QAction(tr("&Import logins.."), fileMenu);
+    connect(importAct, SIGNAL(triggered()), this, SLOT(importLogins()));
+    fileMenu->addAction(importAct);
+
+    // Add action for exporting logins
+    QAction * exportAct = new QAction(tr("&Export logins.."), fileMenu);
+    connect(exportAct, SIGNAL(triggered()), this, SLOT(exportLogins()));
+    fileMenu->addAction(exportAct);
+
     // Add action for settings
     QAction * setAct = new QAction(tr("&Settings.."), fileMenu);
     connect(setAct, SIGNAL(triggered()), this, SLOT(showSettingsDlg()));
@@ -191,6 +203,29 @@ void MainWindow::showSettingsDlg()
     m_settingsDlg->getSettings(m_delay, m_length, m_autoCopy);
     m_timeLine->setDuration(m_delay * 1000);
     saveSettings();
+}
+
+void MainWindow::importLogins()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Export logins"),
+                                                    QDir::homePath(),
+                                                    tr("Fleeting Password Manager files (*.fpm)"));
+}
+
+void MainWindow::exportLogins()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Export logins"),
+                                                    QDir::homePath(),
+                                                    tr("Fleeting Password Manager files (*.fpm)"));
+    if (!fileName.endsWith(".fpm"))
+        fileName.append(".fpm");
+
+    LoginIO::LoginList logins;
+    for (int i = 0; i < m_urlCombo->count(); i++)
+        logins << QPair<QString, QString>(m_urlCombo->itemText(i),
+                                          m_urlCombo->itemData(i).toString());
+
+    LoginIO::exportLogins(logins, fileName);
 }
 
 void MainWindow::showInstructionsDlg()

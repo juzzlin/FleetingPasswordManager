@@ -133,6 +133,12 @@ private slots:
     //! Set the text for remember-button.
     void setRmbButtonText(const QString & url);
 
+    //! Import logins
+    void importLogins();
+
+    //! Export logins
+    void exportLogins();
+
     //! Show the settings dialog.
     void showSettingsDlg();
 

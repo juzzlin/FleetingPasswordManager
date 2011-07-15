@@ -1,10 +1,16 @@
 CHANGELOG
 =========
 
+Version 2.2
+-----------
+
+- Import / export of the saved logins
+- The window always stays on the top
+
 Version 2.1
 -----------
 
-- Fixed bug in saving settings.
+- Fixed bug in saving settings
 
 Version 2.0
 -----------

@@ -65,6 +65,8 @@ QMainWindow(parent)
 {
     setWindowTitle("Fleeting Password Manager");
     setWindowIcon(QIcon(":/fleetingpm.png"));
+    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+
     resize(QSize(452, 208));
     setMaximumSize(size());
     setMinimumSize(size());

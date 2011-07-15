@@ -24,6 +24,44 @@
 
 bool LoginIO::importLogins(LoginIO::LoginList & rLogins, QString fileName)
 {
+    QDomDocument doc;
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        return false;
+    }
+
+    if (!doc.setContent(&file))
+    {
+        file.close();
+        return false;
+    }
+
+    file.close();
+
+    QDomElement root = doc.documentElement();
+    QDomNode    node = root.firstChild();
+
+    rLogins.clear();
+
+    while(!node.isNull())
+    {
+        QDomElement tag = node.toElement();
+        if(!tag.isNull())
+        {
+            if (tag.nodeName() == "login")
+            {
+                QString url  = tag.attribute("url", "");
+                QString user = tag.attribute("user", "");
+
+                rLogins << QPair<QString, QString>(url, user);
+            }
+
+            node = node.nextSibling();
+        }
+    }
+
     return true;
 }
 
@@ -47,7 +85,6 @@ bool LoginIO::exportLogins(LoginIO::LoginList logins, QString fileName)
         root.appendChild(loginTag);
     }
 
-    // Save to file
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {

@@ -212,6 +212,40 @@ void MainWindow::importLogins()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Export logins"),
                                                     QDir::homePath(),
                                                     tr("Fleeting Password Manager files (*.fpm)"));
+    int newLogins = 0;
+    int updated   = 0;
+
+    LoginIO::LoginList logins;
+    if (LoginIO::importLogins(logins, fileName))
+    {
+        for (int i = 0; i < logins.count(); i++)
+        {
+            QString url  = logins.at(i).first;
+            QString user = logins.at(i).second;
+
+            int index = m_urlCombo->findText(url);
+            if (index != -1)
+            {
+                m_urlCombo->setItemData(index, user);
+                updated++;
+            }
+            else
+            {
+                m_urlCombo->addItem(url, user);
+                newLogins++;
+            }
+        }
+
+        saveSettings();
+
+        QString message(tr("Successfully imported logins from '") + fileName + tr("': %1 new, %2 updated."));
+        message = message.arg(newLogins).arg(updated);
+        QMessageBox::information(this, tr("Importing logins succeeded"), message);
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to import logins from '") + fileName + "'");
+    }
 }
 
 void MainWindow::exportLogins()
@@ -229,11 +263,11 @@ void MainWindow::exportLogins()
 
     if (LoginIO::exportLogins(logins, fileName))
     {
-        QMessageBox::information(this, "Exporting logins succeeded", "Successfully exported logins to '" + fileName + "'");
+        QMessageBox::information(this, tr("Exporting logins succeeded"), tr("Successfully exported logins to '") + fileName + "'");
     }
     else
     {
-        QMessageBox::warning(this, "Exporting logins failed", "Failed to export logins to '" + fileName + "'");
+        QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to export logins to '") + fileName + "'");
     }
 }
 

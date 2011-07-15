@@ -227,7 +227,14 @@ void MainWindow::exportLogins()
         logins << QPair<QString, QString>(m_urlCombo->itemText(i),
                                           m_urlCombo->itemData(i).toString());
 
-    LoginIO::exportLogins(logins, fileName);
+    if (LoginIO::exportLogins(logins, fileName))
+    {
+        QMessageBox::information(this, "Exporting logins succeeded", "Successfully exported logins to '" + fileName + "'");
+    }
+    else
+    {
+        QMessageBox::warning(this, "Exporting logins failed", "Failed to export logins to '" + fileName + "'");
+    }
 }
 
 void MainWindow::showInstructionsDlg()

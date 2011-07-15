@@ -236,6 +236,7 @@ void MainWindow::importLogins()
             }
         }
 
+        m_urlCombo->model()->sort(0);
         saveSettings();
 
         QString message(tr("Successfully imported logins from '") + fileName + tr("': %1 new, %2 updated."));
@@ -308,6 +309,8 @@ void MainWindow::loadSettings()
                             s.value("user").toString());
     }
     s.endArray();
+
+    m_urlCombo->model()->sort(0);
 
     updateUser(m_urlCombo->currentText());
 }
@@ -400,9 +403,11 @@ void MainWindow::rememberOrRemoveLogin()
         if (!alreadyAdded)
         {
             m_urlCombo->addItem(url, user);
+            m_urlCombo->model()->sort(0);
         }
 
         saveSettings();
+
         m_rmbButton->setText(m_removeText);
     }
     else
@@ -415,6 +420,7 @@ void MainWindow::rememberOrRemoveLogin()
         }
 
         saveSettings();
+
         m_rmbButton->setText(m_rememberText);
     }
 }

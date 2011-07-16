@@ -14,36 +14,12 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.1 r9760"
-   sodipodi:docname="fleetingpm-back.svg"
-   inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-back.png"
-   inkscape:export-xdpi="94.190002"
-   inkscape:export-ydpi="94.190002">
+   sodipodi:docname="back.svg"
+   inkscape:export-filename="/home/jussil/Home/Projects/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/images/back.png"
+   inkscape:export-xdpi="94.604652"
+   inkscape:export-ydpi="94.604652">
   <defs
      id="defs4">
-    <filter
-       inkscape:collect="always"
-       id="filter4164"
-       x="-0.10703807"
-       width="1.2140761"
-       y="-0.11225217"
-       height="1.2245043">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="7.297348"
-         id="feGaussianBlur4166" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter4168"
-       x="-0.18414926"
-       width="1.3682985"
-       y="-0.19362599"
-       height="1.387252">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="7.297348"
-         id="feGaussianBlur4170" />
-    </filter>
     <filter
        inkscape:collect="always"
        id="filter4172"
@@ -68,6 +44,42 @@
          stdDeviation="7.297348"
          id="feGaussianBlur4178" />
     </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3772"
+       x="-0.41024551"
+       width="1.820491"
+       y="-0.43022966"
+       height="1.8604593">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="27.968595"
+         id="feGaussianBlur3774" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3788"
+       x="-0.30166335"
+       width="1.6033267"
+       y="-0.31718762"
+       height="1.6343752">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="11.954121"
+         id="feGaussianBlur3790" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3838"
+       x="-0.36197802"
+       width="1.723956"
+       y="-0.23034965"
+       height="1.4606993">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="31.673077"
+         id="feGaussianBlur3840" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -77,15 +89,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="156.24757"
+     inkscape:cx="167.54112"
      inkscape:cy="762.27536"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1107"
-     inkscape:window-height="925"
-     inkscape:window-x="384"
-     inkscape:window-y="62"
+     inkscape:window-width="1351"
+     inkscape:window-height="926"
+     inkscape:window-x="172"
+     inkscape:window-y="44"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -108,96 +120,21 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;"
+       style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect2995"
        width="430"
        height="320"
        x="0"
-       y="0.36218262"
+       y="2.3621826"
        inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-back.png"
        inkscape:export-xdpi="94.186043"
        inkscape:export-ydpi="94.186043" />
-    <path
-       sodipodi:type="star"
-       style="opacity:0.75;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4176)"
-       id="path2989"
-       sodipodi:sides="5"
-       sodipodi:cx="250"
-       sodipodi:cy="72.362183"
-       sodipodi:r1="31.622778"
-       sodipodi:r2="16.521894"
-       sodipodi:arg1="-0.32175055"
-       sodipodi:arg2="0.30656798"
-       inkscape:flatsided="false"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="m 280,62.362182 -14.24844,14.986117 3.02952,20.45541 -18.65566,-8.920108 -18.51808,9.20231 2.71861,-20.499047 -14.47431,-14.76807 20.33585,-3.748999 9.57245,-18.329479 9.84964,18.182038 z"
-       inkscape:transform-center-x="0.074181177"
-       inkscape:transform-center-y="-2.949069"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-back.png"
-       inkscape:export-xdpi="94.186043"
-       inkscape:export-ydpi="94.186043"
-       transform="translate(-200,-22)" />
-    <path
-       sodipodi:type="star"
-       style="opacity:0.75000000000000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4168)"
-       id="path2991"
-       sodipodi:sides="5"
-       sodipodi:cx="320"
-       sodipodi:cy="222.36218"
-       sodipodi:r1="50"
-       sodipodi:r2="26.123407"
-       sodipodi:arg1="-1.5707963"
-       sodipodi:arg2="-0.9424778"
-       inkscape:flatsided="false"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="m 320,172.36218 15.35495,28.86572 32.19788,5.68343 -22.70799,23.52343 4.54442,32.37827 L 320,248.48559 l -29.38926,14.32744 4.54442,-32.37827 -22.70799,-23.52343 32.19788,-5.68343 z"
-       inkscape:transform-center-y="-4.7745751"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-back.png"
-       inkscape:export-xdpi="94.186043"
-       inkscape:export-ydpi="94.186043"
-       transform="translate(-132,-58)" />
-    <path
-       sodipodi:type="star"
-       style="opacity:0.75000000000000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4172)"
-       id="path2993"
-       sodipodi:sides="5"
-       sodipodi:cx="90"
-       sodipodi:cy="272.36218"
-       sodipodi:r1="30"
-       sodipodi:r2="15.674045"
-       sodipodi:arg1="-1.5707963"
-       sodipodi:arg2="-0.9424778"
-       inkscape:flatsided="false"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="m 90.000001,242.36218 9.212971,17.31943 19.318728,3.41006 -13.6248,14.11406 2.72666,19.42696 L 90,288.03623 l -17.633558,8.59646 2.726656,-19.42696 -13.624793,-14.11406 19.318723,-3.41006 z"
-       inkscape:transform-center-y="-2.8647451"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-back.png"
-       inkscape:export-xdpi="94.186043"
-       inkscape:export-ydpi="94.186043"
-       transform="translate(0,-158)" />
-    <path
-       sodipodi:type="star"
-       style="opacity:0.75;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter4164)"
-       id="path2987"
-       sodipodi:sides="5"
-       sodipodi:cx="90"
-       sodipodi:cy="112.36218"
-       sodipodi:r1="86.023254"
-       sodipodi:r2="44.944408"
-       sodipodi:arg1="0.95054684"
-       sodipodi:arg2="1.5788654"
-       inkscape:flatsided="false"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="M 140,182.36218 89.637344,157.30513 38.876893,181.5462 47.144652,125.90541 8.404181,85.120255 63.876594,75.789412 90.694118,26.341729 116.7102,76.21574 l 55.31461,10.224806 -39.3936,40.154674 z"
-       inkscape:transform-center-x="-0.21449424"
-       inkscape:transform-center-y="-8.0102261"
-       transform="translate(229.28981,-5.853557)"
-       inkscape:export-filename="/home/jussil/Home/Programming/Projects/fleetingpm/sourceforge-git/fleetingpm/data/icons/fleetingpm-back.png"
-       inkscape:export-xdpi="94.186043"
-       inkscape:export-ydpi="94.186043" />
+    <rect
+       style="opacity:0.75;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;filter:url(#filter3838)"
+       id="rect3792"
+       width="210"
+       height="330"
+       x="110"
+       y="-7.6378174" />
   </g>
 </svg>

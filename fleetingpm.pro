@@ -2,7 +2,7 @@ TEMPLATE     = app
 TARGET       = fleetingpm
 DEPENDPATH  += . data/icons data/images
 INCLUDEPATH += .
-DEFINES     += "NAME='\"Fleeting Password Manager\"'" "VERSION='\"2.2\"'"
+DEFINES     += "NAME='\"Fleeting Password Manager\"'" "VERSION='\"2.3\"'"
 QT          += xml
 
 # Input

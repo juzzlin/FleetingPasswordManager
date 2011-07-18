@@ -26,6 +26,7 @@
 #include <QClipboard>
 #include <QCloseEvent>
 #include <QComboBox>
+#include <QDesktopWidget>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGridLayout>
@@ -84,6 +85,15 @@ QMainWindow(parent)
     connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreasePasswordAlpha(int)));
     connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidate()));
     m_timeLine->setFrameRange(0, 255);
+
+    // Load previous location or center the window.
+    QRect geom(QApplication::desktop()->availableGeometry());
+    int centerX = geom.width()  / 2 - frameGeometry().width() / 2;
+    int centerY = geom.height() / 2 -frameGeometry().height() / 2;
+    QSettings s(COMPANY, SOFTWARE);
+    int x = s.value("x", centerX).toInt();
+    int y = s.value("y", centerY).toInt();
+    move(x, y);
 }
 
 void MainWindow::initBackground()
@@ -467,6 +477,10 @@ void MainWindow::setRmbButtonText(const QString & url)
 
 void MainWindow::closeEvent(QCloseEvent * event)
 {
+    QSettings s(COMPANY, SOFTWARE);
+    s.setValue("x", x());
+    s.setValue("y", y());
+
     QApplication::clipboard()->clear();
     event->accept();
 }

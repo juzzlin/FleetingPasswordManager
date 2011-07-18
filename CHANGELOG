@@ -5,7 +5,8 @@ Version 2.3
 -----------
 
 - A new background image
-- Setting added to automatically clear the clip-board on timeout
+- Setting added to automatically clear the clipboard on timeout
+- Clear clipboard on close
 
 Version 2.2
 -----------

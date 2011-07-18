@@ -84,10 +84,10 @@ private:
     //! Current password length.
     int m_length;
 
-    //! Copy generated password automatically to the clip-board if true.
+    //! Copy generated password automatically to the clipboard if true.
     bool m_autoCopy;
 
-    //! Clear clip-board on timeout if true.
+    //! Clear clipboard on timeout if true.
     bool m_autoClear;
 
     //! Master password edit field

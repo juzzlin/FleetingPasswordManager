@@ -54,10 +54,10 @@ private:
     //! Spin box for the password show delay.
     QSpinBox  * m_delaySpinBox;
 
-    //! Check box for the clip-board auto copy.
+    //! Check box for the clipboard auto copy.
     QCheckBox * m_autoCopyCheck;
 
-    //! Check box for clearing the clip-board automatically
+    //! Check box for clearing the clipboard automatically
     //! on timeout.
     QCheckBox * m_autoClearCheck;
 };

@@ -350,7 +350,7 @@ void MainWindow::doGenerate()
     m_passwdEdit->setEnabled(true);
     m_passwdEdit->setText(passwd);
 
-    // Copy to clip-board if wanted
+    // Copy to clipboard if wanted
     if (m_autoCopy)
     {
         m_passwdEdit->selectAll();
@@ -376,7 +376,7 @@ void MainWindow::invalidate()
     // Clear the password edit
     m_passwdEdit->setText("");
 
-    // Clear the clip-board
+    // Clear the clipboard
     if (m_autoClear)
     {
         QApplication::clipboard()->clear();

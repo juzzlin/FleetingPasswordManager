@@ -24,6 +24,7 @@
 #include <QAction>
 #include <QApplication>
 #include <QClipboard>
+#include <QCloseEvent>
 #include <QComboBox>
 #include <QFileDialog>
 #include <QFrame>
@@ -462,6 +463,12 @@ void MainWindow::setRmbButtonText(const QString & url)
         m_rmbButton->setText(m_rememberText);
         m_rmbButton->setToolTip(m_rememberToolTip);
     }
+}
+
+void MainWindow::closeEvent(QCloseEvent * event)
+{
+    QApplication::clipboard()->clear();
+    event->accept();
 }
 
 MainWindow::~MainWindow()

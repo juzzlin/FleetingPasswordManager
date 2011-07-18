@@ -38,6 +38,11 @@ public:
     //! Destructor
     ~MainWindow();
 
+protected:
+
+    //! \reimp
+    virtual void closeEvent(QCloseEvent * event);
+
 private:
 
     //! Init the background image.

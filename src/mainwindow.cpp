@@ -1,17 +1,17 @@
-// This file is part of Fleeting Password Manager (FleetingPM).
+// This file is part of Fleeting Password Manager (Fleetingpm).
 // Copyright (C) 2011 Jussi Lind <jussi.lind@iki.fi>
 //
-// FleetingPM is free software: you can redistribute it and/or modify
+// Fleetingpm is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
-// FleetingPM is distributed in the hope that it will be useful,
+// Fleetingpm is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with FleetingPM. If not, see <http://www.gnu.org/licenses/>.
+// along with Fleetingpm. If not, see <http://www.gnu.org/licenses/>.
 //
 
 #include "mainwindow.h"
@@ -22,6 +22,8 @@
 #include "loginio.h"
 
 #include <QAction>
+#include <QApplication>
+#include <QClipboard>
 #include <QComboBox>
 #include <QFileDialog>
 #include <QFrame>
@@ -54,6 +56,7 @@ QMainWindow(parent)
 , m_delay(m_defaultDelay)
 , m_length(m_defaultLength)
 , m_autoCopy(false)
+, m_autoClear(false)
 , m_masterEdit(new QLineEdit(this))
 , m_userEdit(new QLineEdit(this))
 , m_passwdEdit(new QLineEdit(this))
@@ -202,7 +205,7 @@ void MainWindow::initMenu()
 void MainWindow::showSettingsDlg()
 {
     m_settingsDlg->exec();
-    m_settingsDlg->getSettings(m_delay, m_length, m_autoCopy);
+    m_settingsDlg->getSettings(m_delay, m_length, m_autoCopy, m_autoClear);
     m_timeLine->setDuration(m_delay * 1000);
     saveSettings();
 }
@@ -292,11 +295,12 @@ void MainWindow::showAboutQtDlg()
 void MainWindow::loadSettings()
 {
     QSettings s(COMPANY, SOFTWARE);
-    m_delay    = s.value("delay", m_defaultDelay).toInt();
-    m_length   = s.value("length", m_defaultLength).toInt();
-    m_autoCopy = s.value("autoCopy").toBool();
+    m_delay     = s.value("delay", m_defaultDelay).toInt();
+    m_length    = s.value("length", m_defaultLength).toInt();
+    m_autoCopy  = s.value("autoCopy", false).toBool();
+    m_autoClear = s.value("autoClear", false).toBool();
 
-    m_settingsDlg->setSettings(m_delay, m_length, m_autoCopy);
+    m_settingsDlg->setSettings(m_delay, m_length, m_autoCopy, m_autoClear);
     m_timeLine->setDuration(m_delay * 1000);
 
     // Read login data
@@ -318,9 +322,10 @@ void MainWindow::loadSettings()
 void MainWindow::saveSettings()
 {
     QSettings s(COMPANY, SOFTWARE);
-    s.setValue("delay",    m_delay);
-    s.setValue("length",   m_length);
-    s.setValue("autoCopy", m_autoCopy);
+    s.setValue("delay",     m_delay);
+    s.setValue("length",    m_length);
+    s.setValue("autoCopy",  m_autoCopy);
+    s.setValue("autoClear", m_autoClear);
 
     // Write login data that user wants to be saved
     s.beginWriteArray("logins");
@@ -367,7 +372,15 @@ void MainWindow::decreasePasswordAlpha(int frame)
 
 void MainWindow::invalidate()
 {
+    // Clear the password edit
     m_passwdEdit->setText("");
+
+    // Clear the clip-board
+    if (m_autoClear)
+    {
+        QApplication::clipboard()->clear();
+    }
+
     m_passwdEdit->setEnabled(false);
 }
 

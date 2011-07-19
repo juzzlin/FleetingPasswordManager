@@ -25,6 +25,7 @@
 InstructionsDlg::InstructionsDlg(QWidget * pParent) :
     QDialog(pParent)
 {
+    setWindowTitle(QString(tr("Instructions for ")) + NAME);
     QTextBrowser * browser = new QTextBrowser();
     browser->setStyleSheet("background-color: #ffffee;");
     browser->setSource(QUrl("qrc:instructions.html"));

@@ -8,6 +8,7 @@ Version 2.3
 - Setting added to automatically clear the clipboard on timeout
 - Clear clipboard on close
 - The window remembers its previous location when started
+- A Proper title for the instructions dialog added
 
 Version 2.2
 -----------

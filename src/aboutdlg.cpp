@@ -15,6 +15,7 @@
 //
 
 #include "aboutdlg.h"
+#include "version.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -39,8 +40,8 @@ void AboutDlg::initWidgets()
     hLayout->addWidget(pixmapLabel);
 
     QLabel * infoLabel = new QLabel(this);
-    infoLabel->setText(QString("<h2>Fleeting Password Manager v") + VERSION + "</h2>"
-                       + "<p>FPM is licenced under GNU GPLv3.</p>"
+    infoLabel->setText(QString("<h2>") + Version::NAME + " v" + Version::VERSION + "</h2>"
+                       + "<p>" + Version::NAME + " is licenced under GNU GPLv3.</p>"
                        + "<p>Copyright (c) Jussi Lind 2011.</p>"
                        + "<a href='http://fleetingpm.sourceforge.net'>"
                        + "http://fleetingpm.sourceforge.net</a>");

@@ -2,7 +2,6 @@ TEMPLATE     = app
 TARGET       = fleetingpm
 DEPENDPATH  += . data/icons data/images
 INCLUDEPATH += .
-DEFINES     += "NAME='\"Fleeting Password Manager\"'" "VERSION='\"2.3\"'"
 QT          += xml
 
 # Input
@@ -14,7 +13,8 @@ HEADERS += \
     src/engine.h \
     src/aboutdlg.h \
     src/instructionsdlg.h \
-    src/loginio.h
+    src/loginio.h \
+    src/version.h
 
 SOURCES += \
     src/mainwindow.cpp \

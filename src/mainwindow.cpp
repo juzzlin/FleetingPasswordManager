@@ -14,12 +14,12 @@
 // along with Fleetingpm. If not, see <http://www.gnu.org/licenses/>.
 //
 
-#include "mainwindow.h"
 #include "aboutdlg.h"
-#include "instructionsdlg.h"
-#include "settingsdlg.h"
 #include "engine.h"
+#include "instructionsdlg.h"
 #include "loginio.h"
+#include "mainwindow.h"
+#include "settingsdlg.h"
 
 #include <QAction>
 #include <QApplication>

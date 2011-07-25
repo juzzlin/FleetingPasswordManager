@@ -37,6 +37,9 @@ message("The project will be installed to "$$_PREFIX)
 target.path    = $$_PREFIX/bin
 desktop.path   = $$_PREFIX/share/applications
 desktop.files += data/fleetingpm.desktop
-icon.path      = $$_PREFIX/share/pixmaps
-icon.files    += data/icons/fleetingpm.png
-INSTALLS      += target desktop icon
+icon1.path     = $$_PREFIX/share/icons/hicolor/64x64/apps
+icon1.files   += data/icons/fleetingpm.png
+icon2.path     = $$_PREFIX/share/pixmaps
+icon2.files   += data/icons/fleetingpm.png
+INSTALLS      += target desktop icon1 icon2
+

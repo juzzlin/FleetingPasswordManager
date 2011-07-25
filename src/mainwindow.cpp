@@ -223,7 +223,7 @@ void MainWindow::showSettingsDlg()
 
 void MainWindow::importLogins()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Export logins"),
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Import logins"),
                                                     QDir::homePath(),
                                                     tr("Fleeting Password Manager files (*.fpm)"));
     int newLogins = 0;

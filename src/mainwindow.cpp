@@ -226,40 +226,43 @@ void MainWindow::importLogins()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Import logins"),
                                                     QDir::homePath(),
                                                     tr("Fleeting Password Manager files (*.fpm)"));
-    int newLogins = 0;
-    int updated   = 0;
-
-    LoginIO::LoginList logins;
-    if (LoginIO::importLogins(logins, fileName))
+    if (fileName.length() > 0)
     {
-        for (int i = 0; i < logins.count(); i++)
+        int newLogins = 0;
+        int updated   = 0;
+
+        LoginIO::LoginList logins;
+        if (LoginIO::importLogins(logins, fileName))
         {
-            QString url  = logins.at(i).first;
-            QString user = logins.at(i).second;
+            for (int i = 0; i < logins.count(); i++)
+            {
+                QString url  = logins.at(i).first;
+                QString user = logins.at(i).second;
 
-            int index = m_urlCombo->findText(url);
-            if (index != -1)
-            {
-                m_urlCombo->setItemData(index, user);
-                updated++;
+                int index = m_urlCombo->findText(url);
+                if (index != -1)
+                {
+                    m_urlCombo->setItemData(index, user);
+                    updated++;
+                }
+                else
+                {
+                    m_urlCombo->addItem(url, user);
+                    newLogins++;
+                }
             }
-            else
-            {
-                m_urlCombo->addItem(url, user);
-                newLogins++;
-            }
+
+            m_urlCombo->model()->sort(0);
+            saveSettings();
+
+            QString message(tr("Successfully imported logins from '") + fileName + tr("': %1 new, %2 updated."));
+            message = message.arg(newLogins).arg(updated);
+            QMessageBox::information(this, tr("Importing logins succeeded"), message);
         }
-
-        m_urlCombo->model()->sort(0);
-        saveSettings();
-
-        QString message(tr("Successfully imported logins from '") + fileName + tr("': %1 new, %2 updated."));
-        message = message.arg(newLogins).arg(updated);
-        QMessageBox::information(this, tr("Importing logins succeeded"), message);
-    }
-    else
-    {
-        QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to import logins from '") + fileName + "'");
+        else
+        {
+            QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to import logins from '") + fileName + "'");
+        }
     }
 }
 
@@ -268,21 +271,24 @@ void MainWindow::exportLogins()
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export logins"),
                                                     QDir::homePath(),
                                                     tr("Fleeting Password Manager files (*.fpm)"));
-    if (!fileName.endsWith(".fpm"))
-        fileName.append(".fpm");
-
-    LoginIO::LoginList logins;
-    for (int i = 0; i < m_urlCombo->count(); i++)
-        logins << QPair<QString, QString>(m_urlCombo->itemText(i),
-                                          m_urlCombo->itemData(i).toString());
-
-    if (LoginIO::exportLogins(logins, fileName))
+    if (fileName.length() > 0)
     {
-        QMessageBox::information(this, tr("Exporting logins succeeded"), tr("Successfully exported logins to '") + fileName + "'");
-    }
-    else
-    {
-        QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to export logins to '") + fileName + "'");
+        if (!fileName.endsWith(".fpm"))
+            fileName.append(".fpm");
+
+        LoginIO::LoginList logins;
+        for (int i = 0; i < m_urlCombo->count(); i++)
+            logins << QPair<QString, QString>(m_urlCombo->itemText(i),
+                                              m_urlCombo->itemData(i).toString());
+
+        if (LoginIO::exportLogins(logins, fileName))
+        {
+            QMessageBox::information(this, tr("Exporting logins succeeded"), tr("Successfully exported logins to '") + fileName + "'");
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to export logins to '") + fileName + "'");
+        }
     }
 }
 

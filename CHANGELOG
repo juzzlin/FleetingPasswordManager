@@ -7,6 +7,7 @@ Version 2.4
 - Fixes: Import/export doesn't check for empty file name
 - Fixes: Import file dialog has incorrect title.
 - Version and name macros moved to version.h
+- Install icon also to $$_PREFIX/share/icons/hicolor/64x64/apps
 
 Version 2.3
 -----------

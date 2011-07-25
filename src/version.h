@@ -20,7 +20,7 @@
 namespace Version
 {
     static const char * NAME    = "Fleeting Password Manager";
-    static const char * VERSION = "2.3.1";
+    static const char * VERSION = "2.4";
 }
 
 #endif // VERSION_H

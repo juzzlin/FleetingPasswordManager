@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Version 2.3.1
--------------
+Version 2.4
+-----------
 
 - Fixes: Import/export doesn't check for empty file name
 - Fixes: Import file dialog has incorrect title.

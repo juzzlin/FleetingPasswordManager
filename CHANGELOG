@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+Version 2.3.1
+-------------
+
+- Fixes: Import/export doesn't check for empty file name
+- Fixes: Import file dialog has incorrect title.
+- Version and name macros moved to version.h
+
 Version 2.3
 -----------
 

@@ -6,6 +6,7 @@ QT          += xml
 
 # Input
 RESOURCES += data/icons/Icons.qrc data/images/Images.qrc data/doc/Instructions.qrc
+win32:RC_FILE = data/icons/Windows.rc
 
 HEADERS += \
     src/mainwindow.h \

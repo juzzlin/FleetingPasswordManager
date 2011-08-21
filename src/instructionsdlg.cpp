@@ -15,7 +15,7 @@
 //
 
 #include "instructionsdlg.h"
-#include "version.h"
+#include "config.h"
 
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -26,7 +26,7 @@
 InstructionsDlg::InstructionsDlg(QWidget * pParent) :
     QDialog(pParent)
 {
-    setWindowTitle(QString(tr("Instructions for ")) + Version::NAME);
+    setWindowTitle(QString(tr("Instructions for ")) + Config::NAME);
     QTextBrowser * browser = new QTextBrowser();
     browser->setStyleSheet("background-color: #ffffee;");
     browser->setSource(QUrl("qrc:instructions.html"));

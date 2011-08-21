@@ -9,22 +9,23 @@ RESOURCES += data/icons/Icons.qrc data/images/Images.qrc data/doc/Instructions.q
 win32:RC_FILE = data/icons/Windows.rc
 
 HEADERS += \
-    src/mainwindow.h \
-    src/settingsdlg.h \
-    src/engine.h \
     src/aboutdlg.h \
+    src/config.h \
+    src/engine.h \
     src/instructionsdlg.h \
     src/loginio.h \
-    src/version.h
+    src/mainwindow.h \
+    src/settingsdlg.h
 
 SOURCES += \
-    src/mainwindow.cpp \
-    src/settingsdlg.cpp \
-    src/engine.cpp \
     src/aboutdlg.cpp \
-    src/main.cpp \
+    src/config.cpp \
+    src/engine.cpp \
     src/instructionsdlg.cpp \
-    src/loginio.cpp
+    src/loginio.cpp  \
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/settingsdlg.cpp
 
 # Check if PREFIX environment variable is set.
 # If not, then assume /usr.

@@ -15,6 +15,7 @@
 //
 
 #include "settingsdlg.h"
+#include "config.h"
 
 #include <QCheckBox>
 #include <QGridLayout>
@@ -34,7 +35,8 @@ QDialog(parent)
     initWidgets();
     initBackground();
 
-    resize(QSize(450, 142));
+    resize(QSize(Config::SETTINGSDLG_WIDTH, Config::SETTINGSDLG_HEIGHT));
+
     setMaximumSize(size());
     setMinimumSize(size());
 }

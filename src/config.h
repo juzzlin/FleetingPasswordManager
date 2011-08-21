@@ -14,13 +14,37 @@
 // along with Fleetingpm. If not, see <http://www.gnu.org/licenses/>.
 //
 
-#ifndef VERSION_H
-#define VERSION_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
-namespace Version
+//! Miscellaneous config data.
+class Config
 {
-    static const char * NAME    = "Fleeting Password Manager";
-    static const char * VERSION = "2.4";
-}
+public:
 
-#endif // VERSION_H
+    //! Program name.
+    static const char * NAME;
+
+    //! Program version.
+    static const char * VERSION;
+
+    //! Company name used in QSettings.
+    static const char * COMPANY;
+
+    //! Software name used in QSettings.
+    static const char * SOFTWARE;
+
+    //! Width of the settings dlg.
+    static const int SETTINGSDLG_WIDTH  = 452;
+
+    //! Height of the settings dlg.
+    static const int SETTINGSDLG_HEIGHT = 208;
+
+    //! Width of the main window.
+    static const int MAINWINDOW_WIDTH = 452;
+
+    //! Height of the main window.
+    static const int MAINWINDOW_HEIGHT = 208;
+};
+
+#endif // CONFIG_H

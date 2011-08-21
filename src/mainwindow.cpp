@@ -15,6 +15,7 @@
 //
 
 #include "aboutdlg.h"
+#include "config.h"
 #include "engine.h"
 #include "instructionsdlg.h"
 #include "loginio.h"
@@ -39,13 +40,6 @@
 #include <QPushButton>
 #include <QSettings>
 #include <QTimeLine>
-
-namespace
-{
-    // Values used in QSettings
-    const char * COMPANY  = "fleetingpm";
-    const char * SOFTWARE = "fleetingpm";
-}
 
 MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent)
@@ -72,7 +66,8 @@ QMainWindow(parent)
     setWindowIcon(QIcon(":/fleetingpm.png"));
     setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 
-    resize(QSize(452, 208));
+    resize(QSize(Config::MAINWINDOW_WIDTH, Config::MAINWINDOW_HEIGHT));
+
     setMaximumSize(size());
     setMinimumSize(size());
 
@@ -90,7 +85,7 @@ QMainWindow(parent)
     QRect geom(QApplication::desktop()->availableGeometry());
     int centerX = geom.width()  / 2 - frameGeometry().width() / 2;
     int centerY = geom.height() / 2 -frameGeometry().height() / 2;
-    QSettings s(COMPANY, SOFTWARE);
+    QSettings s(Config::COMPANY, Config::SOFTWARE);
     int x = s.value("x", centerX).toInt();
     int y = s.value("y", centerY).toInt();
     move(x, y);
@@ -311,7 +306,7 @@ void MainWindow::showAboutQtDlg()
 
 void MainWindow::loadSettings()
 {
-    QSettings s(COMPANY, SOFTWARE);
+    QSettings s(Config::COMPANY, Config::SOFTWARE);
     m_delay     = s.value("delay", m_defaultDelay).toInt();
     m_length    = s.value("length", m_defaultLength).toInt();
     m_autoCopy  = s.value("autoCopy", false).toBool();
@@ -338,7 +333,7 @@ void MainWindow::loadSettings()
 
 void MainWindow::saveSettings()
 {
-    QSettings s(COMPANY, SOFTWARE);
+    QSettings s(Config::COMPANY, Config::SOFTWARE);
     s.setValue("delay",     m_delay);
     s.setValue("length",    m_length);
     s.setValue("autoCopy",  m_autoCopy);
@@ -483,7 +478,7 @@ void MainWindow::setRmbButtonText(const QString & url)
 
 void MainWindow::closeEvent(QCloseEvent * event)
 {
-    QSettings s(COMPANY, SOFTWARE);
+    QSettings s(Config::COMPANY, Config::SOFTWARE);
     s.setValue("x", x());
     s.setValue("y", y());
 

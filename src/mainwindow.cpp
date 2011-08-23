@@ -39,6 +39,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QSettings>
+#include <QSpinBox>
 #include <QTimeLine>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -59,6 +60,7 @@ QMainWindow(parent)
 , m_urlCombo(new QComboBox(this))
 , m_genButton(new QPushButton(tr("&Show password:"), this))
 , m_rmbButton(new QPushButton(m_rememberText, this))
+, m_lengthSpinBox(new QSpinBox(this))
 , m_timeLine(new QTimeLine())
 , m_settingsDlg(new SettingsDlg(this))
 {
@@ -66,8 +68,8 @@ QMainWindow(parent)
     setWindowIcon(QIcon(":/fleetingpm.png"));
     setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 
+    // Make the size fixed
     resize(QSize(Config::MAINWINDOW_WIDTH, Config::MAINWINDOW_HEIGHT));
-
     setMaximumSize(size());
     setMinimumSize(size());
 
@@ -76,15 +78,26 @@ QMainWindow(parent)
     initBackground();
     loadSettings();
 
+    // Initialize the timer used when fading out the
+    // generated password
     m_timeLine->setDuration(m_delay * 1000);
     connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreasePasswordAlpha(int)));
     connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidate()));
     m_timeLine->setFrameRange(0, 255);
 
     // Load previous location or center the window.
+    centerOrRestoreLocation();
+}
+
+void MainWindow::centerOrRestoreLocation()
+{
+    // Calculate center coordinates
     QRect geom(QApplication::desktop()->availableGeometry());
     int centerX = geom.width()  / 2 - frameGeometry().width() / 2;
     int centerY = geom.height() / 2 -frameGeometry().height() / 2;
+
+    // Try to load previous location and use the
+    // calculated center as the fallback
     QSettings s(Config::COMPANY, Config::SOFTWARE);
     int x = s.value("x", centerX).toInt();
     int y = s.value("y", centerY).toInt();
@@ -101,53 +114,105 @@ void MainWindow::initBackground()
 
 void MainWindow::initWidgets()
 {
+    // Create main layout as a grid layout
+    // No need to store as a member.
     QGridLayout * layout = new QGridLayout();
+
+    // Create a horizontal line between the user name field
+    // and the password field.
+    // No need to store as a member.
+    QFrame * frame = new QFrame(this);
+    frame->setFrameShape(QFrame::HLine);
+
+    // Create a star image / logo as a label
+    // No need to store as a member.
+    QLabel * starsLabel = new QLabel();
+    starsLabel->setPixmap(QPixmap(":/stars.png"));
+
+    // Create and connect the quit-button
+    // No need to store as a member.
+    QPushButton * quitButton = new QPushButton(tr("&Quit"));
+    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+
+    // Set tooltip for the master password field
     m_masterEdit->setToolTip(tr("Enter the master password common to all of your logins."));
+
+    // Set password-styled echo mode
     m_masterEdit->setEchoMode(QLineEdit::Password);
 
+    // Make the URL combo box editable
     m_urlCombo->setEditable(true);
-    m_urlCombo->setToolTip(tr("Enter or select a saved URL/ID. For example facebook, google, gmail.com, myserver.."));
-    connect(m_urlCombo, SIGNAL(activated(const QString &)), this, SLOT(updateUser(const QString &)));
-    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setRmbButtonText(const QString &)));
 
+    // Set tooltip for the URL combo box
+    m_urlCombo->setToolTip(tr("Enter or select a saved URL/ID. For example facebook, google, gmail.com, myserver.."));
+
+    // Set tooltip for the username combo box
     m_userEdit->setToolTip(tr("Enter your user name corresponding to the selected URL/ID."));
 
+    // Set range from 8 to 32 for the password length spin box
+    m_lengthSpinBox->setRange(8, 32);
+
+    // Set tooltip for the password length spin box
+    m_lengthSpinBox->setToolTip(tr("Set the password length."));
+
+    // Set tooltip for the password field
     m_passwdEdit->setToolTip(tr("This is the generated password, which is always the same with the same master password, URL/ID and user name."));
+
+    // Make the password line edit read-only and disabled by default
     m_passwdEdit->setReadOnly(true);
     m_passwdEdit->setEnabled(false);
 
-    layout->addWidget(m_masterEdit, 0, 1, 1, 3);
-    layout->addWidget(m_urlCombo,   1, 1, 1, 3);
-    layout->addWidget(m_userEdit,   2, 1, 1, 3);
-    layout->addWidget(m_passwdEdit, 4, 1, 1, 3);
-
-    QFrame * frame = new QFrame(this);
-    frame->setFrameShape(QFrame::HLine);
-    layout->addWidget(new QLabel(tr("<b><font color=#aa0000>Master password:</font></b>")), 0, 0);
-    layout->addWidget(new QLabel(tr("<b>URL/ID:</b>")), 1, 0);
-    layout->addWidget(new QLabel(tr("<b>User name:</b>")), 2, 0);
-    layout->addWidget(frame, 3, 1, 1, 3);
-
+    // Set the generate-button disabled by default
     m_genButton->setEnabled(false);
+
+    // Set tooltip for the generate-button
     m_genButton->setToolTip(tr("Generate and show the password"));
-    layout->addWidget(m_genButton, 4, 0);
 
-    QLabel * starsLabel = new QLabel();
-    starsLabel->setPixmap(QPixmap(":/stars.png"));
-    layout->addWidget(starsLabel, 5, 0);
-
+    // Set the remember-button disabled by default
     m_rmbButton->setEnabled(false);
-    connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
+
+    // Set tooltip for the remember-button
     m_rmbButton->setToolTip(m_rememberToolTip);
-    layout->addWidget(m_rmbButton, 5, 1, 1, 2);
 
-    QPushButton * quitButton = new QPushButton(tr("&Quit"));
-    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
-    layout->addWidget(quitButton, 5, 3);
+    // Add the widgets to the grid layout
+    layout->addWidget(m_masterEdit,    0, 1, 1, 5);
+    layout->addWidget(m_urlCombo,      1, 1, 1, 5);
+    layout->addWidget(m_userEdit,      2, 1, 1, 4);
+    layout->addWidget(m_lengthSpinBox, 2, 5);
+    layout->addWidget(frame,           3, 1, 1, 5);
+    layout->addWidget(m_genButton,     4, 0);
+    layout->addWidget(m_passwdEdit,    4, 1, 1, 5);
+    layout->addWidget(starsLabel,      5, 0);
+    layout->addWidget(m_rmbButton,     5, 1, 1, 4);
+    layout->addWidget(quitButton,      5, 5);
 
+    // Add the "master password:"-label to the layout
+    layout->addWidget(new QLabel(tr("<b><font color=#aa0000>Master password:</font></b>")), 0, 0);
+
+    // Create and add the "URL/ID:"-label to the layout
+    // No need to store as a member.
+    layout->addWidget(new QLabel(tr("<b>URL/ID:</b>")), 1, 0);
+
+    // Create and add the "User name:"-label to the layout
+    // No need to store as a member.
+    layout->addWidget(new QLabel(tr("<b>User name:</b>")), 2, 0);
+
+    // Create the central widget and set the layout to it.
+    // No need to store as a member.
     QWidget * dummy = new QWidget();
     dummy->setLayout(layout);
     setCentralWidget(dummy);
+
+    // Connect the rest of the signals emitted by the widgets
+    connectSignalsFromWidgets();
+}
+
+void MainWindow::connectSignalsFromWidgets()
+{
+    connect(m_urlCombo, SIGNAL(activated(const QString &)), this, SLOT(updateUser(const QString &)));
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setRmbButtonText(const QString &)));
+
+    connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
 
     connect(m_genButton, SIGNAL(clicked()), this, SLOT(doGenerate()));
 

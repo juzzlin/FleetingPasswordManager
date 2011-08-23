@@ -24,6 +24,7 @@ class QPushButton;
 class QComboBox;
 class QLineEdit;
 class QTimeLine;
+class QSpinBox;
 
 //! The main window.
 class MainWindow : public QMainWindow
@@ -45,6 +46,9 @@ protected:
 
 private:
 
+    //! Center the window or load previous location.
+    void centerOrRestoreLocation();
+
     //! Init the background image.
     void initBackground();
 
@@ -53,6 +57,9 @@ private:
 
     //! Create menus and actions.
     void initMenu();
+
+    //! Connect the signals emitted by widgets.
+    void connectSignalsFromWidgets();
 
     //! Load settings by using QSettings.
     void loadSettings();
@@ -107,6 +114,10 @@ private:
 
     //! Remember/remove button
     QPushButton * m_rmbButton;
+
+    //! Spin box to set password length
+    //! other than the default.
+    QSpinBox * m_lengthSpinBox;
 
     //! Time line used when showing the password.
     QTimeLine * m_timeLine;

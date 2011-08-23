@@ -18,7 +18,9 @@
 #include "config.h"
 
 #include <QCheckBox>
+#include <QFrame>
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QSpinBox>
@@ -37,42 +39,57 @@ QDialog(parent)
 
     resize(QSize(Config::SETTINGSDLG_WIDTH, Config::SETTINGSDLG_HEIGHT));
 
+    // Make the size fixed
     setMaximumSize(size());
     setMinimumSize(size());
 }
 
 void SettingsDlg::initWidgets()
 {
-    QGridLayout * layout = new QGridLayout(this);
-    QLabel      * label1 = new QLabel(tr("<b>Show password for this many secs:</b>"));
-    QLabel      * label2 = new QLabel(tr("<b>Password length:</b>"));
-    QLabel      * label3 = new QLabel(tr("<b>Automatically copy password to the clipboard:</b>"));
-    QLabel      * label4 = new QLabel(tr("<b>Automatically clear the clipboard on timeout:</b>"));
+    // Create "master" layout the includes only the frame widget
+    QHBoxLayout * frameLayout = new QHBoxLayout(this);
 
+    // Create layout for the rest of the widgets
+    QGridLayout * layout = new QGridLayout();
+
+    // Create labels
+    QLabel * label1 = new QLabel(tr("Show password for this many <b>secs</b>:"));
+    QLabel * label2 = new QLabel(tr("Default <b>password length</b>:"));
+    QLabel * label3 = new QLabel(tr("<b>Automatically copy</b> password to the clipboard:"));
+    QLabel * label4 = new QLabel(tr("<b>Automatically clear</b> the clipboard on timeout:"));
+
+    // Init delay spin box
     m_delaySpinBox->setRange(1, 60);
     m_delaySpinBox->setValue(5);
 
+    // Init password length spin box
     m_lengthSpinBox->setRange(8, 32);
     m_lengthSpinBox->setValue(8);
 
+    // Create and connect ok-button
     QPushButton * okButton = new QPushButton(tr("Ok"), this);
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
-    layout->addWidget(label1, 0, 0);
+    // Add widgets to the grid layout
+    layout->addWidget(label1,           0, 0);
     layout->addWidget(m_delaySpinBox,   0, 1);
-
-    layout->addWidget(label2, 1, 0);
+    layout->addWidget(label2,           1, 0);
     layout->addWidget(m_lengthSpinBox,  1, 1);
-
-    layout->addWidget(label3, 2, 0);
+    layout->addWidget(label3,           2, 0);
     layout->addWidget(m_autoCopyCheck,  2, 1);
-
-    layout->addWidget(label4, 3, 0);
+    layout->addWidget(label4,           3, 0);
     layout->addWidget(m_autoClearCheck, 3, 1);
+    layout->addWidget(okButton,         4, 1);
 
-    layout->addWidget(okButton, 4, 1);
+    // Create the frame widget
+    QFrame * frame = new QFrame(this);
+    frame->setFrameShape(QFrame::Box);
 
-    setLayout(layout);
+    // Add the frame to its layout
+    frameLayout->addWidget(frame);
+
+    // Set widget layout to the frame
+    frame->setLayout(layout);
 }
 
 void SettingsDlg::initBackground()

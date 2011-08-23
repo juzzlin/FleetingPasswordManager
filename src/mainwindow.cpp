@@ -209,21 +209,30 @@ void MainWindow::initWidgets()
 
 void MainWindow::connectSignalsFromWidgets()
 {
+    // Connect signal to update user name field when a URL gets
+    // selected in the combo box
     connect(m_urlCombo, SIGNAL(activated(const QString &)), this, SLOT(updateUser(const QString &)));
+
+    // Decide the text of the remember/remove-button if URL-field is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setRmbButtonText(const QString &)));
 
+    // Remember of remove a saved login when remember/remove-button is clicked
     connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
 
+    // Generate the password when generate-button is clicked
     connect(m_genButton, SIGNAL(clicked()), this, SLOT(doGenerate()));
 
+    // Invalidate generated password if one of the inputs gets changed
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
 
+    // Enable generate-button if all inputs are valid
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
 
+    // Enable remember-button if the URL not already saved
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));

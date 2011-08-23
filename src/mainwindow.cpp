@@ -50,11 +50,14 @@ QMainWindow(parent)
 , m_rememberText(tr("&Remember URL && User"))
 , m_rememberToolTip(tr("Remember current URL & User. Passwords are not saved."))
 , m_removeToolTip(tr("Don't remember current URL & User anymore."))
+, m_masterPasswordRedText(tr("<b><font color=#aa0000>Master password:</font></b>"))
+, m_masterPasswordGreenText(tr("<b><font color=#00aa00>Master password:</font></b>"))
 , m_delay(m_defaultDelay)
 , m_length(m_defaultLength)
 , m_autoCopy(false)
 , m_autoClear(false)
 , m_masterEdit(new QLineEdit(this))
+, m_masterLabel(new QLabel(this))
 , m_userEdit(new QLineEdit(this))
 , m_passwdEdit(new QLineEdit(this))
 , m_urlCombo(new QComboBox(this))
@@ -135,7 +138,10 @@ void MainWindow::initWidgets()
     connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
 
     // Set tooltip for the master password field
-    m_masterEdit->setToolTip(tr("Enter the master password common to all of your logins."));
+    m_masterEdit->setToolTip(tr("Enter the master password common to all of your logins.\n"
+                                "Note that the master password is not validated: different\n"
+                                "master passwords just result in different "
+                                "generated passwords."));
 
     // Set password-styled echo mode
     m_masterEdit->setEchoMode(QLineEdit::Password);
@@ -144,7 +150,9 @@ void MainWindow::initWidgets()
     m_urlCombo->setEditable(true);
 
     // Set tooltip for the URL combo box
-    m_urlCombo->setToolTip(tr("Enter or select a saved URL/ID. For example facebook, google, gmail.com, myserver.."));
+    m_urlCombo->setToolTip(tr("Enter or select a saved URL/ID.\n"
+                              "For example \"facebook\", \"google\","
+                              "\"gmail.com\", \"myserver\".."));
 
     // Set tooltip for the username combo box
     m_userEdit->setToolTip(tr("Enter your user name corresponding to the selected URL/ID."));
@@ -153,10 +161,12 @@ void MainWindow::initWidgets()
     m_lengthSpinBox->setRange(8, 32);
 
     // Set tooltip for the password length spin box
-    m_lengthSpinBox->setToolTip(tr("Set the password length."));
+    m_lengthSpinBox->setToolTip(tr("The length of the generated password."));
 
     // Set tooltip for the password field
-    m_passwdEdit->setToolTip(tr("This is the generated password, which is always the same with the same master password, URL/ID and user name."));
+    m_passwdEdit->setToolTip(tr("This is the generated password,\n"
+                                "which is always the same with the same master password,\n"
+                                "URL/ID and user name."));
 
     // Make the password line edit read-only and disabled by default
     m_passwdEdit->setReadOnly(true);
@@ -175,19 +185,21 @@ void MainWindow::initWidgets()
     m_rmbButton->setToolTip(m_rememberToolTip);
 
     // Add the widgets to the grid layout
-    layout->addWidget(m_masterEdit,    0, 1, 1, 5);
-    layout->addWidget(m_urlCombo,      1, 1, 1, 5);
-    layout->addWidget(m_userEdit,      2, 1, 1, 4);
-    layout->addWidget(m_lengthSpinBox, 2, 5);
-    layout->addWidget(frame,           3, 1, 1, 5);
+    const int COLS = 5;
+    layout->addWidget(m_masterEdit,    0, 1, 1, COLS);
+    layout->addWidget(m_urlCombo,      1, 1, 1, COLS);
+    layout->addWidget(m_userEdit,      2, 1, 1, COLS - 1);
+    layout->addWidget(m_lengthSpinBox, 2, COLS);
+    layout->addWidget(frame,           3, 1, 1, COLS);
     layout->addWidget(m_genButton,     4, 0);
-    layout->addWidget(m_passwdEdit,    4, 1, 1, 5);
+    layout->addWidget(m_passwdEdit,    4, 1, 1, COLS);
     layout->addWidget(starsLabel,      5, 0);
-    layout->addWidget(m_rmbButton,     5, 1, 1, 4);
-    layout->addWidget(quitButton,      5, 5);
+    layout->addWidget(m_rmbButton,     5, 1, 1, COLS - 1);
+    layout->addWidget(quitButton,      5, COLS);
 
     // Add the "master password:"-label to the layout
-    layout->addWidget(new QLabel(tr("<b><font color=#aa0000>Master password:</font></b>")), 0, 0);
+    m_masterLabel->setText(m_masterPasswordRedText);
+    layout->addWidget(m_masterLabel, 0, 0);
 
     // Create and add the "URL/ID:"-label to the layout
     // No need to store as a member.
@@ -211,10 +223,12 @@ void MainWindow::connectSignalsFromWidgets()
 {
     // Connect signal to update user name field when a URL gets
     // selected in the combo box
-    connect(m_urlCombo, SIGNAL(activated(const QString &)), this, SLOT(updateUser(const QString &)));
+    connect(m_urlCombo, SIGNAL(activated(const QString &)),
+            this, SLOT(updateUser(const QString &)));
 
     // Decide the text of the remember/remove-button if URL-field is changed
-    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setRmbButtonText(const QString &)));
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
+            this, SLOT(setRmbButtonText(const QString &)));
 
     // Remember of remove a saved login when remember/remove-button is clicked
     connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
@@ -223,19 +237,32 @@ void MainWindow::connectSignalsFromWidgets()
     connect(m_genButton, SIGNAL(clicked()), this, SLOT(doGenerate()));
 
     // Invalidate generated password if one of the inputs gets changed
-    connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
-    connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
-    connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(invalidate()));
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(invalidate()));
+    connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
+            this, SLOT(invalidate()));
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(invalidate()));
 
     // Enable generate-button if all inputs are valid
-    connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
-    connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
-    connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableGenButton()));
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableGenButton()));
+    connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableGenButton()));
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableGenButton()));
 
     // Enable remember-button if the URL not already saved
-    connect(m_masterEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
-    connect(m_urlCombo, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
-    connect(m_userEdit, SIGNAL(textChanged(const QString &)), this, SLOT(enableRmbButton()));
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableRmbButton()));
+    connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableRmbButton()));
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(enableRmbButton()));
+
+    // Set "master password"-label color
+    connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(setMasterPasswordLabelColor()));
 }
 
 void MainWindow::initMenu()
@@ -324,13 +351,15 @@ void MainWindow::importLogins()
             m_urlCombo->model()->sort(0);
             saveSettings();
 
-            QString message(tr("Successfully imported logins from '") + fileName + tr("': %1 new, %2 updated."));
+            QString message(tr("Successfully imported logins from '") +
+                            fileName + tr("': %1 new, %2 updated."));
             message = message.arg(newLogins).arg(updated);
             QMessageBox::information(this, tr("Importing logins succeeded"), message);
         }
         else
         {
-            QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to import logins from '") + fileName + "'");
+            QMessageBox::warning(this, tr("Exporting logins failed"),
+                                 tr("Failed to import logins from '") + fileName + "'");
         }
     }
 }
@@ -352,11 +381,13 @@ void MainWindow::exportLogins()
 
         if (LoginIO::exportLogins(logins, fileName))
         {
-            QMessageBox::information(this, tr("Exporting logins succeeded"), tr("Successfully exported logins to '") + fileName + "'");
+            QMessageBox::information(this, tr("Exporting logins succeeded"),
+                                     tr("Successfully exported logins to '") + fileName + "'");
         }
         else
         {
-            QMessageBox::warning(this, tr("Exporting logins failed"), tr("Failed to export logins to '") + fileName + "'");
+            QMessageBox::warning(this, tr("Exporting logins failed"),
+                                 tr("Failed to export logins to '") + fileName + "'");
         }
     }
 }
@@ -481,6 +512,18 @@ void MainWindow::enableRmbButton()
 {
     m_rmbButton->setEnabled(m_urlCombo->currentText().length() > 0 &&
                             m_userEdit->text().length()        > 0);
+}
+
+void MainWindow::setMasterPasswordLabelColor()
+{
+    if (m_masterEdit->text().length() > 0)
+    {
+        m_masterLabel->setText(m_masterPasswordGreenText);
+    }
+    else
+    {
+        m_masterLabel->setText(m_masterPasswordRedText);
+    }
 }
 
 void MainWindow::rememberOrRemoveLogin()

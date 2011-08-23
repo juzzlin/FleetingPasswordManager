@@ -20,11 +20,12 @@
 #include <QMainWindow>
 
 class SettingsDlg;
-class QPushButton;
 class QComboBox;
+class QLabel;
 class QLineEdit;
-class QTimeLine;
+class QPushButton;
 class QSpinBox;
+class QTimeLine;
 
 //! The main window.
 class MainWindow : public QMainWindow
@@ -85,6 +86,12 @@ private:
     //! "Remove.."-tooltip of the remove/remember button.
     QString m_removeToolTip;
 
+    //! "Master password:" as red
+    QString m_masterPasswordRedText;
+
+    //! "Master password:" as green
+    QString m_masterPasswordGreenText;
+
     //! Current delay.
     int m_delay;
 
@@ -99,6 +106,9 @@ private:
 
     //! Master password edit field
     QLineEdit * m_masterEdit;
+
+    //! Master password label
+    QLabel * m_masterLabel;
 
     //! User name edit field
     QLineEdit * m_userEdit;
@@ -141,6 +151,9 @@ private slots:
 
     //! Enable the remember-button.
     void enableRmbButton();
+
+    //! Set green or red color for the master password label.
+    void setMasterPasswordLabelColor();
 
     //! Remember or remove the active url/user-pair depending
     //! on the button state.

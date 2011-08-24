@@ -17,7 +17,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QHash>
 #include <QMainWindow>
+
+#include "logindata.h"
 
 class SettingsDlg;
 class QComboBox;
@@ -134,6 +137,9 @@ private:
 
     //! Settings dialog
     SettingsDlg * m_settingsDlg;
+
+    typedef QHash<QString, LoginData> LoginHash;
+    LoginHash m_loginHash;
 
 private slots:
 

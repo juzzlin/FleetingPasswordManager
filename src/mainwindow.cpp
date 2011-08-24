@@ -422,12 +422,18 @@ void MainWindow::loadSettings()
 
     // Read login data
     m_urlCombo->clear();
+    m_loginHash.clear();
     int size = s.beginReadArray("logins");
     for (int i = 0; i < size; i++)
     {
         s.setArrayIndex(i);
-        m_urlCombo->addItem(s.value("url").toString(),
-                            s.value("user").toString());
+
+        const QString url    = s.value("url").toString();
+        const QString user   = s.value("user").toString();
+        const int     length = s.value("length", m_length).toInt();
+
+        m_urlCombo->addItem(url, user);
+        m_loginHash[url] = LoginData(url, user, length);
     }
     s.endArray();
 

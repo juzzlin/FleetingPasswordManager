@@ -16,6 +16,12 @@
 
 #include "logindata.h"
 
+LoginData::LoginData() :
+  m_url("")
+, m_userName("")
+, m_passwordLength(0)
+{}
+
 LoginData::LoginData(QString url, QString userName, int passwordLength) :
   m_url(url)
 , m_userName(userName)

@@ -25,6 +25,9 @@ class LoginData
 {
 public:
 
+    //! Default constructor.
+    LoginData();
+
     //! Constructor.
     LoginData(QString url, QString userName, int passwordLength);
 

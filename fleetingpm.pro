@@ -13,6 +13,7 @@ HEADERS += \
     src/config.h \
     src/engine.h \
     src/instructionsdlg.h \
+    src/logindata.h \
     src/loginio.h \
     src/mainwindow.h \
     src/settingsdlg.h
@@ -22,6 +23,7 @@ SOURCES += \
     src/config.cpp \
     src/engine.cpp \
     src/instructionsdlg.cpp \
+    src/logindata.cpp \
     src/loginio.cpp  \
     src/main.cpp \
     src/mainwindow.cpp \
@@ -44,4 +46,3 @@ icon1.files   += data/icons/fleetingpm.png
 icon2.path     = $$_PREFIX/share/pixmaps
 icon2.files   += data/icons/fleetingpm.png
 INSTALLS      += target desktop icon1 icon2
-

@@ -432,13 +432,12 @@ void MainWindow::loadSettings()
         const QString user   = s.value("user").toString();
         const int     length = s.value("length", m_length).toInt();
 
-        m_urlCombo->addItem(url, user);
+        m_urlCombo->addItem(url);
         m_loginHash[url] = LoginData(url, user, length);
     }
     s.endArray();
 
     m_urlCombo->model()->sort(0);
-
     updateUser(m_urlCombo->currentText());
 }
 
@@ -452,11 +451,17 @@ void MainWindow::saveSettings()
 
     // Write login data that user wants to be saved
     s.beginWriteArray("logins");
-    for (int i = 0; i < m_urlCombo->count(); i++)
+    QList<LoginData> values = m_loginHash.values();
+    for (int i = 0; i < values.count(); i++)
     {
         s.setArrayIndex(i);
-        s.setValue("url",  m_urlCombo->itemText(i));
-        s.setValue("user", m_urlCombo->itemData(i));
+        s.setValue("url",  values.at(i).url());
+        s.setValue("user", values.at(i).userName());
+
+        if (values.at(i).passwordLength() != m_length)
+        {
+            s.setValue("length", values.at(i).passwordLength());
+        }
     }
     s.endArray();
 }
@@ -540,19 +545,14 @@ void MainWindow::rememberOrRemoveLogin()
     if (m_rmbButton->text() == m_rememberText)
     {
         // Remember url and user
-        bool alreadyAdded = false;
         int index = m_urlCombo->findText(url);
-        if (index != -1)
+        if (index == -1)
         {
-            alreadyAdded = true;
-            m_urlCombo->setItemData(index, user);
-        }
-
-        if (!alreadyAdded)
-        {
-            m_urlCombo->addItem(url, user);
+            m_urlCombo->addItem(url);
             m_urlCombo->model()->sort(0);
         }
+
+        m_loginHash[url] = LoginData(url, user, m_lengthSpinBox->value());
 
         saveSettings();
 
@@ -567,6 +567,8 @@ void MainWindow::rememberOrRemoveLogin()
             m_urlCombo->removeItem(index);
         }
 
+        m_loginHash.remove(url);
+
         saveSettings();
 
         m_rmbButton->setText(m_rememberText);
@@ -578,7 +580,7 @@ void MainWindow::updateUser(const QString & url)
     int index = m_urlCombo->findText(url);
     if (index != -1)
     {
-        m_userEdit->setText(m_urlCombo->itemData(index).toString());
+        m_userEdit->setText(m_loginHash.value(m_urlCombo->itemText(index)).userName());
         m_rmbButton->setText(m_removeText);
     }
 }
@@ -588,7 +590,7 @@ void MainWindow::setRmbButtonText(const QString & url)
     int index = m_urlCombo->findText(url);
     if (index != -1)
     {
-        m_userEdit->setText(m_urlCombo->itemData(index).toString());
+        m_userEdit->setText(m_loginHash.value(m_urlCombo->itemText(index)).userName());
         m_rmbButton->setText(m_removeText);
         m_rmbButton->setToolTip(m_removeToolTip);
     }

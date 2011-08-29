@@ -25,8 +25,8 @@
 #include <QLabel>
 #include <QSpinBox>
 
-SettingsDlg::SettingsDlg(QWidget *parent) :
-QDialog(parent)
+SettingsDlg::SettingsDlg(QWidget *parent)
+: QDialog(parent)
 , m_lengthSpinBox(new QSpinBox(this))
 , m_delaySpinBox(new QSpinBox(this))
 , m_autoCopyCheck(new QCheckBox(this))

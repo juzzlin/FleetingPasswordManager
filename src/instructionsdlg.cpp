@@ -23,8 +23,8 @@
 #include <QTextBrowser>
 #include <QSizeGrip>
 
-InstructionsDlg::InstructionsDlg(QWidget * pParent) :
-    QDialog(pParent)
+InstructionsDlg::InstructionsDlg(QWidget * pParent)
+: QDialog(pParent)
 {
     setWindowTitle(QString(tr("Instructions for ")) + Config::NAME);
     QTextBrowser * browser = new QTextBrowser();

@@ -42,8 +42,8 @@
 #include <QSpinBox>
 #include <QTimeLine>
 
-MainWindow::MainWindow(QWidget *parent) :
-QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent)
+: QMainWindow(parent)
 , m_defaultDelay(5)
 , m_defaultLength(8)
 , m_removeText(tr("&Remove URL && User"))

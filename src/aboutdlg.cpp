@@ -23,8 +23,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-AboutDlg::AboutDlg(QWidget * parent) :
-    QDialog(parent)
+AboutDlg::AboutDlg(QWidget * parent)
+: QDialog(parent)
 {
     setWindowTitle(tr("About Fleeting Password Manager"));
     initWidgets();

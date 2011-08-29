@@ -230,6 +230,10 @@ void MainWindow::connectSignalsFromWidgets()
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
             this, SLOT(setRmbButtonText(const QString &)));
 
+    // Connect signal to update user name field if URL-field is changed
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
+            this, SLOT(updateUser(const QString &)));
+
     // Remember of remove a saved login when remember/remove-button is clicked
     connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
 
@@ -577,20 +581,27 @@ void MainWindow::rememberOrRemoveLogin()
 
 void MainWindow::updateUser(const QString & url)
 {
-    int index = m_urlCombo->findText(url);
-    if (index != -1)
+    if (m_loginHash.contains(url))
     {
-        m_userEdit->setText(m_loginHash.value(m_urlCombo->itemText(index)).userName());
+        // Update the user name field
+        m_userEdit->setText(m_loginHash.value(url).userName());
+
+        // Update the password length spinbox
+        m_lengthSpinBox->setValue(m_loginHash.value(url).passwordLength());
+
+        // Change the text in remember-button to "remove"
         m_rmbButton->setText(m_removeText);
     }
 }
 
 void MainWindow::setRmbButtonText(const QString & url)
 {
-    int index = m_urlCombo->findText(url);
-    if (index != -1)
+    // Set remove-text if url is remembered/saved,
+    // or set remember-text if url is not
+    // remembered/saved.
+
+    if (m_loginHash.contains(url))
     {
-        m_userEdit->setText(m_loginHash.value(m_urlCombo->itemText(index)).userName());
         m_rmbButton->setText(m_removeText);
         m_rmbButton->setToolTip(m_removeToolTip);
     }

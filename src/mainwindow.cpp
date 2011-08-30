@@ -53,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent)
 , m_masterPasswordRedText(tr("<b><font color=#aa0000>Master password:</font></b>"))
 , m_masterPasswordGreenText(tr("<b><font color=#00aa00>Master password:</font></b>"))
 , m_delay(m_defaultDelay)
-, m_length(m_defaultLength)
 , m_autoCopy(false)
 , m_autoClear(false)
 , m_masterEdit(new QLineEdit(this))
@@ -316,7 +315,7 @@ void MainWindow::initMenu()
 void MainWindow::showSettingsDlg()
 {
     m_settingsDlg->exec();
-    m_settingsDlg->getSettings(m_delay, m_length, m_autoCopy, m_autoClear);
+    m_settingsDlg->getSettings(m_delay, m_autoCopy, m_autoClear);
     m_timeLine->setDuration(m_delay * 1000);
     saveSettings();
 }
@@ -417,11 +416,10 @@ void MainWindow::loadSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
     m_delay     = s.value("delay", m_defaultDelay).toInt();
-    m_length    = s.value("length", m_defaultLength).toInt();
     m_autoCopy  = s.value("autoCopy", false).toBool();
     m_autoClear = s.value("autoClear", false).toBool();
 
-    m_settingsDlg->setSettings(m_delay, m_length, m_autoCopy, m_autoClear);
+    m_settingsDlg->setSettings(m_delay, m_autoCopy, m_autoClear);
     m_timeLine->setDuration(m_delay * 1000);
 
     // Read login data
@@ -443,7 +441,7 @@ void MainWindow::loadSettings()
         // Add url to the login data hash
         m_loginHash[url] = LoginData(url,
                                      s.value("user").toString(),
-                                     s.value("length", m_length).toInt());
+                                     s.value("length", m_defaultLength).toInt());
     }
     s.endArray();
 
@@ -460,7 +458,6 @@ void MainWindow::saveSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
     s.setValue("delay",     m_delay);
-    s.setValue("length",    m_length);
     s.setValue("autoCopy",  m_autoCopy);
     s.setValue("autoClear", m_autoClear);
 
@@ -474,7 +471,7 @@ void MainWindow::saveSettings()
         s.setValue("user", values.at(i).userName());
 
         // Save password length if it differs from the default
-        if (values.at(i).passwordLength() != m_length)
+        if (values.at(i).passwordLength() != m_defaultLength)
         {
             s.setValue("length", values.at(i).passwordLength());
         }
@@ -487,7 +484,7 @@ void MainWindow::doGenerate()
     QString passwd = Engine::generate(m_masterEdit->text(),
                                       m_urlCombo->currentText(),
                                       m_userEdit->text(),
-                                      m_length);
+                                      m_lengthSpinBox->value());
 
     // Enable the text field and  show the generated passwd
     m_passwdEdit->setEnabled(true);

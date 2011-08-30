@@ -27,7 +27,6 @@
 
 SettingsDlg::SettingsDlg(QWidget *parent)
 : QDialog(parent)
-, m_lengthSpinBox(new QSpinBox(this))
 , m_delaySpinBox(new QSpinBox(this))
 , m_autoCopyCheck(new QCheckBox(this))
 , m_autoClearCheck(new QCheckBox(this))
@@ -54,17 +53,12 @@ void SettingsDlg::initWidgets()
 
     // Create labels
     QLabel * label1 = new QLabel(tr("Show password for this many <b>secs</b>:"));
-    QLabel * label2 = new QLabel(tr("Default <b>password length</b>:"));
-    QLabel * label3 = new QLabel(tr("<b>Automatically copy</b> password to the clipboard:"));
-    QLabel * label4 = new QLabel(tr("<b>Automatically clear</b> the clipboard on timeout:"));
+    QLabel * label2 = new QLabel(tr("<b>Automatically copy</b> password to the clipboard:"));
+    QLabel * label3 = new QLabel(tr("<b>Automatically clear</b> the clipboard on timeout:"));
 
     // Init delay spin box
     m_delaySpinBox->setRange(1, 60);
     m_delaySpinBox->setValue(5);
-
-    // Init password length spin box
-    m_lengthSpinBox->setRange(8, 32);
-    m_lengthSpinBox->setValue(8);
 
     // Create and connect ok-button
     QPushButton * okButton = new QPushButton(tr("Ok"), this);
@@ -73,11 +67,9 @@ void SettingsDlg::initWidgets()
     // Add widgets to the grid layout
     layout->addWidget(label1,           0, 0);
     layout->addWidget(m_delaySpinBox,   0, 1);
-    layout->addWidget(label2,           1, 0);
-    layout->addWidget(m_lengthSpinBox,  1, 1);
-    layout->addWidget(label3,           2, 0);
+    layout->addWidget(label2,           2, 0);
     layout->addWidget(m_autoCopyCheck,  2, 1);
-    layout->addWidget(label4,           3, 0);
+    layout->addWidget(label3,           3, 0);
     layout->addWidget(m_autoClearCheck, 3, 1);
     layout->addWidget(okButton,         4, 1);
 
@@ -100,20 +92,18 @@ void SettingsDlg::initBackground()
     setAutoFillBackground(true);
 }
 
-void SettingsDlg::getSettings(int & rDelay, int & rLength,
+void SettingsDlg::getSettings(int & rDelay,
                               bool & rAutoCopy, bool & rAutoClear) const
 {
    rDelay     = m_delaySpinBox->value();
-   rLength    = m_lengthSpinBox->value();
    rAutoCopy  = m_autoCopyCheck->isChecked();
    rAutoClear = m_autoClearCheck->isChecked();
 }
 
-void SettingsDlg::setSettings(int delay, int length,
+void SettingsDlg::setSettings(int delay,
                               bool autoCopy, bool autoClear)
 {
    m_delaySpinBox->setValue(delay);
-   m_lengthSpinBox->setValue(length);
    m_autoCopyCheck->setChecked(autoCopy);
    m_autoClearCheck->setChecked(autoClear);
 }

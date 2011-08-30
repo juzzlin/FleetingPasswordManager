@@ -33,12 +33,10 @@ public:
     explicit SettingsDlg(QWidget * parent = 0);
 
     //! Store current settings to the given arguments.
-    void getSettings(int & rDelay, int & rLength,
-                     bool & rAutoCopy, bool & rAutoClear) const;
+    void getSettings(int & rDelay, bool & rAutoCopy, bool & rAutoClear) const;
 
     //! Take current settings from the given arguments.
-    void setSettings(int delay, int length,
-                     bool autoCopy, bool autoClear);
+    void setSettings(int delay, bool autoCopy, bool autoClear);
 
 private:
 
@@ -47,9 +45,6 @@ private:
 
     //! Set the background image.
     void initBackground();
-
-    //! Spin box for the length of the password.
-    QSpinBox  * m_lengthSpinBox;
 
     //! Spin box for the password show delay.
     QSpinBox  * m_delaySpinBox;

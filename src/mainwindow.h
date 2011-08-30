@@ -98,9 +98,6 @@ private:
     //! Current delay.
     int m_delay;
 
-    //! Current password length.
-    int m_length;
-
     //! Copy generated password automatically to the clipboard if true.
     bool m_autoCopy;
 

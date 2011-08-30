@@ -427,21 +427,32 @@ void MainWindow::loadSettings()
     // Read login data
     m_urlCombo->clear();
     m_loginHash.clear();
+
+    // Loop through saved logins
     int size = s.beginReadArray("logins");
     for (int i = 0; i < size; i++)
     {
         s.setArrayIndex(i);
 
-        const QString url    = s.value("url").toString();
-        const QString user   = s.value("user").toString();
-        const int     length = s.value("length", m_length).toInt();
+        // Read the url
+        const QString url = s.value("url").toString();
 
+        // Add url to the combo box
         m_urlCombo->addItem(url);
-        m_loginHash[url] = LoginData(url, user, length);
+
+        // Add url to the login data hash
+        m_loginHash[url] = LoginData(url,
+                                     s.value("user").toString(),
+                                     s.value("length", m_length).toInt());
     }
     s.endArray();
 
+    // Sort the combo box
     m_urlCombo->model()->sort(0);
+
+    // Set the current index to zero
+    // and update related fields.
+    m_urlCombo->setCurrentIndex(0);
     updateUser(m_urlCombo->currentText());
 }
 
@@ -462,6 +473,7 @@ void MainWindow::saveSettings()
         s.setValue("url",  values.at(i).url());
         s.setValue("user", values.at(i).userName());
 
+        // Save password length if it differs from the default
         if (values.at(i).passwordLength() != m_length)
         {
             s.setValue("length", values.at(i).passwordLength());

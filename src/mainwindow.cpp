@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
 , m_delay(m_defaultDelay)
 , m_autoCopy(false)
 , m_autoClear(false)
+, m_alwaysOnTop(true)
 , m_masterEdit(new QLineEdit(this))
 , m_masterLabel(new QLabel(this))
 , m_userEdit(new QLineEdit(this))
@@ -68,7 +69,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle("Fleeting Password Manager");
     setWindowIcon(QIcon(":/fleetingpm.png"));
-    setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 
     // Make the size fixed
     resize(QSize(Config::MAINWINDOW_WIDTH, Config::MAINWINDOW_HEIGHT));
@@ -79,6 +79,12 @@ MainWindow::MainWindow(QWidget *parent)
     initMenu();
     initBackground();
     loadSettings();
+
+    // Apply window flags
+    if (m_alwaysOnTop)
+    {
+        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
+    }
 
     // Initialize the timer used when fading out the
     // generated password
@@ -131,10 +137,10 @@ void MainWindow::initWidgets()
     QLabel * starsLabel = new QLabel();
     starsLabel->setPixmap(QPixmap(":/stars.png"));
 
-    // Create and connect the quit-button
+    // Create and connect the clear-button
     // No need to store as a member.
-    QPushButton * quitButton = new QPushButton(tr("&Quit"));
-    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+    QPushButton * clearButton = new QPushButton(tr("&Clear"));
+    connect(clearButton, SIGNAL(clicked()), this, SLOT(clearFields()));
 
     // Set tooltip for the master password field
     m_masterEdit->setToolTip(tr("Enter the master password common to all of your logins.\n"
@@ -194,7 +200,7 @@ void MainWindow::initWidgets()
     layout->addWidget(m_passwdEdit,    4, 1, 1, COLS);
     layout->addWidget(starsLabel,      5, 0);
     layout->addWidget(m_rmbButton,     5, 1, 1, COLS - 1);
-    layout->addWidget(quitButton,      5, COLS);
+    layout->addWidget(clearButton,     5, COLS);
 
     // Add the "master password:"-label to the layout
     m_masterLabel->setText(m_masterPasswordRedText);
@@ -323,7 +329,7 @@ void MainWindow::initMenu()
 void MainWindow::showSettingsDlg()
 {
     m_settingsDlg->exec();
-    m_settingsDlg->getSettings(m_delay, m_autoCopy, m_autoClear);
+    m_settingsDlg->getSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
     m_timeLine->setDuration(m_delay * 1000);
     saveSettings();
 }
@@ -423,11 +429,14 @@ void MainWindow::showAboutQtDlg()
 void MainWindow::loadSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
-    m_delay     = s.value("delay", m_defaultDelay).toInt();
-    m_autoCopy  = s.value("autoCopy", false).toBool();
-    m_autoClear = s.value("autoClear", false).toBool();
 
-    m_settingsDlg->setSettings(m_delay, m_autoCopy, m_autoClear);
+    m_delay           = s.value("delay", m_defaultDelay).toInt();
+    m_autoCopy        = s.value("autoCopy", false).toBool();
+    m_autoClear       = s.value("autoClear", false).toBool();
+    m_alwaysOnTop     = s.value("alwaysOnTop", true).toBool();
+    int defaultLength = s.value("length", m_defaultLength).toInt();
+
+    m_settingsDlg->setSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
     m_timeLine->setDuration(m_delay * 1000);
 
     // Read login data
@@ -449,7 +458,7 @@ void MainWindow::loadSettings()
         // Add url to the login data hash
         m_loginHash[url] = LoginData(url,
                                      s.value("user").toString(),
-                                     s.value("length", m_defaultLength).toInt());
+                                     s.value("length", defaultLength).toInt());
     }
     s.endArray();
 
@@ -465,9 +474,10 @@ void MainWindow::loadSettings()
 void MainWindow::saveSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
-    s.setValue("delay",     m_delay);
-    s.setValue("autoCopy",  m_autoCopy);
-    s.setValue("autoClear", m_autoClear);
+    s.setValue("delay",       m_delay);
+    s.setValue("autoCopy",    m_autoCopy);
+    s.setValue("autoClear",   m_autoClear);
+    s.setValue("alwaysOnTop", m_alwaysOnTop);
 
     // Write login data that user wants to be saved
     s.beginWriteArray("logins");
@@ -667,6 +677,13 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
     QApplication::clipboard()->clear();
     event->accept();
+}
+
+void MainWindow::clearFields()
+{
+    m_userEdit->clear();
+    m_urlCombo->clearEditText();
+    m_lengthSpinBox->setValue(m_defaultLength);
 }
 
 MainWindow::~MainWindow()

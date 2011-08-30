@@ -104,6 +104,9 @@ private:
     //! Clear clipboard on timeout if true.
     bool m_autoClear;
 
+    //! True, if window is always on top.
+    bool m_alwaysOnTop;
+
     //! Master password edit field
     QLineEdit * m_masterEdit;
 
@@ -185,6 +188,9 @@ private slots:
 
     //! Show the about Qt dialog.
     void showAboutQtDlg();
+
+    //! Clear url and user name
+    void clearFields();
 };
 
 #endif // MAINWINDOW_H

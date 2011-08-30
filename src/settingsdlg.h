@@ -33,10 +33,12 @@ public:
     explicit SettingsDlg(QWidget * parent = 0);
 
     //! Store current settings to the given arguments.
-    void getSettings(int & rDelay, bool & rAutoCopy, bool & rAutoClear) const;
+    void getSettings(int & rDelay, bool & rAutoCopy,
+                     bool & rAutoClear, bool & rAlwaysOnTop) const;
 
     //! Take current settings from the given arguments.
-    void setSettings(int delay, bool autoCopy, bool autoClear);
+    void setSettings(int delay, bool autoCopy,
+                     bool autoClear, bool alwaysOnTop);
 
 private:
 
@@ -55,6 +57,9 @@ private:
     //! Check box for clearing the clipboard automatically
     //! on timeout.
     QCheckBox * m_autoClearCheck;
+
+    //! Check box for window being always on top
+    QCheckBox * m_alwaysOnTopCheck;
 };
 
 #endif // SETTINGSDLG_H

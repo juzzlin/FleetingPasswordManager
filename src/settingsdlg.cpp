@@ -30,6 +30,7 @@ SettingsDlg::SettingsDlg(QWidget *parent)
 , m_delaySpinBox(new QSpinBox(this))
 , m_autoCopyCheck(new QCheckBox(this))
 , m_autoClearCheck(new QCheckBox(this))
+, m_alwaysOnTopCheck(new QCheckBox(this))
 {
     setWindowTitle(tr("Settings"));
 
@@ -52,9 +53,14 @@ void SettingsDlg::initWidgets()
     QGridLayout * layout = new QGridLayout();
 
     // Create labels
-    QLabel * label1 = new QLabel(tr("Show password for this many <b>secs</b>:"));
-    QLabel * label2 = new QLabel(tr("<b>Automatically copy</b> password to the clipboard:"));
-    QLabel * label3 = new QLabel(tr("<b>Automatically clear</b> the clipboard on timeout:"));
+    QLabel * label1 = new QLabel(tr("Password timeout:"));
+    label1->setToolTip(tr("Show password for this many secs after generation."));
+    QLabel * label2 = new QLabel(tr("Automatically copy password to the clipboard:"));
+    label2->setToolTip(tr("Automatically copy password to the clipboard after generation."));
+    QLabel * label3 = new QLabel(tr("Automatically clear the clipboard on timeout:"));
+    label3->setToolTip(tr("Automatically clear the clipboard on timeout."));
+    QLabel * label4 = new QLabel(tr("Always on top:"));
+    label4->setToolTip(tr("If set, the window remains always on top. Needs restarting to apply."));
 
     // Init delay spin box
     m_delaySpinBox->setRange(1, 60);
@@ -65,13 +71,15 @@ void SettingsDlg::initWidgets()
     connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 
     // Add widgets to the grid layout
-    layout->addWidget(label1,           0, 0);
-    layout->addWidget(m_delaySpinBox,   0, 1);
-    layout->addWidget(label2,           2, 0);
-    layout->addWidget(m_autoCopyCheck,  2, 1);
-    layout->addWidget(label3,           3, 0);
-    layout->addWidget(m_autoClearCheck, 3, 1);
-    layout->addWidget(okButton,         4, 1);
+    layout->addWidget(label1,             0, 0);
+    layout->addWidget(m_delaySpinBox,     0, 1);
+    layout->addWidget(label2,             1, 0);
+    layout->addWidget(m_autoCopyCheck,    1, 1);
+    layout->addWidget(label3,             2, 0);
+    layout->addWidget(m_autoClearCheck,   2, 1);
+    layout->addWidget(label4,             3, 0);
+    layout->addWidget(m_alwaysOnTopCheck, 3, 1);
+    layout->addWidget(okButton,           4, 1);
 
     // Create the frame widget
     QFrame * frame = new QFrame(this);
@@ -93,17 +101,21 @@ void SettingsDlg::initBackground()
 }
 
 void SettingsDlg::getSettings(int & rDelay,
-                              bool & rAutoCopy, bool & rAutoClear) const
+                              bool & rAutoCopy, bool & rAutoClear,
+                              bool & rAlwaysOnTop) const
 {
-   rDelay     = m_delaySpinBox->value();
-   rAutoCopy  = m_autoCopyCheck->isChecked();
-   rAutoClear = m_autoClearCheck->isChecked();
+   rDelay       = m_delaySpinBox->value();
+   rAutoCopy    = m_autoCopyCheck->isChecked();
+   rAutoClear   = m_autoClearCheck->isChecked();
+   rAlwaysOnTop = m_alwaysOnTopCheck->isChecked();
 }
 
 void SettingsDlg::setSettings(int delay,
-                              bool autoCopy, bool autoClear)
+                              bool autoCopy, bool autoClear,
+                              bool alwaysOnTop)
 {
    m_delaySpinBox->setValue(delay);
    m_autoCopyCheck->setChecked(autoCopy);
    m_autoClearCheck->setChecked(autoClear);
+   m_alwaysOnTopCheck->setChecked(alwaysOnTop);
 }

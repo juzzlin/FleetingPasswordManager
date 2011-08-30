@@ -581,6 +581,11 @@ void MainWindow::rememberOrRemoveLogin()
 
         // Change the button text to "remove"
         m_rmbButton->setText(m_removeText);
+
+        // Show a message box
+        QString message(tr("Added to the saved logins: '") +
+                        url + tr("'."));
+        QMessageBox::information(this, Config::NAME, message);
     }
     else
     {
@@ -597,8 +602,13 @@ void MainWindow::rememberOrRemoveLogin()
         // Save settings
         saveSettings();
 
-        // Change the button text to "remember"
-        m_rmbButton->setText(m_rememberText);
+        // Update the button text
+        toggleRmbButtonText();
+
+        // Show a message box
+        QString message(tr("Removed from the saved logins: '") +
+                        url + tr("'."));
+        QMessageBox::information(this, Config::NAME, message);
     }
 }
 

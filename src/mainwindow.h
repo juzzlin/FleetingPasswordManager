@@ -165,8 +165,8 @@ private slots:
     //! Update the user field if the url/user-pair is known.
     void updateUser(const QString & url);
 
-    //! Set the text for remember-button.
-    void setRmbButtonText(const QString & url);
+    //! Set the text for remember/remove-button.
+    void toggleRmbButtonText();
 
     //! Import logins
     void importLogins();

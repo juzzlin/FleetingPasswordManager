@@ -225,9 +225,17 @@ void MainWindow::connectSignalsFromWidgets()
     connect(m_urlCombo, SIGNAL(activated(const QString &)),
             this, SLOT(updateUser(const QString &)));
 
-    // Decide the text of the remember/remove-button if URL-field is changed
+    // Decide the text of the remember/remove-button if URL is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(setRmbButtonText(const QString &)));
+            this, SLOT(toggleRmbButtonText()));
+
+    // Decide the text of the remember/remove-button if user name is changed
+    connect(m_userEdit, SIGNAL(textChanged(const QString &)),
+            this, SLOT(toggleRmbButtonText()));
+
+    // Decide the text of the remember/remove-button if length is changed
+    connect(m_lengthSpinBox, SIGNAL(valueChanged(int)),
+            this, SLOT(toggleRmbButtonText()));
 
     // Connect signal to update user name field if URL-field is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
@@ -552,8 +560,8 @@ void MainWindow::setMasterPasswordLabelColor()
 
 void MainWindow::rememberOrRemoveLogin()
 {
-    QString user = m_userEdit->text();
-    QString url  = m_urlCombo->currentText();
+    const QString user = m_userEdit->text();
+    const QString url  = m_urlCombo->currentText();
 
     if (m_rmbButton->text() == m_rememberText)
     {
@@ -565,10 +573,13 @@ void MainWindow::rememberOrRemoveLogin()
             m_urlCombo->model()->sort(0);
         }
 
+        // Update the corresponding login data in the hash
         m_loginHash[url] = LoginData(url, user, m_lengthSpinBox->value());
 
+        // Save settings
         saveSettings();
 
+        // Change the button text to "remove"
         m_rmbButton->setText(m_removeText);
     }
     else
@@ -580,10 +591,13 @@ void MainWindow::rememberOrRemoveLogin()
             m_urlCombo->removeItem(index);
         }
 
+        // Remove the corresponding login data from the hash
         m_loginHash.remove(url);
 
+        // Save settings
         saveSettings();
 
+        // Change the button text to "remember"
         m_rmbButton->setText(m_rememberText);
     }
 }
@@ -603,16 +617,30 @@ void MainWindow::updateUser(const QString & url)
     }
 }
 
-void MainWindow::setRmbButtonText(const QString & url)
+void MainWindow::toggleRmbButtonText()
 {
-    // Set remove-text if url is remembered/saved,
-    // or set remember-text if url is not
-    // remembered/saved.
+    // Set remove-text if url is remembered/saved.
+    // Set remember-text if url is not
+    // remembered/saved or user/length is changed.
 
+    const QString url = m_urlCombo->currentText();
     if (m_loginHash.contains(url))
     {
-        m_rmbButton->setText(m_removeText);
-        m_rmbButton->setToolTip(m_removeToolTip);
+        const QString currentUser   = m_userEdit->text();
+        const int     currentLength = m_lengthSpinBox->value();
+        const QString savedUser     = m_loginHash.value(url).userName();
+        const int     savedLength   = m_loginHash.value(url).passwordLength();
+
+        if (currentUser != savedUser || currentLength != savedLength)
+        {
+            m_rmbButton->setText(m_rememberText);
+            m_rmbButton->setToolTip(m_rememberToolTip);
+        }
+        else
+        {
+            m_rmbButton->setText(m_removeText);
+            m_rmbButton->setToolTip(m_removeToolTip);
+        }
     }
     else
     {

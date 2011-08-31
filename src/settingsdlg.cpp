@@ -21,6 +21,7 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QPushButton>
 #include <QLabel>
 #include <QSpinBox>
@@ -47,7 +48,10 @@ SettingsDlg::SettingsDlg(QWidget *parent)
 void SettingsDlg::initWidgets()
 {
     // Create "master" layout the includes only the frame widget
-    QHBoxLayout * frameLayout = new QHBoxLayout(this);
+    QVBoxLayout * frameLayout = new QVBoxLayout(this);
+
+    // Create layout for the button
+    QHBoxLayout * buttonLayout = new QHBoxLayout();
 
     // Create layout for the rest of the widgets
     QGridLayout * layout = new QGridLayout();
@@ -79,7 +83,6 @@ void SettingsDlg::initWidgets()
     layout->addWidget(m_autoClearCheck,   2, 1);
     layout->addWidget(label4,             3, 0);
     layout->addWidget(m_alwaysOnTopCheck, 3, 1);
-    layout->addWidget(okButton,           4, 1);
 
     // Create the frame widget
     QFrame * frame = new QFrame(this);
@@ -87,6 +90,10 @@ void SettingsDlg::initWidgets()
 
     // Add the frame to its layout
     frameLayout->addWidget(frame);
+
+    buttonLayout->addStretch();
+    buttonLayout->addWidget(okButton);
+    frameLayout->addLayout(buttonLayout);
 
     // Set widget layout to the frame
     frame->setLayout(layout);

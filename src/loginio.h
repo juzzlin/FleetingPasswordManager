@@ -18,13 +18,14 @@
 #define LOGINIO_H
 
 #include <QList>
-#include <QPair>
 #include <QString>
+
+#include "logindata.h"
 
 //! Routines to import and export logins.
 namespace LoginIO
 {
-    typedef QList<QPair<QString, QString> > LoginList;
+    typedef QList<LoginData> LoginList;
 
     //! Import logins from a file to rLogins.
     bool importLogins(LoginList & rLogins, QString fileName);

@@ -53,10 +53,11 @@ bool LoginIO::importLogins(LoginIO::LoginList & rLogins, QString fileName)
         {
             if (tag.nodeName() == "login")
             {
-                QString url  = tag.attribute("url", "");
-                QString user = tag.attribute("user", "");
+                QString url    = tag.attribute("url", "");
+                QString user   = tag.attribute("user", "");
+                int     length = tag.attribute("length", 0).toInt();
 
-                rLogins << QPair<QString, QString>(url, user);
+                rLogins << LoginData(url, user, length);
             }
 
             node = node.nextSibling();
@@ -81,8 +82,9 @@ bool LoginIO::exportLogins(LoginIO::LoginList logins, QString fileName)
     for (int i = 0; i < logins.count(); i++)
     {
         QDomElement loginTag = doc.createElement("login");
-        loginTag.setAttribute("url", logins.at(i).first);
-        loginTag.setAttribute("user", logins.at(i).second);
+        loginTag.setAttribute("url",    logins.at(i).url());
+        loginTag.setAttribute("user",   logins.at(i).userName());
+        loginTag.setAttribute("length", logins.at(i).passwordLength());
         root.appendChild(loginTag);
     }
 

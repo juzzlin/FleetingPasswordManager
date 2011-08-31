@@ -365,23 +365,25 @@ void MainWindow::importLogins()
         {
             for (int i = 0; i < logins.count(); i++)
             {
-                QString url  = logins.at(i).first;
-                QString user = logins.at(i).second;
+                QString url    = logins.at(i).url();
+                QString user   = logins.at(i).userName();
+                int     length = logins.at(i).passwordLength();
 
-                int index = m_urlCombo->findText(url);
-                if (index != -1)
+                if (m_loginHash.contains(url))
                 {
-                    m_urlCombo->setItemData(index, user);
                     updated++;
                 }
                 else
                 {
-                    m_urlCombo->addItem(url, user);
+                    m_urlCombo->addItem(url);
                     newLogins++;
                 }
+
+                m_loginHash[url] = LoginData(url, user, length);
             }
 
             m_urlCombo->model()->sort(0);
+            m_urlCombo->setCurrentIndex(0);
             saveSettings();
 
             QString message(tr("Successfully imported logins from '") +
@@ -407,12 +409,7 @@ void MainWindow::exportLogins()
         if (!fileName.endsWith(".fpm"))
             fileName.append(".fpm");
 
-        LoginIO::LoginList logins;
-        for (int i = 0; i < m_urlCombo->count(); i++)
-            logins << QPair<QString, QString>(m_urlCombo->itemText(i),
-                                              m_urlCombo->itemData(i).toString());
-
-        if (LoginIO::exportLogins(logins, fileName))
+        if (LoginIO::exportLogins(m_loginHash.values(), fileName))
         {
             QMessageBox::information(this, tr("Exporting logins succeeded"),
                                      tr("Successfully exported logins to '") + fileName + "'");

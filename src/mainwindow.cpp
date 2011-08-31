@@ -501,14 +501,9 @@ void MainWindow::saveSettings()
     for (int i = 0; i < values.count(); i++)
     {
         s.setArrayIndex(i);
-        s.setValue("url",  values.at(i).url());
-        s.setValue("user", values.at(i).userName());
-
-        // Save password length if it differs from the default
-        if (values.at(i).passwordLength() != m_defaultLength)
-        {
-            s.setValue("length", values.at(i).passwordLength());
-        }
+        s.setValue("url",    values.at(i).url());
+        s.setValue("user",   values.at(i).userName());
+        s.setValue("length", values.at(i).passwordLength());
     }
     s.endArray();
 }

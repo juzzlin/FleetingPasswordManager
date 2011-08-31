@@ -1,17 +1,19 @@
 CHANGELOG
 =========
 
-Version 2.5 (RC)
+Version 2.5
 -----------
 
 - Quit-button replaced with clear-button
 - Master password label turns green when
   password typed in
-- Windows always-on-top made optional
+- Window always-on-top made optional
 - Password length can be set per login
-- Fixes: Settings dialog is too small
-- Fixes: Combo box doesn't go to the first 
-  item when started
+- Default delay increased to 15 secs
+- Ctrl+W closes the program
+- Tab order includes buttons
+- Settings dialog's layout improved
+- Combo box goes to the first item when started
 
 Version 2.4
 -----------

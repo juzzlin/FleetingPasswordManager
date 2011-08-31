@@ -44,7 +44,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
 : QMainWindow(parent)
-, m_defaultDelay(5)
+, m_defaultDelay(15)
 , m_defaultLength(8)
 , m_removeText(tr("&Remove URL && User"))
 , m_rememberText(tr("&Remember URL && User"))

@@ -340,10 +340,13 @@ void MainWindow::initMenu()
 
 void MainWindow::showSettingsDlg()
 {
-    m_settingsDlg->exec();
-    m_settingsDlg->getSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
-    m_timeLine->setDuration(m_delay * 1000);
-    saveSettings();
+    m_settingsDlg->setSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+    if (m_settingsDlg->exec() == QDialog::Accepted)
+    {
+        m_settingsDlg->getSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+        m_timeLine->setDuration(m_delay * 1000);
+        saveSettings();
+    }
 }
 
 void MainWindow::importLogins()

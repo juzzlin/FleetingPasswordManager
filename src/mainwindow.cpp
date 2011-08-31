@@ -316,6 +316,7 @@ void MainWindow::initMenu()
 
     // Add action for quit
     QAction * quitAct = new QAction(tr("&Quit"), fileMenu);
+    quitAct->setShortcut(QKeySequence("Ctrl+W"));
     connect(quitAct, SIGNAL(triggered()), this, SLOT(close()));
     fileMenu->addAction(quitAct);
 

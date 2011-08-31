@@ -141,6 +141,7 @@ void MainWindow::initWidgets()
     // No need to store as a member.
     QPushButton * clearButton = new QPushButton(tr("&Clear"));
     connect(clearButton, SIGNAL(clicked()), this, SLOT(clearFields()));
+    clearButton->setAutoDefault(true);
 
     // Set tooltip for the master password field
     m_masterEdit->setToolTip(tr("Enter the master password common to all of your logins.\n"
@@ -179,12 +180,14 @@ void MainWindow::initWidgets()
 
     // Set the generate-button disabled by default
     m_genButton->setEnabled(false);
+    m_genButton->setAutoDefault(true);
 
     // Set tooltip for the generate-button
     m_genButton->setToolTip(tr("Generate and show the password"));
 
     // Set the remember-button disabled by default
     m_rmbButton->setEnabled(false);
+    m_rmbButton->setAutoDefault(true);
 
     // Set tooltip for the remember-button
     m_rmbButton->setToolTip(m_rememberToolTip);
@@ -219,6 +222,15 @@ void MainWindow::initWidgets()
     QWidget * dummy = new QWidget();
     dummy->setLayout(layout);
     setCentralWidget(dummy);
+
+    // Set tab order for the layout
+    QWidget::setTabOrder(m_masterEdit   , m_urlCombo);
+    QWidget::setTabOrder(m_urlCombo     , m_userEdit);
+    QWidget::setTabOrder(m_userEdit     , m_lengthSpinBox);
+    QWidget::setTabOrder(m_lengthSpinBox, m_genButton);
+    QWidget::setTabOrder(m_genButton    , m_passwdEdit);
+    QWidget::setTabOrder(m_passwdEdit   , m_rmbButton);
+    QWidget::setTabOrder(m_rmbButton    , clearButton);
 
     // Connect the rest of the signals emitted by the widgets
     connectSignalsFromWidgets();

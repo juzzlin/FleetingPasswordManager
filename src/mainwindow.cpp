@@ -132,11 +132,6 @@ void MainWindow::initWidgets()
     QFrame * frame = new QFrame(this);
     frame->setFrameShape(QFrame::HLine);
 
-    // Create a star image / logo as a label
-    // No need to store as a member.
-    QLabel * starsLabel = new QLabel();
-    starsLabel->setPixmap(QPixmap(":/stars.png"));
-
     // Create and connect the clear-button
     // No need to store as a member.
     QPushButton * clearButton = new QPushButton(tr("&Clear"));
@@ -201,7 +196,6 @@ void MainWindow::initWidgets()
     layout->addWidget(frame,           3, 1, 1, COLS);
     layout->addWidget(m_genButton,     4, 0);
     layout->addWidget(m_passwdEdit,    4, 1, 1, COLS);
-    layout->addWidget(starsLabel,      5, 0);
     layout->addWidget(m_rmbButton,     5, 1, 1, COLS - 1);
     layout->addWidget(clearButton,     5, COLS);
 

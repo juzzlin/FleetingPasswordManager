@@ -19,4 +19,4 @@
 const char * Config::COMPANY  = "fleetingpm";
 const char * Config::SOFTWARE = "fleetingpm";
 const char * Config::NAME     = "Fleeting Password Manager";
-const char * Config::VERSION  = "2.5";
+const char * Config::VERSION  = "2.6";

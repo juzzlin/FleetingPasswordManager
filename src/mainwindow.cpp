@@ -60,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
 , m_userEdit(new QLineEdit(this))
 , m_passwdEdit(new QLineEdit(this))
 , m_urlCombo(new QComboBox(this))
-, m_genButton(new QPushButton(tr("&Show password:"), this))
+, m_genButton(new QPushButton(tr("&Show password!"), this))
 , m_rmbButton(new QPushButton(m_rememberText, this))
 , m_lengthSpinBox(new QSpinBox(this))
 , m_timeLine(new QTimeLine())
@@ -187,16 +187,16 @@ void MainWindow::initWidgets()
     m_rmbButton->setToolTip(m_rememberToolTip);
 
     // Add the widgets to the grid layout
-    const int COLS = 5;
-    layout->addWidget(m_masterEdit,    0, 1, 1, COLS);
-    layout->addWidget(m_urlCombo,      1, 1, 1, COLS);
+    const int COLS = 6;
+    layout->addWidget(m_masterEdit,    0, 1, 1, COLS - 1);
+    layout->addWidget(m_urlCombo,      1, 1, 1, COLS - 1);
     layout->addWidget(m_userEdit,      2, 1, 1, COLS - 1);
-    layout->addWidget(m_lengthSpinBox, 2, COLS);
-    layout->addWidget(frame,           3, 1, 1, COLS);
-    layout->addWidget(m_genButton,     4, 0);
-    layout->addWidget(m_passwdEdit,    4, 1, 1, COLS);
-    layout->addWidget(m_rmbButton,     5, 1, 1, COLS - 1);
-    layout->addWidget(clearButton,     5, COLS);
+    layout->addWidget(frame,           3, 0, 1, COLS);
+    layout->addWidget(m_lengthSpinBox, 4, 0);
+    layout->addWidget(m_passwdEdit,    4, 1, 1, COLS - 1);
+    layout->addWidget(m_genButton,     5, 0);
+    layout->addWidget(m_rmbButton,     5, 1, 1, COLS - 2);
+    layout->addWidget(clearButton,     5, COLS - 1);
 
     // Add the "master password:"-label to the layout
     m_masterLabel->setText(m_masterPasswordText);

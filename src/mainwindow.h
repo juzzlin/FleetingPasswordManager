@@ -89,11 +89,8 @@ private:
     //! "Remove.."-tooltip of the remove/remember button.
     QString m_removeToolTip;
 
-    //! "Master password:" as red
-    QString m_masterPasswordRedText;
-
-    //! "Master password:" as green
-    QString m_masterPasswordGreenText;
+    //! "Master password:"
+    QString m_masterPasswordText;
 
     //! Current delay.
     int m_delay;

@@ -50,8 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
 , m_rememberText(tr("&Remember URL && User"))
 , m_rememberToolTip(tr("Remember current URL & User. Passwords are not saved."))
 , m_removeToolTip(tr("Don't remember current URL & User anymore."))
-, m_masterPasswordRedText(tr("<b><font color=#aa0000>Master password:</font></b>"))
-, m_masterPasswordGreenText(tr("<b><font color=#00aa00>Master password:</font></b>"))
+, m_masterPasswordText(tr("<b>Master password:</b>"))
 , m_delay(m_defaultDelay)
 , m_autoCopy(false)
 , m_autoClear(false)
@@ -200,7 +199,8 @@ void MainWindow::initWidgets()
     layout->addWidget(clearButton,     5, COLS);
 
     // Add the "master password:"-label to the layout
-    m_masterLabel->setText(m_masterPasswordRedText);
+    m_masterLabel->setText(m_masterPasswordText);
+    setMasterPasswordLabelColor();
     layout->addWidget(m_masterLabel, 0, 0);
 
     // Create and add the "URL/ID:"-label to the layout
@@ -560,14 +560,17 @@ void MainWindow::enableRmbButton()
 
 void MainWindow::setMasterPasswordLabelColor()
 {
-    if (m_masterEdit->text().length() > 0)
-    {
-        m_masterLabel->setText(m_masterPasswordGreenText);
-    }
-    else
-    {
-        m_masterLabel->setText(m_masterPasswordRedText);
-    }
+    float scale = static_cast<float>(m_masterEdit->text().length()) / 8;
+    scale = scale > 1.0 ? 1.0 : scale;
+
+    QColor color;
+    color.setRed(255.0 * (1.0 - scale) * 0.75);
+    color.setGreen(255.0 * scale  * 0.75);
+    color.setBlue(0);
+
+    QPalette palette;
+    palette.setColor(QPalette::Foreground, color);
+    m_masterLabel->setPalette(palette);
 }
 
 void MainWindow::rememberOrRemoveLogin()

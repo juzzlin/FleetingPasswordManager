@@ -114,14 +114,14 @@ void MainWindow::centerOrRestoreLocation()
 {
     // Calculate center coordinates
     QRect geom(QApplication::desktop()->availableGeometry());
-    int centerX = geom.width()  / 2 - frameGeometry().width() / 2;
-    int centerY = geom.height() / 2 -frameGeometry().height() / 2;
+    const int centerX = geom.width()  / 2 - frameGeometry().width()  / 2;
+    const int centerY = geom.height() / 2 - frameGeometry().height() / 2;
 
     // Try to load previous location and use the
     // calculated center as the fallback
     QSettings s(Config::COMPANY, Config::SOFTWARE);
-    int x = s.value("x", centerX).toInt();
-    int y = s.value("y", centerY).toInt();
+    const int x = s.value("x", centerX).toInt();
+    const int y = s.value("y", centerY).toInt();
     move(x, y);
 }
 
@@ -249,23 +249,23 @@ void MainWindow::connectSignalsFromWidgets()
     // Connect signal to update user name field when a URL gets
     // selected in the combo box
     connect(m_urlCombo, SIGNAL(activated(const QString &)),
-            this, SLOT(updateUser(const QString &)));
+        this, SLOT(updateUser(const QString &)));
 
     // Decide the text of the remember/remove-button if URL is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(toggleRmbButtonText()));
+        this, SLOT(toggleRmbButtonText()));
 
     // Decide the text of the remember/remove-button if user name is changed
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(toggleRmbButtonText()));
+        this, SLOT(toggleRmbButtonText()));
 
     // Decide the text of the remember/remove-button if length is changed
     connect(m_lengthSpinBox, SIGNAL(valueChanged(int)),
-            this, SLOT(toggleRmbButtonText()));
+        this, SLOT(toggleRmbButtonText()));
 
     // Connect signal to update user name field if URL-field is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
-            this, SLOT(updateUser(const QString &)));
+        this, SLOT(updateUser(const QString &)));
 
     // Remember of remove a saved login when remember/remove-button is clicked
     connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
@@ -275,31 +275,31 @@ void MainWindow::connectSignalsFromWidgets()
 
     // Invalidate generated password if one of the inputs gets changed
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(invalidate()));
+        this, SLOT(invalidate()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
-            this, SLOT(invalidate()));
+        this, SLOT(invalidate()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(invalidate()));
+        this, SLOT(invalidate()));
 
     // Enable generate-button if all inputs are valid
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableGenButton()));
+        this, SLOT(enableGenButton()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableGenButton()));
+        this, SLOT(enableGenButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableGenButton()));
+        this, SLOT(enableGenButton()));
 
     // Enable remember-button if the URL not already saved
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableRmbButton()));
+        this, SLOT(enableRmbButton()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableRmbButton()));
+        this, SLOT(enableRmbButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableRmbButton()));
+        this, SLOT(enableRmbButton()));
 
     // Set "master password"-label color
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(setMasterPasswordLabelColor()));
+        this, SLOT(setMasterPasswordLabelColor()));
 }
 
 void MainWindow::initMenu()
@@ -363,9 +363,10 @@ void MainWindow::showSettingsDlg()
 
 void MainWindow::importLogins()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Import logins"),
-                                                    QDir::homePath(),
-                                                    tr("Fleeting Password Manager files (*.fpm)"));
+    const QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Import logins"), QDir::homePath(),
+        tr("Fleeting Password Manager files (*.fpm)"));
+
     if (fileName.length() > 0)
     {
         int newLogins = 0;
@@ -376,9 +377,9 @@ void MainWindow::importLogins()
         {
             for (int i = 0; i < logins.count(); i++)
             {
-                QString url    = logins.at(i).url();
-                QString user   = logins.at(i).userName();
-                int     length = logins.at(i).passwordLength();
+                const QString url    = logins.at(i).url();
+                const QString user   = logins.at(i).userName();
+                const int     length = logins.at(i).passwordLength();
 
                 if (m_loginHash.contains(url))
                 {
@@ -398,23 +399,25 @@ void MainWindow::importLogins()
             saveSettings();
 
             QString message(tr("Successfully imported logins from '") +
-                            fileName + tr("': %1 new, %2 updated."));
+                fileName + tr("': %1 new, %2 updated."));
             message = message.arg(newLogins).arg(updated);
-            QMessageBox::information(this, tr("Importing logins succeeded"), message);
+            QMessageBox::information(this, tr("Importing logins succeeded"),
+                message);
         }
         else
         {
             QMessageBox::warning(this, tr("Exporting logins failed"),
-                                 tr("Failed to import logins from '") + fileName + "'");
+                tr("Failed to import logins from '") + fileName + "'");
         }
     }
 }
 
 void MainWindow::exportLogins()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Export logins"),
-                                                    QDir::homePath(),
-                                                    tr("Fleeting Password Manager files (*.fpm)"));
+    QString fileName = QFileDialog::getSaveFileName(this,
+        tr("Export logins"), QDir::homePath(),
+        tr("Fleeting Password Manager files (*.fpm)"));
+
     if (fileName.length() > 0)
     {
         if (!fileName.endsWith(".fpm"))
@@ -423,12 +426,12 @@ void MainWindow::exportLogins()
         if (LoginIO::exportLogins(m_loginHash.values(), fileName))
         {
             QMessageBox::information(this, tr("Exporting logins succeeded"),
-                                     tr("Successfully exported logins to '") + fileName + "'");
+                tr("Successfully exported logins to '") + fileName + "'");
         }
         else
         {
             QMessageBox::warning(this, tr("Exporting logins failed"),
-                                 tr("Failed to export logins to '") + fileName + "'");
+                tr("Failed to export logins to '") + fileName + "'");
         }
     }
 }
@@ -459,7 +462,8 @@ void MainWindow::loadSettings()
     m_autoCopy        = s.value("autoCopy", false).toBool();
     m_autoClear       = s.value("autoClear", false).toBool();
     m_alwaysOnTop     = s.value("alwaysOnTop", true).toBool();
-    int defaultLength = s.value("length", m_defaultLength).toInt();
+
+    const int defaultLength = s.value("length", m_defaultLength).toInt();
 
     m_settingsDlg->setSettings(m_masterDelay,
         m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
@@ -471,7 +475,7 @@ void MainWindow::loadSettings()
     m_loginHash.clear();
 
     // Loop through saved logins
-    int size = s.beginReadArray("logins");
+    const int size = s.beginReadArray("logins");
     for (int i = 0; i < size; i++)
     {
         s.setArrayIndex(i);
@@ -484,8 +488,8 @@ void MainWindow::loadSettings()
 
         // Add url to the login data hash
         m_loginHash[url] = LoginData(url,
-                                     s.value("user").toString(),
-                                     s.value("length", defaultLength).toInt());
+            s.value("user").toString(),
+            s.value("length", defaultLength).toInt());
     }
     s.endArray();
 
@@ -602,7 +606,7 @@ void MainWindow::rememberOrRemoveLogin()
     if (m_rmbButton->text() == m_rememberText)
     {
         // Remember url and user
-        int index = m_urlCombo->findText(url);
+        const int index = m_urlCombo->findText(url);
         if (index == -1)
         {
             m_urlCombo->addItem(url);
@@ -620,13 +624,13 @@ void MainWindow::rememberOrRemoveLogin()
 
         // Show a message box
         QString message(tr("Added to the saved logins: '") +
-                        url + tr("'."));
+            url + tr("'."));
         QMessageBox::information(this, Config::NAME, message);
     }
     else
     {
         // Remove url and user
-        int index = m_urlCombo->findText(url);
+        const int index = m_urlCombo->findText(url);
         if (index != -1)
         {
             m_urlCombo->removeItem(index);
@@ -643,7 +647,7 @@ void MainWindow::rememberOrRemoveLogin()
 
         // Show a message box
         QString message(tr("Removed from the saved logins: '") +
-                        url + tr("'."));
+            url + tr("'."));
         QMessageBox::information(this, Config::NAME, message);
     }
 }
@@ -715,4 +719,5 @@ void MainWindow::clearFields()
 MainWindow::~MainWindow()
 {
     delete m_timeLine;
+    delete m_masterTimer;
 }

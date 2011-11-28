@@ -49,8 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
 , m_defaultGenDelay(15)
 , m_defaultLength(8)
 , m_removeText(tr("&Remove URL && User"))
-, m_rememberText(tr("&Remember URL && User"))
-, m_rememberToolTip(tr("Remember current URL & User. Passwords are not saved."))
+, m_saveText(tr("&Save URL && User"))
+, m_saveToolTip(tr("Save current URL & User. Passwords are not saved."))
 , m_removeToolTip(tr("Don't remember current URL & User anymore."))
 , m_masterPasswordText(tr("<b>Master password:</b>"))
 , m_masterDelay(m_defaultMasterDelay)
@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
 , m_passwdEdit(new QLineEdit(this))
 , m_urlCombo(new QComboBox(this))
 , m_genButton(new QPushButton(tr("&Show password!"), this))
-, m_rmbButton(new QPushButton(m_rememberText, this))
+, m_saveButton(new QPushButton(m_saveText, this))
 , m_lengthSpinBox(new QSpinBox(this))
 , m_masterTimer(new QTimer())
 , m_timeLine(new QTimeLine())
@@ -193,12 +193,12 @@ void MainWindow::initWidgets()
     // Set tooltip for the generate-button
     m_genButton->setToolTip(tr("Generate and show the password"));
 
-    // Set the remember-button disabled by default
-    m_rmbButton->setEnabled(false);
-    m_rmbButton->setAutoDefault(true);
+    // Set the save-button disabled by default
+    m_saveButton->setEnabled(false);
+    m_saveButton->setAutoDefault(true);
 
-    // Set tooltip for the remember-button
-    m_rmbButton->setToolTip(m_rememberToolTip);
+    // Set tooltip for the save-button
+    m_saveButton->setToolTip(m_saveToolTip);
 
     // Add the widgets to the grid layout
     const int COLS = 6;
@@ -209,7 +209,7 @@ void MainWindow::initWidgets()
     layout->addWidget(m_lengthSpinBox, 4, 0);
     layout->addWidget(m_passwdEdit,    4, 1, 1, COLS - 1);
     layout->addWidget(m_genButton,     5, 0);
-    layout->addWidget(m_rmbButton,     5, 1, 1, COLS - 2);
+    layout->addWidget(m_saveButton,     5, 1, 1, COLS - 2);
     layout->addWidget(clearButton,     5, COLS - 1);
 
     // Add the "master password:"-label to the layout
@@ -237,8 +237,8 @@ void MainWindow::initWidgets()
     QWidget::setTabOrder(m_userEdit     , m_lengthSpinBox);
     QWidget::setTabOrder(m_lengthSpinBox, m_genButton);
     QWidget::setTabOrder(m_genButton    , m_passwdEdit);
-    QWidget::setTabOrder(m_passwdEdit   , m_rmbButton);
-    QWidget::setTabOrder(m_rmbButton    , clearButton);
+    QWidget::setTabOrder(m_passwdEdit   , m_saveButton);
+    QWidget::setTabOrder(m_saveButton    , clearButton);
 
     // Connect the rest of the signals emitted by the widgets
     connectSignalsFromWidgets();
@@ -251,24 +251,24 @@ void MainWindow::connectSignalsFromWidgets()
     connect(m_urlCombo, SIGNAL(activated(const QString &)),
         this, SLOT(updateUser(const QString &)));
 
-    // Decide the text of the remember/remove-button if URL is changed
+    // Decide the text of the save/remove-button if URL is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
-        this, SLOT(toggleRmbButtonText()));
+        this, SLOT(toggleSaveButtonText()));
 
-    // Decide the text of the remember/remove-button if user name is changed
+    // Decide the text of the save/remove-button if user name is changed
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
-        this, SLOT(toggleRmbButtonText()));
+        this, SLOT(toggleSaveButtonText()));
 
-    // Decide the text of the remember/remove-button if length is changed
+    // Decide the text of the save/remove-button if length is changed
     connect(m_lengthSpinBox, SIGNAL(valueChanged(int)),
-        this, SLOT(toggleRmbButtonText()));
+        this, SLOT(toggleSaveButtonText()));
 
     // Connect signal to update user name field if URL-field is changed
     connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
         this, SLOT(updateUser(const QString &)));
 
-    // Remember of remove a saved login when remember/remove-button is clicked
-    connect(m_rmbButton, SIGNAL(clicked()), this, SLOT(rememberOrRemoveLogin()));
+    // Save of remove a saved login when save/remove-button is clicked
+    connect(m_saveButton, SIGNAL(clicked()), this, SLOT(saveOrRemoveLogin()));
 
     // Generate the password when generate-button is clicked
     connect(m_genButton, SIGNAL(clicked()), this, SLOT(doGenerate()));
@@ -289,13 +289,13 @@ void MainWindow::connectSignalsFromWidgets()
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(enableGenButton()));
 
-    // Enable remember-button if the URL not already saved
+    // Enable save-button if the URL not already saved
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
-        this, SLOT(enableRmbButton()));
+        this, SLOT(enableSaveButton()));
     connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
-        this, SLOT(enableRmbButton()));
+        this, SLOT(enableSaveButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
-        this, SLOT(enableRmbButton()));
+        this, SLOT(enableSaveButton()));
 
     // Set "master password"-label color
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
@@ -577,9 +577,9 @@ void MainWindow::enableGenButton()
                             m_userEdit->text().length()        > 0);
 }
 
-void MainWindow::enableRmbButton()
+void MainWindow::enableSaveButton()
 {
-    m_rmbButton->setEnabled(m_urlCombo->currentText().length() > 0 &&
+    m_saveButton->setEnabled(m_urlCombo->currentText().length() > 0 &&
                             m_userEdit->text().length()        > 0);
 }
 
@@ -598,14 +598,14 @@ void MainWindow::setMasterPasswordLabelColor()
     m_masterLabel->setPalette(palette);
 }
 
-void MainWindow::rememberOrRemoveLogin()
+void MainWindow::saveOrRemoveLogin()
 {
     const QString user = m_userEdit->text();
     const QString url  = m_urlCombo->currentText();
 
-    if (m_rmbButton->text() == m_rememberText)
+    if (m_saveButton->text() == m_saveText)
     {
-        // Remember url and user
+        // Save url and user
         const int index = m_urlCombo->findText(url);
         if (index == -1)
         {
@@ -620,7 +620,7 @@ void MainWindow::rememberOrRemoveLogin()
         saveSettings();
 
         // Change the button text to "remove"
-        m_rmbButton->setText(m_removeText);
+        m_saveButton->setText(m_removeText);
 
         // Show a message box
         QString message(tr("Added to the saved logins: '") +
@@ -643,7 +643,7 @@ void MainWindow::rememberOrRemoveLogin()
         saveSettings();
 
         // Update the button text
-        toggleRmbButtonText();
+        toggleSaveButtonText();
 
         // Show a message box
         QString message(tr("Removed from the saved logins: '") +
@@ -662,16 +662,16 @@ void MainWindow::updateUser(const QString & url)
         // Update the password length spinbox
         m_lengthSpinBox->setValue(m_loginHash.value(url).passwordLength());
 
-        // Change the text in remember-button to "remove"
-        m_rmbButton->setText(m_removeText);
+        // Change the text in save-button to "remove"
+        m_saveButton->setText(m_removeText);
     }
 }
 
-void MainWindow::toggleRmbButtonText()
+void MainWindow::toggleSaveButtonText()
 {
-    // Set remove-text if url is remembered/saved.
-    // Set remember-text if url is not
-    // remembered/saved or user/length is changed.
+    // Set remove-text if url is saved.
+    // Set save-text if url is not
+    // saved or user/length is changed.
 
     const QString url = m_urlCombo->currentText();
     if (m_loginHash.contains(url))
@@ -683,19 +683,19 @@ void MainWindow::toggleRmbButtonText()
 
         if (currentUser != savedUser || currentLength != savedLength)
         {
-            m_rmbButton->setText(m_rememberText);
-            m_rmbButton->setToolTip(m_rememberToolTip);
+            m_saveButton->setText(m_saveText);
+            m_saveButton->setToolTip(m_saveToolTip);
         }
         else
         {
-            m_rmbButton->setText(m_removeText);
-            m_rmbButton->setToolTip(m_removeToolTip);
+            m_saveButton->setText(m_removeText);
+            m_saveButton->setToolTip(m_removeToolTip);
         }
     }
     else
     {
-        m_rmbButton->setText(m_rememberText);
-        m_rmbButton->setToolTip(m_rememberToolTip);
+        m_saveButton->setText(m_saveText);
+        m_saveButton->setToolTip(m_saveToolTip);
     }
 }
 

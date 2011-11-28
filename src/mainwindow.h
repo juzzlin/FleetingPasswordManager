@@ -81,16 +81,16 @@ private:
     //! Default lenght of the password.
     int m_defaultLength;
 
-    //! "Remove.." text of the remove/remember button.
+    //! "Remove.." text of the remove/save button.
     QString m_removeText;
 
-    //! "Remember.." text of the remove/remember button.
-    QString m_rememberText;
+    //! "Save.." text of the remove/save button.
+    QString m_saveText;
 
-    //! "Remember.."-tooltip of the remove/remember button.
-    QString m_rememberToolTip;
+    //! "Save.."-tooltip of the remove/save button.
+    QString m_saveToolTip;
 
-    //! "Remove.."-tooltip of the remove/remember button.
+    //! "Remove.."-tooltip of the remove/save button.
     QString m_removeToolTip;
 
     //! "Master password:"
@@ -129,8 +129,8 @@ private:
     //! Generate button
     QPushButton * m_genButton;
 
-    //! Remember/remove button
-    QPushButton * m_rmbButton;
+    //! Save/remove button
+    QPushButton * m_saveButton;
 
     //! Spin box to set password length
     //! other than the default.
@@ -162,21 +162,21 @@ private slots:
     //! Enable the generate-button.
     void enableGenButton();
 
-    //! Enable the remember-button.
-    void enableRmbButton();
+    //! Enable the save-button.
+    void enableSaveButton();
 
     //! Set green or red color for the master password label.
     void setMasterPasswordLabelColor();
 
-    //! Remember or remove the active url/user-pair depending
+    //! Save or remove the active url/user-pair depending
     //! on the button state.
-    void rememberOrRemoveLogin();
+    void saveOrRemoveLogin();
 
     //! Update the user field if the url/user-pair is known.
     void updateUser(const QString & url);
 
-    //! Set the text for remember/remove-button.
-    void toggleRmbButtonText();
+    //! Set the text for save/remove-button.
+    void toggleSaveButtonText();
 
     //! Import logins
     void importLogins();

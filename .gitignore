@@ -1,0 +1,27 @@
+Makefile
+aboutdlg.o
+config.o
+engine.o
+fleetingpm
+fleetingpm.pro.user
+instructionsdlg.o
+logindata.o
+loginio.o
+main.o
+mainwindow.o
+moc_aboutdlg.cpp
+moc_aboutdlg.o
+moc_instructionsdlg.cpp
+moc_instructionsdlg.o
+moc_mainwindow.cpp
+moc_mainwindow.o
+moc_settingsdlg.cpp
+moc_settingsdlg.o
+qrc_Icons.cpp
+qrc_Icons.o
+qrc_Images.cpp
+qrc_Images.o
+qrc_Instructions.cpp
+qrc_Instructions.o
+settingsdlg.o
+nothing added to commit but untracked files present (use "git add" to track)

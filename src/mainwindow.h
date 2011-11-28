@@ -29,6 +29,7 @@ class QLineEdit;
 class QPushButton;
 class QSpinBox;
 class QTimeLine;
+class QTimer;
 
 //! The main window.
 class MainWindow : public QMainWindow
@@ -71,8 +72,11 @@ private:
     //! Save settings by using QSettings.
     void saveSettings();
 
-    //! Show the password for this long.
-    int m_defaultDelay;
+    //! Show the master password for this long in mins.
+    int m_defaultMasterDelay;
+
+    //! Show the generated password for this long in secs.
+    int m_defaultGenDelay;
 
     //! Default lenght of the password.
     int m_defaultLength;
@@ -92,8 +96,11 @@ private:
     //! "Master password:"
     QString m_masterPasswordText;
 
-    //! Current delay.
-    int m_delay;
+    //! Current delay for master password in mins.
+    int m_masterDelay;
+
+    //! Current delay for generated password in secs.
+    int m_genDelay;
 
     //! Copy generated password automatically to the clipboard if true.
     bool m_autoCopy;
@@ -129,7 +136,10 @@ private:
     //! other than the default.
     QSpinBox * m_lengthSpinBox;
 
-    //! Time line used when showing the password.
+    //! Timer used when showing the master password.
+    QTimer * m_masterTimer;
+
+    //! Time line used when showing the generated password.
     QTimeLine * m_timeLine;
 
     //! Settings dialog

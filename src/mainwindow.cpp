@@ -41,17 +41,20 @@
 #include <QSettings>
 #include <QSpinBox>
 #include <QTimeLine>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
 : QMainWindow(parent)
-, m_defaultDelay(15)
+, m_defaultMasterDelay(5)
+, m_defaultGenDelay(15)
 , m_defaultLength(8)
 , m_removeText(tr("&Remove URL && User"))
 , m_rememberText(tr("&Remember URL && User"))
 , m_rememberToolTip(tr("Remember current URL & User. Passwords are not saved."))
 , m_removeToolTip(tr("Don't remember current URL & User anymore."))
 , m_masterPasswordText(tr("<b>Master password:</b>"))
-, m_delay(m_defaultDelay)
+, m_masterDelay(m_defaultMasterDelay)
+, m_genDelay(m_defaultGenDelay)
 , m_autoCopy(false)
 , m_autoClear(false)
 , m_alwaysOnTop(true)
@@ -63,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
 , m_genButton(new QPushButton(tr("&Show password!"), this))
 , m_rmbButton(new QPushButton(m_rememberText, this))
 , m_lengthSpinBox(new QSpinBox(this))
+, m_masterTimer(new QTimer())
 , m_timeLine(new QTimeLine())
 , m_settingsDlg(new SettingsDlg(this))
 {
@@ -86,11 +90,21 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     // Initialize the timer used when fading out the
-    // generated password
-    m_timeLine->setDuration(m_delay * 1000);
-    connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreasePasswordAlpha(int)));
+    // generated password.
+    m_timeLine->setDuration(m_genDelay * 1000);
+    connect(m_timeLine, SIGNAL(frameChanged(int)), this,
+        SLOT(decreasePasswordAlpha(int)));
     connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidate()));
     m_timeLine->setFrameRange(0, 255);
+
+    // Initialize the timer used when showing the
+    // master password.
+    m_masterTimer->setInterval(m_masterDelay * 60 * 1000);
+    m_masterTimer->setSingleShot(true);
+    connect(m_masterTimer, SIGNAL(timeout()),
+        m_masterEdit, SLOT(clear()));
+    connect(m_masterEdit, SIGNAL(textChanged(QString)),
+        m_masterTimer, SLOT(start()));
 
     // Load previous location or center the window.
     centerOrRestoreLocation();
@@ -335,11 +349,14 @@ void MainWindow::initMenu()
 
 void MainWindow::showSettingsDlg()
 {
-    m_settingsDlg->setSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+    m_settingsDlg->setSettings(m_masterDelay,
+        m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
     if (m_settingsDlg->exec() == QDialog::Accepted)
     {
-        m_settingsDlg->getSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
-        m_timeLine->setDuration(m_delay * 1000);
+        m_settingsDlg->getSettings(m_masterDelay,
+            m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+        m_timeLine->setDuration(m_genDelay * 1000);
+        m_masterTimer->setInterval(m_masterDelay * 60 * 1000);
         saveSettings();
     }
 }
@@ -437,14 +454,17 @@ void MainWindow::loadSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
 
-    m_delay           = s.value("delay", m_defaultDelay).toInt();
+    m_masterDelay     = s.value("masterDelay", m_defaultMasterDelay).toInt();
+    m_genDelay        = s.value("delay", m_defaultGenDelay).toInt();
     m_autoCopy        = s.value("autoCopy", false).toBool();
     m_autoClear       = s.value("autoClear", false).toBool();
     m_alwaysOnTop     = s.value("alwaysOnTop", true).toBool();
     int defaultLength = s.value("length", m_defaultLength).toInt();
 
-    m_settingsDlg->setSettings(m_delay, m_autoCopy, m_autoClear, m_alwaysOnTop);
-    m_timeLine->setDuration(m_delay * 1000);
+    m_settingsDlg->setSettings(m_masterDelay,
+        m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+    m_timeLine->setDuration(m_genDelay * 1000);
+    m_masterTimer->setInterval(m_masterDelay * 60 * 1000);
 
     // Read login data
     m_urlCombo->clear();
@@ -481,7 +501,8 @@ void MainWindow::loadSettings()
 void MainWindow::saveSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
-    s.setValue("delay",       m_delay);
+    s.setValue("delay",       m_genDelay);
+    s.setValue("masterDelay", m_masterDelay);
     s.setValue("autoCopy",    m_autoCopy);
     s.setValue("autoClear",   m_autoClear);
     s.setValue("alwaysOnTop", m_alwaysOnTop);

@@ -108,8 +108,7 @@ void SettingsDlg::initBackground()
 }
 
 void SettingsDlg::getSettings(int & rDelay,
-                              bool & rAutoCopy, bool & rAutoClear,
-                              bool & rAlwaysOnTop) const
+    bool & rAutoCopy, bool & rAutoClear, bool & rAlwaysOnTop) const
 {
    rDelay       = m_delaySpinBox->value();
    rAutoCopy    = m_autoCopyCheck->isChecked();
@@ -118,8 +117,7 @@ void SettingsDlg::getSettings(int & rDelay,
 }
 
 void SettingsDlg::setSettings(int delay,
-                              bool autoCopy, bool autoClear,
-                              bool alwaysOnTop)
+    bool autoCopy, bool autoClear, bool alwaysOnTop)
 {
    m_delaySpinBox->setValue(delay);
    m_autoCopyCheck->setChecked(autoCopy);

@@ -29,20 +29,24 @@ SOURCES += \
     src/mainwindow.cpp \
     src/settingsdlg.cpp
 
-# Check if PREFIX environment variable is set.
-# If not, then assume /usr.
-_PREFIX = $$(PREFIX)
-isEmpty(_PREFIX) {
-    _PREFIX = /usr
+# Installing the app like this makes sense only on Linux.
+linux-g++ {
+
+    # Check if PREFIX environment variable is set.
+    # If not, then assume /usr.
+    _PREFIX = $$(PREFIX)
+    isEmpty(_PREFIX) {
+        _PREFIX = /usr
+    }
+
+    message("Linux build. The project will be installed to "$$_PREFIX)
+
+    target.path    = $$_PREFIX/bin
+    desktop.path   = $$_PREFIX/share/applications
+    desktop.files += data/fleetingpm.desktop
+    icon1.path     = $$_PREFIX/share/icons/hicolor/64x64/apps
+    icon1.files   += data/icons/fleetingpm.png
+    icon2.path     = $$_PREFIX/share/pixmaps
+    icon2.files   += data/icons/fleetingpm.png
+    INSTALLS      += target desktop icon1 icon2
 }
-
-message("The project will be installed to "$$_PREFIX)
-
-target.path    = $$_PREFIX/bin
-desktop.path   = $$_PREFIX/share/applications
-desktop.files += data/fleetingpm.desktop
-icon1.path     = $$_PREFIX/share/icons/hicolor/64x64/apps
-icon1.files   += data/icons/fleetingpm.png
-icon2.path     = $$_PREFIX/share/pixmaps
-icon2.files   += data/icons/fleetingpm.png
-INSTALLS      += target desktop icon1 icon2

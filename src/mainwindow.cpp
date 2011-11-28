@@ -66,8 +66,8 @@ MainWindow::MainWindow(QWidget *parent)
 , m_genButton(new QPushButton(tr("&Show password!"), this))
 , m_saveButton(new QPushButton(m_saveText, this))
 , m_lengthSpinBox(new QSpinBox(this))
-, m_masterTimer(new QTimer())
-, m_timeLine(new QTimeLine())
+, m_masterTimer(new QTimer)
+, m_timeLine(new QTimeLine)
 , m_settingsDlg(new SettingsDlg(this))
 {
     setWindowTitle("Fleeting Password Manager");
@@ -457,11 +457,11 @@ void MainWindow::loadSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
 
-    m_masterDelay     = s.value("masterDelay", m_defaultMasterDelay).toInt();
-    m_genDelay        = s.value("delay", m_defaultGenDelay).toInt();
-    m_autoCopy        = s.value("autoCopy", false).toBool();
-    m_autoClear       = s.value("autoClear", false).toBool();
-    m_alwaysOnTop     = s.value("alwaysOnTop", true).toBool();
+    m_masterDelay = s.value("masterDelay", m_defaultMasterDelay).toInt();
+    m_genDelay    = s.value("delay", m_defaultGenDelay).toInt();
+    m_autoCopy    = s.value("autoCopy", false).toBool();
+    m_autoClear   = s.value("autoClear", false).toBool();
+    m_alwaysOnTop = s.value("alwaysOnTop", true).toBool();
 
     const int defaultLength = s.value("length", m_defaultLength).toInt();
 
@@ -527,9 +527,9 @@ void MainWindow::saveSettings()
 void MainWindow::doGenerate()
 {
     QString passwd = Engine::generate(m_masterEdit->text(),
-                                      m_urlCombo->currentText(),
-                                      m_userEdit->text(),
-                                      m_lengthSpinBox->value());
+        m_urlCombo->currentText(),
+        m_userEdit->text(),
+        m_lengthSpinBox->value());
 
     // Enable the text field and  show the generated passwd
     m_passwdEdit->setEnabled(true);
@@ -572,15 +572,15 @@ void MainWindow::invalidate()
 
 void MainWindow::enableGenButton()
 {
-    m_genButton->setEnabled(m_masterEdit->text().length()      > 0 &&
-                            m_urlCombo->currentText().length() > 0 &&
-                            m_userEdit->text().length()        > 0);
+    m_genButton->setEnabled(m_masterEdit->text().length() > 0 &&
+        m_urlCombo->currentText().length() > 0 &&
+        m_userEdit->text().length() > 0);
 }
 
 void MainWindow::enableSaveButton()
 {
     m_saveButton->setEnabled(m_urlCombo->currentText().length() > 0 &&
-                            m_userEdit->text().length()        > 0);
+        m_userEdit->text().length() > 0);
 }
 
 void MainWindow::setMasterPasswordLabelColor()

@@ -9,25 +9,25 @@ RESOURCES += data/icons/Icons.qrc data/images/Images.qrc data/doc/Instructions.q
 win32:RC_FILE = data/icons/Windows.rc
 
 HEADERS += \
-    src/aboutdlg.h \
-    src/config.h \
-    src/engine.h \
-    src/instructionsdlg.h \
-    src/logindata.h \
-    src/loginio.h \
-    src/mainwindow.h \
-    src/settingsdlg.h
+    src/Qt/aboutdlg.h \
+    src/Qt/config.h \
+    src/Qt/engine.h \
+    src/Qt/instructionsdlg.h \
+    src/Qt/logindata.h \
+    src/Qt/loginio.h \
+    src/Qt/mainwindow.h \
+    src/Qt/settingsdlg.h
 
 SOURCES += \
-    src/aboutdlg.cpp \
-    src/config.cpp \
-    src/engine.cpp \
-    src/instructionsdlg.cpp \
-    src/logindata.cpp \
-    src/loginio.cpp  \
-    src/main.cpp \
-    src/mainwindow.cpp \
-    src/settingsdlg.cpp
+    src/Qt/aboutdlg.cpp \
+    src/Qt/config.cpp \
+    src/Qt/engine.cpp \
+    src/Qt/instructionsdlg.cpp \
+    src/Qt/logindata.cpp \
+    src/Qt/loginio.cpp  \
+    src/Qt/main.cpp \
+    src/Qt/mainwindow.cpp \
+    src/Qt/settingsdlg.cpp
 
 # Installing the app like this makes sense only on Linux.
 linux-g++ {

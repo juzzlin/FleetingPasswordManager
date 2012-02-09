@@ -29,12 +29,12 @@ SOURCES += \
     src/Qt/mainwindow.cpp \
     src/Qt/settingsdlg.cpp
 
-    # Check if PREFIX environment variable is set.
-    # If not, then assume /usr.
-    _PREFIX = $$(PREFIX)
-    isEmpty(_PREFIX) {
-        _PREFIX = /usr
-    }
+# Check if PREFIX environment variable is set.
+# If not, then assume /usr.
+_PREFIX = $$(PREFIX)
+isEmpty(_PREFIX) {
+    _PREFIX = /usr
+}
 
 target.path    = $$_PREFIX/bin
 desktop.path   = $$_PREFIX/share/applications

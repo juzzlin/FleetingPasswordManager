@@ -1,0 +1,23 @@
+Source: fleetingpm
+Section: utils
+Priority: extra
+Maintainer: Jussi Lind <jussi.lind@iki.fi>
+Build-Depends: cdbs, debhelper (>= 7), libqt4-dev (>= 4.7)
+Standards-Version: 3.9.1
+Homepage: http://fleetingpm.sourceforge.net
+
+Package: fleetingpm
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: A password manager and generator written in Qt
+ Fleeting Password Manager is a program that generates passwords 
+ from given master password, URL and user name. 
+ .
+ The idea is that the user needs to remember only her master password. 
+ Other passwords are generated on-the-fly from the input data when needed.
+ .
+ The generated password is always the same with the same input and is 
+ not stored to anywhere. 
+ .
+ The length of the generated password is configurable between 8 and 32 
+ characters. URL/User-pairs can be saved.

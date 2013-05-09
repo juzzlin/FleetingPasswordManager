@@ -1,0 +1,65 @@
+fleetingpm (2.7-1) precise; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Tue, 29 Nov 2011 20:29:01 +0200
+
+fleetingpm (2.6-1) lucid; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Tue, 13 Sep 2011 20:38:22 +0300
+
+fleetingpm (2.5-1) lucid; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Wed, 31 Aug 2011 22:47:37 +0300
+
+fleetingpm (2.4-1) lucid; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Mon, 01 Aug 2011 19:44:18 +0300
+
+fleetingpm (2.3-1) natty; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Thu, 21 Jul 2011 20:16:07 +0300
+
+fleetingpm (2.2-1) natty; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Fri, 15 Jul 2011 21:25:15 +0300
+
+fleetingpm (2.1-1) natty; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Sun, 10 Jul 2011 16:15:38 +0300
+
+fleetingpm (2.0-1) natty; urgency=low
+
+  * New stable version written in C++
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Fri, 08 Jul 2011 21:26:57 +0300
+
+fleetingpm (1.2-1) natty; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Sun, 03 Jul 2011 20:28:57 +0300
+
+fleetingpm (1.1-1) stable; urgency=low
+
+  * New stable version
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Wed, 29 Jun 2011 21:31:14 +0300
+
+fleetingpm (1.0-1) stable; urgency=low
+
+  * Initial release
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Wed, 22 Jun 2011 22:07:38 +0300

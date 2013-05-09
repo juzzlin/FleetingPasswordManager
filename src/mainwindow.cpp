@@ -127,10 +127,7 @@ void MainWindow::centerOrRestoreLocation()
 
 void MainWindow::initBackground()
 {
-     QPalette palette = QPalette();
-     palette.setBrush(QPalette::Window, QPixmap(":back.png"));
-     setPalette(palette);
-     setAutoFillBackground(true);
+    setStyleSheet("MainWindow { background-image: url(:/back.png) }");
 }
 
 void MainWindow::initWidgets()
@@ -209,7 +206,7 @@ void MainWindow::initWidgets()
     layout->addWidget(m_lengthSpinBox, 4, 0);
     layout->addWidget(m_passwdEdit,    4, 1, 1, COLS - 1);
     layout->addWidget(m_genButton,     5, 0);
-    layout->addWidget(m_saveButton,     5, 1, 1, COLS - 2);
+    layout->addWidget(m_saveButton,    5, 1, 1, COLS - 2);
     layout->addWidget(clearButton,     5, COLS - 1);
 
     // Add the "master password:"-label to the layout

@@ -110,10 +110,7 @@ void SettingsDlg::initWidgets()
 
 void SettingsDlg::initBackground()
 {
-    QPalette palette = QPalette();
-    palette.setBrush(QPalette::Window, QPixmap(":/back.png"));
-    setPalette(palette);
-    setAutoFillBackground(true);
+    setStyleSheet("SettingsDlg { background-image: url(:/back.png) }");
 }
 
 void SettingsDlg::getSettings(int & rMasterDelay, int & rGenDelay,

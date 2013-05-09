@@ -1,5 +1,18 @@
 README for Fleeting Password Manager
 ====================================
 
-See data/doc/instructions.html for up-to-date doc.
+Fleeting Password Manager is a simple program that generates highly secure
+pseudo-random passwords from the given <b>master password, URL/ID
+(e.g. facebook, www.facebook.com, google, my_server..) and user name.
+The user needs to remember only her master password to recover other passwords.
+
+Passwords are always regenerated on-the-fly from the given login data when needed
+and are never saved. In other words, Fleeting Password Manager combines
+the password creation and management.
+
+The length of the generated password is configurable between 8 and 32 characters
+and Fleeting Password Manager can remember wanted URL/User-pairs. 
+
+
+-- Jussi Lind <jussi.lind@iki.fi>
 

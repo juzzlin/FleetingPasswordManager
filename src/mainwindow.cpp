@@ -276,7 +276,7 @@ void MainWindow::connectSignalsFromWidgets()
     // Invalidate generated password if one of the inputs gets changed
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(invalidate()));
-    connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
         this, SLOT(invalidate()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(invalidate()));
@@ -284,7 +284,7 @@ void MainWindow::connectSignalsFromWidgets()
     // Enable generate-button if all inputs are valid
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(enableGenButton()));
-    connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
         this, SLOT(enableGenButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(enableGenButton()));
@@ -292,7 +292,7 @@ void MainWindow::connectSignalsFromWidgets()
     // Enable save-button if the URL not already saved
     connect(m_masterEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(enableSaveButton()));
-    connect(m_urlCombo, SIGNAL(textChanged(const QString &)),
+    connect(m_urlCombo, SIGNAL(editTextChanged(const QString &)),
         this, SLOT(enableSaveButton()));
     connect(m_userEdit, SIGNAL(textChanged(const QString &)),
         this, SLOT(enableSaveButton()));

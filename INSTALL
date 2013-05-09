@@ -1,0 +1,53 @@
+Build & install instructions
+============================
+
+These are build & install instructions for Fleeting Password Manager.
+
+Build dependencies
+------------------
+
+Fleetingpm uses CMake as the build system.
+
+Currently the build depends on Qt4/Qt5 only.
+
+Both Qt4 and Qt5 are supported, and Qt4 is used by default.
+
+Qt5 can be enabled by passing -DUseQt5=1 to cmake or to
+the configure script.
+
+Fleetingpm also exploits some features of the C++11
+standard, so a compliant compiler is required (GCC >= 4.6).
+
+Building in the command line on Linux (tested on Ubuntu 12.04)
+--------------------------------------------------------------
+
+Development build (the game can be run without installing anything):
+
+1) Install Qt4 development files (libqt4-dev on Ubuntu).
+2) Install CMake.
+3) Go to the source directory and run:
+
+$ ./configure
+
+This runs CMake that generates the makefiles.
+You can also run cmake directly. The configure script
+is only for convenience and is just a wrapper for cmake. 
+
+If everything went ok, run:
+  
+$ make
+
+Run the application:
+
+$ ./fleetingpm
+
+Install the binaries and data files:
+
+$ sudo make install
+
+This install also the desktop files so fleetingpm
+should appear in your application menu.
+
+
+-- Jussi Lind <jussi.lind@iki.fi>
+

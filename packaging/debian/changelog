@@ -1,3 +1,11 @@
+fleetingpm (2.8-1) precise; urgency=low
+
+  * Fix settings and main dialogs on Qt5
+  * Clear all login details on timeout
+  * CMake build system
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Fri, 10 May 2013 19:19:57 +0300
+
 fleetingpm (2.7-1) precise; urgency=low
 
   * New stable version

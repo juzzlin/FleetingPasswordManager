@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2.8
+---
+
+* Fix settings and main dialogs on Qt5
+* Clear all login details on timeout
+* CMake build system
+
 Version 2.7
 -----------
 

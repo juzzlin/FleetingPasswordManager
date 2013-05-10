@@ -29,7 +29,7 @@
 SettingsDlg::SettingsDlg(QWidget *parent)
 : QDialog(parent)
 , m_masterDelaySpinBox(new QSpinBox(this))
-, m_genDelaySpinBox(new QSpinBox(this))
+, m_loginDelaySpinBox(new QSpinBox(this))
 , m_autoCopyCheck(new QCheckBox(this))
 , m_autoClearCheck(new QCheckBox(this))
 , m_alwaysOnTopCheck(new QCheckBox(this))
@@ -60,7 +60,7 @@ void SettingsDlg::initWidgets()
     // Create labels
     QLabel * label1 = new QLabel(tr("Master password timeout in <b>mins</b>:"));
     label1->setToolTip(tr("Show master password for this many <b>mins</b>."));
-    QLabel * label2 = new QLabel(tr("Generated password timeout in <b>secs</b>:"));
+    QLabel * label2 = new QLabel(tr("Login details timeout in <b>secs</b>:"));
     label2->setToolTip(tr("Show password for this many <b>secs</b> after generation."));
     QLabel * label3 = new QLabel(tr("Automatically copy password to the clipboard:"));
     label3->setToolTip(tr("Automatically copy password to the clipboard after generation."));
@@ -74,8 +74,8 @@ void SettingsDlg::initWidgets()
     m_masterDelaySpinBox->setValue(15);
 
     // Init generated password delay spin box
-    m_genDelaySpinBox->setRange(1, 60);
-    m_genDelaySpinBox->setValue(5);
+    m_loginDelaySpinBox->setRange(1, 60);
+    m_loginDelaySpinBox->setValue(5);
 
     // Create and connect ok-button
     QPushButton * okButton = new QPushButton(tr("Ok"), this);
@@ -85,7 +85,7 @@ void SettingsDlg::initWidgets()
     layout->addWidget(label1,               0, 0);
     layout->addWidget(m_masterDelaySpinBox, 0, 1);
     layout->addWidget(label2,               1, 0);
-    layout->addWidget(m_genDelaySpinBox,    1, 1);
+    layout->addWidget(m_loginDelaySpinBox,  1, 1);
     layout->addWidget(label3,               2, 0);
     layout->addWidget(m_autoCopyCheck,      2, 1);
     layout->addWidget(label4,               3, 0);
@@ -113,21 +113,21 @@ void SettingsDlg::initBackground()
     setStyleSheet("SettingsDlg { background-image: url(:/back.png) }");
 }
 
-void SettingsDlg::getSettings(int & rMasterDelay, int & rGenDelay,
+void SettingsDlg::getSettings(int & rMasterDelay, int & rLoginDelay,
     bool & rAutoCopy, bool & rAutoClear, bool & rAlwaysOnTop) const
 {
    rMasterDelay = m_masterDelaySpinBox->value();
-   rGenDelay    = m_genDelaySpinBox->value();
+   rLoginDelay  = m_loginDelaySpinBox->value();
    rAutoCopy    = m_autoCopyCheck->isChecked();
    rAutoClear   = m_autoClearCheck->isChecked();
    rAlwaysOnTop = m_alwaysOnTopCheck->isChecked();
 }
 
-void SettingsDlg::setSettings(int masterDelay, int genDelay,
+void SettingsDlg::setSettings(int masterDelay, int loginDelay,
     bool autoCopy, bool autoClear, bool alwaysOnTop)
 {
    m_masterDelaySpinBox->setValue(masterDelay);
-   m_genDelaySpinBox->setValue(genDelay);
+   m_loginDelaySpinBox->setValue(loginDelay);
    m_autoCopyCheck->setChecked(autoCopy);
    m_autoClearCheck->setChecked(autoClear);
    m_alwaysOnTopCheck->setChecked(alwaysOnTop);

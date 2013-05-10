@@ -46,7 +46,7 @@
 MainWindow::MainWindow(QWidget *parent)
 : QMainWindow(parent)
 , m_defaultMasterDelay(5)
-, m_defaultGenDelay(15)
+, m_defaultLoginDelay(15)
 , m_defaultLength(8)
 , m_removeText(tr("&Remove URL && User"))
 , m_saveText(tr("&Save URL && User"))
@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 , m_removeToolTip(tr("Don't remember current URL & User anymore."))
 , m_masterPasswordText(tr("<b>Master password:</b>"))
 , m_masterDelay(m_defaultMasterDelay)
-, m_genDelay(m_defaultGenDelay)
+, m_loginDelay(m_defaultLoginDelay)
 , m_autoCopy(false)
 , m_autoClear(false)
 , m_alwaysOnTop(true)
@@ -89,12 +89,11 @@ MainWindow::MainWindow(QWidget *parent)
         setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
     }
 
-    // Initialize the timer used when fading out the
-    // generated password.
-    m_timeLine->setDuration(m_genDelay * 1000);
-    connect(m_timeLine, SIGNAL(frameChanged(int)), this,
-        SLOT(decreasePasswordAlpha(int)));
-    connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidate()));
+    // Initialize the timer used when fading out the login details.
+    m_timeLine->setDuration(m_loginDelay * 1000);
+    connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreasePasswordAlpha(int)));
+    connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreaseUsernameAlpha(int)));
+    connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidateAll()));
     m_timeLine->setFrameRange(0, 255);
 
     // Initialize the timer used when showing the
@@ -347,12 +346,12 @@ void MainWindow::initMenu()
 void MainWindow::showSettingsDlg()
 {
     m_settingsDlg->setSettings(m_masterDelay,
-        m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+        m_loginDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
     if (m_settingsDlg->exec() == QDialog::Accepted)
     {
         m_settingsDlg->getSettings(m_masterDelay,
-            m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
-        m_timeLine->setDuration(m_genDelay * 1000);
+            m_loginDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+        m_timeLine->setDuration(m_loginDelay * 1000);
         m_masterTimer->setInterval(m_masterDelay * 60 * 1000);
         saveSettings();
     }
@@ -455,7 +454,7 @@ void MainWindow::loadSettings()
     QSettings s(Config::COMPANY, Config::SOFTWARE);
 
     m_masterDelay = s.value("masterDelay", m_defaultMasterDelay).toInt();
-    m_genDelay    = s.value("delay", m_defaultGenDelay).toInt();
+    m_loginDelay  = s.value("delay", m_defaultLoginDelay).toInt();
     m_autoCopy    = s.value("autoCopy", false).toBool();
     m_autoClear   = s.value("autoClear", false).toBool();
     m_alwaysOnTop = s.value("alwaysOnTop", true).toBool();
@@ -463,8 +462,8 @@ void MainWindow::loadSettings()
     const int defaultLength = s.value("length", m_defaultLength).toInt();
 
     m_settingsDlg->setSettings(m_masterDelay,
-        m_genDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
-    m_timeLine->setDuration(m_genDelay * 1000);
+        m_loginDelay, m_autoCopy, m_autoClear, m_alwaysOnTop);
+    m_timeLine->setDuration(m_loginDelay * 1000);
     m_masterTimer->setInterval(m_masterDelay * 60 * 1000);
 
     // Read login data
@@ -502,7 +501,7 @@ void MainWindow::loadSettings()
 void MainWindow::saveSettings()
 {
     QSettings s(Config::COMPANY, Config::SOFTWARE);
-    s.setValue("delay",       m_genDelay);
+    s.setValue("delay",       m_loginDelay);
     s.setValue("masterDelay", m_masterDelay);
     s.setValue("autoCopy",    m_autoCopy);
     s.setValue("autoClear",   m_autoClear);
@@ -553,9 +552,18 @@ void MainWindow::decreasePasswordAlpha(int frame)
     m_passwdEdit->setPalette(palette);
 }
 
+void MainWindow::decreaseUsernameAlpha(int frame)
+{
+    QColor color = QColor();
+    color.setAlpha(255 - frame);
+    QPalette palette = QPalette(m_userEdit->palette());
+    palette.setColor(QPalette::Text, color);
+    m_userEdit->setPalette(palette);
+}
+
 void MainWindow::invalidate()
 {
-    // Clear the password edit
+    // Clear the login details
     m_passwdEdit->setText("");
 
     // Clear the clipboard
@@ -565,6 +573,14 @@ void MainWindow::invalidate()
     }
 
     m_passwdEdit->setEnabled(false);
+}
+
+void MainWindow::invalidateAll()
+{
+    invalidate();
+
+    m_userEdit->setText("");
+    m_urlCombo->setEditText("");
 }
 
 void MainWindow::enableGenButton()

@@ -33,11 +33,11 @@ public:
     explicit SettingsDlg(QWidget * parent = 0);
 
     //! Store current settings to the given arguments.
-    void getSettings(int & rMasterDelay, int & rGenDelay, bool & rAutoCopy,
+    void getSettings(int & rMasterDelay, int & rloginDelay, bool & rAutoCopy,
         bool & rAutoClear, bool & rAlwaysOnTop) const;
 
     //! Take current settings from the given arguments.
-    void setSettings(int masterDelay, int genDelay, bool autoCopy,
+    void setSettings(int masterDelay, int loginDelay, bool autoCopy,
         bool autoClear, bool alwaysOnTop);
 
 private:
@@ -48,11 +48,11 @@ private:
     //! Set the background image.
     void initBackground();
 
-    //! Spin box for the master password show delay.
+    //! Spin box for the master password timeout.
     QSpinBox * m_masterDelaySpinBox;
 
-    //! Spin box for the generated password show delay.
-    QSpinBox * m_genDelaySpinBox;
+    //! Spin box for the login detail timeout.
+    QSpinBox * m_loginDelaySpinBox;
 
     //! Check box for the clipboard auto copy.
     QCheckBox * m_autoCopyCheck;

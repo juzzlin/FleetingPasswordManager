@@ -75,8 +75,8 @@ private:
     //! Show the master password for this long in mins.
     int m_defaultMasterDelay;
 
-    //! Show the generated password for this long in secs.
-    int m_defaultGenDelay;
+    //! Show the login details for this long in secs.
+    int m_defaultLoginDelay;
 
     //! Default lenght of the password.
     int m_defaultLength;
@@ -99,8 +99,8 @@ private:
     //! Current delay for master password in mins.
     int m_masterDelay;
 
-    //! Current delay for generated password in secs.
-    int m_genDelay;
+    //! Current delay for login details in secs.
+    int m_loginDelay;
 
     //! Copy generated password automatically to the clipboard if true.
     bool m_autoCopy;
@@ -156,8 +156,14 @@ private slots:
     //! Decrease the alpha of the color of the password by one.
     void decreasePasswordAlpha(int frame);
 
+    //! Decrease the alpha of the color of the username by one.
+    void decreaseUsernameAlpha(int frame);
+
     //! Clear the generated password and disable the text field.
     void invalidate();
+
+    //! Like invalidate + clear all login details.
+    void invalidateAll();
 
     //! Enable the generate-button.
     void enableGenButton();

@@ -92,7 +92,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Initialize the timer used when fading out the login details.
     m_timeLine->setDuration(m_loginDelay * 1000);
     connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreasePasswordAlpha(int)));
-    connect(m_timeLine, SIGNAL(frameChanged(int)), this, SLOT(decreaseUsernameAlpha(int)));
     connect(m_timeLine, SIGNAL(finished()), this, SLOT(invalidateAll()));
     m_timeLine->setFrameRange(0, 255);
 
@@ -550,15 +549,6 @@ void MainWindow::decreasePasswordAlpha(int frame)
     QPalette palette = QPalette(m_passwdEdit->palette());
     palette.setColor(QPalette::Text, color);
     m_passwdEdit->setPalette(palette);
-}
-
-void MainWindow::decreaseUsernameAlpha(int frame)
-{
-    QColor color = QColor();
-    color.setAlpha(255 - frame);
-    QPalette palette = QPalette(m_userEdit->palette());
-    palette.setColor(QPalette::Text, color);
-    m_userEdit->setPalette(palette);
 }
 
 void MainWindow::invalidate()

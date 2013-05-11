@@ -156,9 +156,6 @@ private slots:
     //! Decrease the alpha of the color of the password by one.
     void decreasePasswordAlpha(int frame);
 
-    //! Decrease the alpha of the color of the username by one.
-    void decreaseUsernameAlpha(int frame);
-
     //! Clear the generated password and disable the text field.
     void invalidate();
 

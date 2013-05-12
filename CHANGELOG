@@ -1,8 +1,14 @@
 CHANGELOG
 =========
 
-2.8
----
+Version 2.8.2
+-------------
+
+* Update debian/changelog
+* Add cmake dependency to debian/control
+
+Version 2.8.1
+-------------
 
 * Fix settings and main dialogs on Qt5
 * Clear all login details on timeout

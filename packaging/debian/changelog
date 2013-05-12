@@ -1,4 +1,4 @@
-fleetingpm (2.8.1-2) precise; urgency=low
+fleetingpm (2.8.2-1) precise; urgency=low
 
   * Add cmake dependency to debian/control
 

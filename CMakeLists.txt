@@ -1,7 +1,7 @@
 project(FleetingPasswordManager)
 
 # Global version
-set(VERSION "2.8.2")
+set(VERSION "2.8.3")
 
 # Enable Qt5 support
 option(UseQt5 "UseQt5" OFF)

@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Version 2.8.3
+-------------
+
+* Remove TryExec from .desktop-files.
+
 Version 2.8.2
 -------------
 

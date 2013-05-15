@@ -1,7 +1,6 @@
 [Desktop Entry]
 Name=Fleeting Password Manager
 Comment=Generate and manage passwords for given url/id and user name
-TryExec=fleetingpm
 Exec=/opt/fleetingpm/fleetingpm
 Icon=fleetingpm
 Type=Application

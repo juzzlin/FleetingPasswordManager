@@ -21,6 +21,12 @@ int main(int argc, char ** argv)
 {
     QApplication app(argc, argv);
     MainWindow mainWindow;
+
+#ifdef __ANDROID__
+    mainWindow.showFullScreen();
+#else
     mainWindow.show();
+#endif
+
     return app.exec();
 }

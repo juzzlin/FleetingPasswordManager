@@ -625,10 +625,12 @@ void MainWindow::saveOrRemoveLogin()
         // Change the button text to "remove"
         m_saveButton->setText(m_removeText);
 
+#ifndef __ANDROID__
         // Show a message box
         QString message(tr("Added to the saved logins: '") +
             url + tr("'."));
         QMessageBox::information(this, Config::NAME, message);
+#endif
     }
     else
     {
@@ -648,10 +650,12 @@ void MainWindow::saveOrRemoveLogin()
         // Update the button text
         toggleSaveButtonText();
 
+#ifndef __ANDROID__
         // Show a message box
         QString message(tr("Removed from the saved logins: '") +
             url + tr("'."));
         QMessageBox::information(this, Config::NAME, message);
+#endif
     }
 }
 

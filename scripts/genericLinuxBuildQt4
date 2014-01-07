@@ -30,13 +30,13 @@ cp -v $TEXT_FILES $PACKAGE_PATH || exit -1
 
 # Copy dependecies
 
-cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep "/usr/lib" | grep -v libX | awk '{print $3}') $PACKAGE_PATH
+cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep "/usr/lib" | grep -v libX | grep -v fontconfig | awk '{print $3}') $PACKAGE_PATH
 
 # Additional libs
 
 LIBS=png
 for lib in $LIBS; do
-cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep $lib | grep -v libX | awk '{print $3}') $PACKAGE_PATH
+cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep $lib | awk '{print $3}') $PACKAGE_PATH
 done
 
 # Copy Qt plugins

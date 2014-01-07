@@ -9,6 +9,7 @@ NUM_CPUS=$(cat /proc/cpuinfo | grep processor | wc -l)
 
 EXEC=fleetingpm
 NAME=fleetingpm
+BIN=bin.x
 VERSION=2.8.3
 ARCH=linux-x86_64
 QT=qt4
@@ -23,20 +24,20 @@ PACKAGE_PATH=$NAME-$VERSION-$ARCH-$QT
 rm -rf $PACKAGE_PATH
 mkdir $PACKAGE_PATH
 
-cp -v ./$EXEC $PACKAGE_PATH/$EXEC.x || exit -1
+cp -v ./$EXEC $PACKAGE_PATH/$BIN || exit -1
 
 TEXT_FILES="AUTHORS CHANGELOG COPYING README"
 cp -v $TEXT_FILES $PACKAGE_PATH || exit -1
 
 # Copy dependecies
 
-cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep "/usr/lib" | grep -v libX | grep -v fontconfig | awk '{print $3}') $PACKAGE_PATH
+cp -v $(ldd $PACKAGE_PATH/$BIN | grep "/usr/lib" | grep -v libX | grep -v fontconfig | awk '{print $3}') $PACKAGE_PATH
 
 # Additional libs
 
 LIBS=png
 for lib in $LIBS; do
-cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep $lib | awk '{print $3}') $PACKAGE_PATH
+cp -v $(ldd $PACKAGE_PATH/$BIN | grep $lib | awk '{print $3}') $PACKAGE_PATH
 done
 
 # Copy Qt plugins
@@ -53,7 +54,7 @@ echo "Plugins = '.'" >> $QTCONF
 
 SCRIPT=$PACKAGE_PATH/$EXEC
 echo "#!/bin/sh" > $SCRIPT
-echo "LD_LIBRARY_PATH=. ./$EXEC.x" >> $SCRIPT
+echo "LD_LIBRARY_PATH=. ./$BIN" >> $SCRIPT
 chmod 755 $SCRIPT
 
 # Create tgz archive

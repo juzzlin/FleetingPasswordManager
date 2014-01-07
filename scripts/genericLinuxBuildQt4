@@ -23,17 +23,14 @@ PACKAGE_PATH=$NAME-$VERSION-$ARCH-$QT
 rm -rf $PACKAGE_PATH
 mkdir $PACKAGE_PATH
 
-cp -v ./$EXEC $PACKAGE_PATH || exit -1
+cp -v ./$EXEC $PACKAGE_PATH/$EXEC.x || exit -1
 
 TEXT_FILES="AUTHORS CHANGELOG COPYING README"
 cp -v $TEXT_FILES $PACKAGE_PATH || exit -1
 
-# Copy some needed dependecies
+# Copy dependecies
 
-DEPS="audio png Qt"
-for lib in $DEPS; do
-cp -v $(ldd $PACKAGE_PATH/$EXEC | grep $lib | awk '{print $3}') $PACKAGE_PATH
-done
+cp -v $(ldd $PACKAGE_PATH/$EXEC.x | grep "/usr/lib" | grep -v libX | awk '{print $3}') $PACKAGE_PATH
 
 # Copy Qt plugins
 
@@ -47,9 +44,9 @@ echo "Plugins = '.'" >> $QTCONF
 
 # Create start script for the app
 
-SCRIPT=$PACKAGE_PATH/$EXEC.sh
+SCRIPT=$PACKAGE_PATH/$EXEC
 echo "#!/bin/sh" > $SCRIPT
-echo "LD_LIBRARY_PATH=. ./$EXEC" >> $SCRIPT
+echo "LD_LIBRARY_PATH=. ./$EXEC.x" >> $SCRIPT
 chmod 755 $SCRIPT
 
 # Create tgz archive

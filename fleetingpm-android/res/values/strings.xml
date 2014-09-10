@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Fleeting Password Manager</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    
+    <string name="master_password_label">Master password:</string>
+    <string name="url_label">URL/ID:</string>
+    <string name="user_name_label">User name:</string>
+    <string name="show_password_button_text">Show password!</string>
+    <string name="length_label">Length:</string>
+    <string name="generated_password_label">Generated password:</string>
+    
+</resources>

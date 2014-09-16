@@ -42,7 +42,7 @@ void AboutDlg::initWidgets()
     QLabel * infoLabel = new QLabel(this);
     infoLabel->setText(QString("<h2>") + Config::NAME + " v" + Config::VERSION + "</h2>"
                        + "<p>" + Config::NAME + " is licenced under GNU GPLv3.</p>"
-                       + "<p>Copyright (c) Jussi Lind 2011-2013.</p>"
+                       + "<p>Copyright (c) Jussi Lind 2011-2014.</p>"
                        + "<a href='http://fleetingpm.sourceforge.net'>"
                        + "http://fleetingpm.sourceforge.net</a>");
 

@@ -33,18 +33,6 @@ public:
 
     //! Software name used in QSettings.
     static const char * SOFTWARE;
-
-    //! Width of the settings dlg.
-    static const int SETTINGSDLG_WIDTH  = 480;
-
-    //! Height of the settings dlg.
-    static const int SETTINGSDLG_HEIGHT = 208;
-
-    //! Width of the main window.
-    static const int MAINWINDOW_WIDTH = 480;
-
-    //! Height of the main window.
-    static const int MAINWINDOW_HEIGHT = 208;
 };
 
 #endif // CONFIG_H

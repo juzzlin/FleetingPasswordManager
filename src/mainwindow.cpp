@@ -73,11 +73,6 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Fleeting Password Manager");
     setWindowIcon(QIcon(":/fleetingpm.png"));
 
-    // Make the size fixed
-    resize(QSize(Config::MAINWINDOW_WIDTH, Config::MAINWINDOW_HEIGHT));
-    setMaximumSize(size());
-    setMinimumSize(size());
-
     initWidgets();
     initMenu();
     initBackground();

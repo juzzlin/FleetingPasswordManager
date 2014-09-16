@@ -38,12 +38,6 @@ SettingsDlg::SettingsDlg(QWidget *parent)
 
     initWidgets();
     initBackground();
-
-    resize(QSize(Config::SETTINGSDLG_WIDTH, Config::SETTINGSDLG_HEIGHT));
-
-    // Make the size fixed
-    setMaximumSize(size());
-    setMinimumSize(size());
 }
 
 void SettingsDlg::initWidgets()

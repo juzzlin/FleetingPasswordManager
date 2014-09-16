@@ -116,6 +116,14 @@ void MainWindow::centerOrRestoreLocation()
     const int x = s.value("x", centerX).toInt();
     const int y = s.value("y", centerY).toInt();
     move(x, y);
+
+    // Restore saved window size
+    const int width = s.value("width", 0).toInt();
+    const int height = s.value("height", 0).toInt();
+    if (width && height)
+    {
+        resize(QSize(width, height));
+    }
 }
 
 void MainWindow::initBackground()
@@ -706,6 +714,8 @@ void MainWindow::closeEvent(QCloseEvent * event)
     QSettings s(Config::COMPANY, Config::SOFTWARE);
     s.setValue("x", x());
     s.setValue("y", y());
+    s.setValue("width", width());
+    s.setValue("height", height());
 
     QApplication::clipboard()->clear();
     event->accept();

@@ -1,22 +1,40 @@
 #!/bin/bash
 
-QMAKE=qmake-qt4
+# Assumes, that you have installed (static) qt5 to ~/qt5.
+
+APP_NAME=fleetingpm
+PRO=./fleetingpm.pro
+
+QT5_QMAKE=~/qt5/bin/qmake
+if ! which $QT5_QMAKE; then
+    echo "$QT5_QMAKE not found."
+    exit -1
+fi
+
 TAR=tar
+if ! which $TAR; then
+    echo "$TAR not found."
+    exit -1
+fi
+
 LRELEASE=lrelease
+if ! which $LRELEASE; then
+    echo "$LRELEASE not found."
+    exit -1
+fi
+
 NUM_CPUS=$(cat /proc/cpuinfo | grep processor | wc -l)
 
 # Package naming
 
-EXEC=fleetingpm
-NAME=fleetingpm
-BIN=bin.x
+NAME=$APP_NAME
 VERSION=${FLEETINGPM_RELEASE_VERSION?"is not set."}
 ARCH=linux-x86_64
-QT=qt4
+QT=qt5
 
 # Build
 
-./configure && make -j$NUM_CPUS || exit -1
+$QT5_QMAKE $PRO && make -j$NUM_CPUS || exit -1
 
 # Install to packaging dir
 
@@ -24,15 +42,17 @@ PACKAGE_PATH=$NAME-$VERSION-$ARCH-$QT
 rm -rf $PACKAGE_PATH
 mkdir $PACKAGE_PATH
 
-cp -v ./$EXEC $PACKAGE_PATH/$BIN || exit -1
+cp -v ./$APP_NAME $PACKAGE_PATH &&
+cp -rv data $PACKAGE_PATH            || exit -1
 
 TEXT_FILES="AUTHORS CHANGELOG COPYING README"
 cp -v $TEXT_FILES $PACKAGE_PATH || exit -1
 
-# Copy dependecies
+# Copy some needed dependecies
 
-cp -v $(ldd $PACKAGE_PATH/$BIN | 
+cp -v $(ldd $PACKAGE_PATH/$APP_NAME | 
   grep "/usr/lib"    | 
+  grep -v nvidia     |
   grep -v libX       |
   grep -v fontconfig |
   grep -v gobject    |
@@ -44,12 +64,8 @@ cp -v $(ldd $PACKAGE_PATH/$BIN |
 
 LIBS=png
 for lib in $LIBS; do
-cp -v $(ldd $PACKAGE_PATH/$BIN | grep $lib | awk '{print $3}') $PACKAGE_PATH
+cp -v $(ldd $PACKAGE_PATH/$APP_NAME | grep $lib | awk '{print $3}') $PACKAGE_PATH
 done
-
-# Copy Qt plugins
-
-cp -r -v $($QMAKE -query | grep QT_INSTALL_PLUGINS | cut -d: -f2) $PACKAGE_PATH
 
 # Create qt.conf (this is needed for possible plugin conflicts)
 
@@ -59,9 +75,10 @@ echo "Plugins = '.'" >> $QTCONF
 
 # Create start script for the app
 
-SCRIPT=$PACKAGE_PATH/$EXEC
+cp $PACKAGE_PATH/$APP_NAME $PACKAGE_PATH/bin.x
+SCRIPT=$PACKAGE_PATH/$APP_NAME
 echo "#!/bin/sh" > $SCRIPT
-echo "LD_LIBRARY_PATH=. ./$BIN" >> $SCRIPT
+echo "LD_LIBRARY_PATH=. ./bin.x" >> $SCRIPT
 chmod 755 $SCRIPT
 
 # Create tgz archive

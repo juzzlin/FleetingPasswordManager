@@ -2,6 +2,5 @@
     <qresource prefix="/">
         <file>about.png</file>
         <file>back.png</file>
-        <file>stars.png</file>
     </qresource>
 </RCC>

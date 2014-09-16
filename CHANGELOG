@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+Version 2.9.0
+-------------
+
+* Update copyright text
+* Update INSTALL
+* Remove obsolete data files
+* Add some build scripts
+* Add fleetingpm.nsi
+* Remove fixed window size
+* Save and load window size
+* Add fleetingpm.pro
+
 Version 2.8.3
 -------------
 

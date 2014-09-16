@@ -1,3 +1,11 @@
+fleetingpm (2.9.0-1) precise; urgency=medium
+
+  * Remove fixed window size
+  * Save and load window size
+  * Add fleetingpm.pro
+
+ -- Jussi Lind <jussi.lind@iki.fi>  Tue, 16 Sep 2014 17:27:56 +0300
+
 fleetingpm (2.8.3-1) precise; urgency=low
 
   * Remove TryExec from .desktop-files.

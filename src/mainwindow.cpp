@@ -335,7 +335,7 @@ void MainWindow::initMenu()
     helpMenu->addAction(instructionsAct);
 
     // Add action for about
-    QAction * aboutAct = new QAction(tr("&About ") + windowTitle() + "..", helpMenu);
+    QAction * aboutAct = new QAction(tr("&About.."), helpMenu);
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(showAboutDlg()));
     helpMenu->addAction(aboutAct);
 

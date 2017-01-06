@@ -3,7 +3,7 @@ TARGET      = fleetingpm
 DEPENDPATH  += . src data/doc data/icons data/images
 INCLUDEPATH += . src
 QT          += widgets xml
-DEFINES     += "UseQt5=ON" "PROGRAM_VERSION=\\\"2.9.0\\\""
+DEFINES     += "PROGRAM_VERSION=\\\"2.9.0\\\""
 
 # Check Qt version
 !contains(QT_VERSION, ^5\\.[1-9]\\..*) {

@@ -3,43 +3,28 @@ project(FleetingPasswordManager)
 # Global version
 set(VERSION "2.9.0")
 
-# Enable Qt5 support
-option(UseQt5 "UseQt5" OFF)
-
 # Enable install layout required by USC.
 option(Ubuntu "Ubuntu" OFF)
 
 # Enable standard Linux/Unix install layout.
 option(ReleaseBuild "ReleaseBuild" OFF)
 
-if(UseQt5)
-    message(STATUS "Using Qt5.")
-    cmake_minimum_required(VERSION 2.8.8)
-else()
-    message(STATUS "Using Qt4. Add -DUseQt5=ON to build for Qt5.")
-    cmake_minimum_required(VERSION 2.8.7)
-endif()
+message(STATUS "Using Qt5.")
+cmake_minimum_required(VERSION 2.8.8)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -W -Wall -O3 -pedantic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -W -Wall -O3 -pedantic")
 
 set(BINARY_NAME "fleetingpm")
 
 add_definitions(-DPROGRAM_VERSION="${VERSION}")
 
-if (UseQt5)
-    add_definitions(-DUSE_QT5)
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_INCLUDE_CURRENT_DIR ON)
-    find_package(Qt5Core REQUIRED)
-    find_package(Qt5Xml REQUIRED)
-    find_package(Qt5Widgets REQUIRED)
-else()
-    # Find Qt4 and needed additional components.
-    find_package(Qt4 4.7.0 REQUIRED COMPONENTS QtGui QtXml)
-    include(${QT_USE_FILE})
-    include_directories(${QT_INCLUDES})
-endif()
+add_definitions(-DUSE_QT5)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Xml REQUIRED)
+find_package(Qt5Widgets REQUIRED)
 
 # Set sources
 set(SRC
@@ -61,17 +46,7 @@ set(RCS
     ${CMAKE_SOURCE_DIR}/data/images/Images.qrc
     ${CMAKE_SOURCE_DIR}/data/doc/Instructions.qrc) 
 
-if (UseQt5)
-    qt5_add_resources(RC_SRC ${RCS})
-else()
-    set(MOC_HDRS
-        src/aboutdlg.h
-        src/instructionsdlg.h
-        src/mainwindow.h
-        src/settingsdlg.h)
-    qt4_add_resources(RC_SRC ${RCS})
-    qt4_wrap_cpp(MOC_SRC ${MOC_HDRS})
-endif()
+qt5_add_resources(RC_SRC ${RCS})
 
 # Add target to copy runtime files to the binary dir.
 add_custom_target(runtime ALL
@@ -106,11 +81,7 @@ endif()
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 add_executable(${BINARY_NAME} WIN32 ${SRC} ${MOC_SRC} ${RC_SRC})
 
-if(UseQt5)
-    qt5_use_modules(${BINARY_NAME} Widgets Xml)
-else()
-    target_link_libraries(${BINARY_NAME} ${QT_LIBRARIES})
-endif()
+target_link_libraries(${BINARY_NAME} Qt5::Widgets Qt5::Xml)
 
 # Set default install paths
 set(BIN_PATH bin)
@@ -147,10 +118,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         set(CPACK_BINARY_TGZ "ON")
         set(CPACK_BINARY_TZ "OFF")
         
-        set(QT_VER_STR "qt4")
-        if(UseQt5)
-            set(QT_VER_STR "qt5")
-        endif()
+        set(QT_VER_STR "qt5")
         
         set(CPACK_PACKAGE_FILE_NAME "fleetingpm-${VERSION}-linux-${CMAKE_HOST_SYSTEM_PROCESSOR}-${QT_VER_STR}")
         

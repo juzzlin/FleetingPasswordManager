@@ -22,11 +22,9 @@ Building in the command line on Linux (tested on Ubuntu 16.04)
  2) Install CMake
  3) Go to the source directory and run:
 
- $ ./configure
-
- This runs CMake that generates the makefiles.
- You can also run cmake directly. The configure script
- is only for convenience and is just a wrapper for cmake. 
+ $ mkdir build
+ $ cd build
+ $ cmake ..
 
  If everything went ok, run:
   

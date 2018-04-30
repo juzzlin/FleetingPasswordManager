@@ -122,8 +122,8 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         
         set(CPACK_PACKAGE_FILE_NAME "fleetingpm-${VERSION}-linux-${CMAKE_HOST_SYSTEM_PROCESSOR}-${QT_VER_STR}")
         
-        set(CPACK_RESOURCE_FILE_LICENSE "COPYING")
-        set(CPACK_RESOURCE_FILE_README "README")
+        set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/COPYING)
+        set(CPACK_RESOURCE_FILE_README ${CMAKE_SOURCE_DIR}/README)
         include(CPack)
        
     endif()
